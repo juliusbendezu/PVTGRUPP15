@@ -10,11 +10,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>testproject</artifactId>
+	<artifactId>prepaup-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>testproject</name>
-	<description>Demo project for Spring Boot</description>
+	<name>prepap-server</name>
+	<description>Server for PrepAp</description>
 
 	<properties>
 		<java.version>1.8</java.version>
