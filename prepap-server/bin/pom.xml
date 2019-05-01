@@ -10,7 +10,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>prepaup-server</artifactId>
+	<artifactId>prepap-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>prepap-server</name>
@@ -52,10 +52,10 @@
 	
 	
 	<pluginRepositories>
-				<pluginRepository>
- 					<id>synergian-repo</id>
-					<url>https://raw.github.com/synergian/wagon-git/releases</url>
-				</pluginRepository>
+		<pluginRepository>
+ 			<id>synergian-repo</id>
+			<url>https://raw.github.com/synergian/wagon-git/releases</url>
+		</pluginRepository>
 	</pluginRepositories>
 	
 	<distributionManagement>
