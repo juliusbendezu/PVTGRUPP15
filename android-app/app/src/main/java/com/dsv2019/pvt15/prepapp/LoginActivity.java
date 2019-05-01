@@ -1,8 +1,9 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
