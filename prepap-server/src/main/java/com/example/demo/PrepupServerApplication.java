@@ -6,15 +6,15 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class TestprojectApplication extends SpringBootServletInitializer {
+public class PrepupServerApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestprojectApplication.class, args);
+		SpringApplication.run(PrepupServerApplication.class, args);
 	}
 	
 	 @Override
 	 protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-	 return builder.sources(TestprojectApplication.class);
+	 return builder.sources(PrepupServerApplication.class);
 	 }
 	 
 	 // hola amigo igen
