@@ -44,5 +44,14 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="31dp" />
 
+    <ImageButton
+        android:id="@+id/mapsButton"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/maps"
+        tools:layout_editor_absoluteX="244dp"
+        tools:layout_editor_absoluteY="437dp" />
+
 
 </android.support.constraint.ConstraintLayout>
