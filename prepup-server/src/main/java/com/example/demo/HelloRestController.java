@@ -12,8 +12,8 @@ public class HelloRestController {
 		return "Hello There!";
 	}
 	
-	@RequestMapping(value = "/name")
-	public String sayHello(@RequestParam("name") String name) {
+	@RequestMapping(value = "name")
+	public String sayHello(@RequestParam(value = "name", defaultValue = "You") String name) {
 		return "Hello There " + name;
 	}
 }
