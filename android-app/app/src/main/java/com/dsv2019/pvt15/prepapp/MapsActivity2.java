@@ -76,17 +76,21 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             mMap.getUiSettings().setZoomControlsEnabled(true);
         }
-        initializeMarkers();
 
+        //calls for the imagebuttons on the map.
+        initializeMapMarkers();
 
     }
 
-    private void initializeMarkers() {
+    //this has the oncklick-settings for all mapbuttons
+    // as well as hardcoded places in the beginning
+    private void initializeMapMarkers() {
 
         LatLng stockholm = new LatLng(59, 18);
         mMap.addMarker(new MarkerOptions().position(stockholm).title("Marker in Sthlm"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(stockholm));
 
+        //hardcoded places for each category
         Position pos = new Position(59.5, 18.5);
         BombShelter bm = new BombShelter(pos, "BS1-Hågavägen 95, 112 61 sthlm",180);
         mapObjects.add(bm);
@@ -100,11 +104,12 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         Water w = new Water(positi, "V-Hågavägen 95, 112 61 sthlm");
         mapObjects.add(w);
 
+        //Sets the imagebuttons
         vattenButton = findViewById(R.id.vatten);
         skyddButton = findViewById(R.id.skyddsrum);
         akutButton = findViewById(R.id.akutmottagning);
 
-
+        //sorts out the waterbuttons onclicksettings
         vattenButton.setOnClickListener(new View.OnClickListener() {
             boolean visible = false;
 
@@ -129,6 +134,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
+        //sorts out the Hospitalbuttons onclicksettings
         akutButton.setOnClickListener(new View.OnClickListener() {
             boolean visible = false;
             @Override
@@ -152,6 +158,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
+        //sorts out the bunkerButtons onclicksettings
         skyddButton.setOnClickListener(new View.OnClickListener() {
             boolean skyddsRumvisible = false;
 
