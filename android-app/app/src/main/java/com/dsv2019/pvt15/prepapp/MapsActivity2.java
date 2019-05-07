@@ -112,10 +112,10 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         //sorts out the waterbuttons onclicksettings
         vattenButton.setOnClickListener(new View.OnClickListener() {
             boolean visible = false;
-
             @Override
             public void onClick(View v) {
-                // vad som ska hända om man klickar på skyddsrum
+                //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
+                mMap.clear();
                 if (visible == false) {
                     for (MapObject mo : mapObjects) {
                         if (mo instanceof Water) {
@@ -139,6 +139,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             boolean visible = false;
             @Override
             public void onClick(View v) {
+                //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
+                mMap.clear();
+
                 // vad som ska hända om man klickar på skyddsrum
                 if (visible == false) {
                     for (MapObject mo : mapObjects) {
@@ -164,7 +167,8 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
             @Override
             public void onClick(View v) {
-                // vad som ska hända om man klickar på skyddsrum
+                //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
+                mMap.clear();
                 if (skyddsRumvisible == false) {
                     for (MapObject mo : mapObjects) {
                         if (mo instanceof BombShelter) {
