@@ -31,7 +31,8 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
-public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback
+{
 
     private static final String TAG = "MapActivity";
 
@@ -51,7 +52,8 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     ArrayList<MapObject> mapObjects = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
 
@@ -59,7 +61,8 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap)
+    {
         Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onMapReady: map is ready");
         mMap = googleMap;
@@ -74,7 +77,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
-            mMap.getUiSettings().setZoomControlsEnabled(true);
         }
 
         //calls for the imagebuttons on the map.
@@ -84,7 +86,8 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
     //this has the oncklick-settings for all mapbuttons
     // as well as hardcoded places in the beginning
-    private void initializeMapMarkers() {
+    private void initializeMapMarkers()
+    {
 
         LatLng stockholm = new LatLng(59, 18);
         mMap.addMarker(new MarkerOptions().position(stockholm).title("Marker in Sthlm"));
@@ -92,7 +95,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
         //hardcoded places for each category
         Position pos = new Position(59.5, 18.5);
-        BombShelter bm = new BombShelter(pos, "BS1-Hågavägen 95, 112 61 sthlm",180);
+        BombShelter bm = new BombShelter(pos, "BS1-Hågavägen 95, 112 61 sthlm", 180);
         mapObjects.add(bm);
         Position posi = new Position(60, 19);
         Hospital bmm = new Hospital(posi, "BS-Hågavägen 95, 112 61 sthlm", "Akutmottagning");
@@ -110,10 +113,13 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         akutButton = findViewById(R.id.akutmottagning);
 
         //sorts out the waterbuttons onclicksettings
-        vattenButton.setOnClickListener(new View.OnClickListener() {
+        vattenButton.setOnClickListener(new View.OnClickListener()
+        {
             boolean visible = false;
+
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
                 mMap.clear();
                 if (visible == false) {
@@ -135,10 +141,13 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         });
 
         //sorts out the Hospitalbuttons onclicksettings
-        akutButton.setOnClickListener(new View.OnClickListener() {
+        akutButton.setOnClickListener(new View.OnClickListener()
+        {
             boolean visible = false;
+
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
                 mMap.clear();
 
@@ -162,11 +171,13 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         });
 
         //sorts out the bunkerButtons onclicksettings
-        skyddButton.setOnClickListener(new View.OnClickListener() {
+        skyddButton.setOnClickListener(new View.OnClickListener()
+        {
             boolean skyddsRumvisible = false;
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
                 mMap.clear();
                 if (skyddsRumvisible == false) {
@@ -180,14 +191,15 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     skyddsRumvisible = true;
                 } else {
                     mMap.clear();
-                            //mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                        skyddsRumvisible = false;
-                        }
-                    }
+                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
+                    skyddsRumvisible = false;
+                }
+            }
         });
     }
 
-    private void getDeviceLocation() {
+    private void getDeviceLocation()
+    {
         Log.d(TAG, "getDeviceLocation: getting the devices current location");
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -196,9 +208,11 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             if (mLocationPermissionsGranted) {
 
                 final Task location = mFusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener() {
+                location.addOnCompleteListener(new OnCompleteListener()
+                {
                     @Override
-                    public void onComplete(@NonNull Task task) {
+                    public void onComplete(@NonNull Task task)
+                    {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
@@ -218,19 +232,22 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
-    private void moveCamera(LatLng latLng, float zoom) {
+    private void moveCamera(LatLng latLng, float zoom)
+    {
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
-    private void initMap() {
+    private void initMap()
+    {
         Log.d(TAG, "initMap: initializing map");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(MapsActivity2.this);
     }
 
-    private void getLocationPermission() {
+    private void getLocationPermission()
+    {
         Log.d(TAG, "getLocationPermission: getting location permissions");
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -254,7 +271,8 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
         Log.d(TAG, "onRequestPermissionsResult: called.");
         mLocationPermissionsGranted = false;
 
