@@ -37,7 +37,7 @@
         android:padding="10dp"
 
         android:paddingRight="10dp"
-        android:src="@drawable/triangel" />
+        android:src="@drawable/water" />
 
 
     <ImageButton
@@ -50,7 +50,7 @@
         android:contentDescription="TODO"
         android:padding="10dp"
         android:paddingRight="10dp"
-        android:src="@drawable/food" />
+        android:src="@drawable/akut" />
 
 
 
