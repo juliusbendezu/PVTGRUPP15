@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,4 +9,49 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity2" />
+    tools:context=".MapsActivity2"
+
+    tools:layout="@layout/activity_maps2">
+
+    <ImageButton
+        android:id="@+id/skyddsrum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:contentDescription="TODO"
+        android:padding="10dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/shelter"
+        android:text="Skyddsrum" />
+
+    <ImageButton
+        android:id="@+id/vatten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:contentDescription="TODO"
+        android:padding="10dp"
+
+        android:paddingRight="10dp"
+        android:src="@drawable/triangel" />
+
+
+    <ImageButton
+        android:id="@+id/akutmottagning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:contentDescription="TODO"
+        android:padding="10dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/food" />
+
+
+
+</fragment>
