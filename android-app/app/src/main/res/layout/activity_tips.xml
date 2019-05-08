@@ -60,5 +60,23 @@
         app:layout_constraintTop_toBottomOf="@+id/tipsHeaderTV"
         android:contentDescription="@string/lightBulb" />
 
+    <ListView
+        android:id="@+id/tipsList"
+        android:layout_width="364dp"
+        android:layout_height="517dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:drawSelectorOnTop="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lightBulb"
+        app:layout_constraintVertical_bias="1.0">
+
+    </ListView>
 
 </android.support.constraint.ConstraintLayout>

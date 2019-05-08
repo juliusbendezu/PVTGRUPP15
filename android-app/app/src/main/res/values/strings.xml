@@ -10,4 +10,10 @@
     <string name="tips_section_header">Tips &amp; Tricks</string>
     <string name="lightBulb">bild</string>
     <string name="HomeButton">HemSymbolen</string>
+    <!-->activity_tips_row<-->
+    <string name="account_name">Account name</string>
+    <string name="mail_mail_com">mail@mail.com</string>
+
+
+
 </resources>
