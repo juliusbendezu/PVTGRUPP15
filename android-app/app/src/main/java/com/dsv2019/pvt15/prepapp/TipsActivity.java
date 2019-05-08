@@ -15,14 +15,5 @@ public class TipsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tips);
-
-
-        mapsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), MapsActivity2.class);
-                startActivity(startIntent);
-            }
-        });
     }
 }
