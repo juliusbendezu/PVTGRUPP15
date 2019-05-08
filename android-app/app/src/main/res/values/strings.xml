@@ -6,4 +6,5 @@
     <string name="news_section_header">Nyheter</string>
 
     <string name="tips_section_header">Tips &amp; Tricks</string>
+    <string name="todo">TODO</string>
 </resources>
