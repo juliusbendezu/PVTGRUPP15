@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/helloThere")
 public class HelloRestController {
 
-	@RequestMapping("/basic")
+	@RequestMapping("/general")
 	public String sayHello() {
 		return "Hello There!";
 	}
 	
-	@RequestMapping(value = "name")
-	public String sayHello(@RequestParam(value = "name", defaultValue = "You") String name) {
-		return "Hello There " + name;
+	@GetMapping("/specific")
+	public String sayHello(@RequestParam(value = "name", defaultValue = "To You") String name) {
+		name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+		return String.format("Hello There %s!", name);
 	}
 }
