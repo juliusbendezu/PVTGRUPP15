@@ -10,6 +10,7 @@ public class MainActivity extends Activity {
 
     private ImageButton mapsButton;
     private ImageButton newsButton;
+    private ImageButton tipsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,13 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
             startActivity(intent);
         });
+
+        tipsButton = findViewById(R.id.tipsButton);
+        tipsButton.setOnClickListener(l -> {
+            Intent intent = new Intent(getApplicationContext(), TipsActivity.class);
+            startActivity(intent);
+        });
+
 
     }
 }

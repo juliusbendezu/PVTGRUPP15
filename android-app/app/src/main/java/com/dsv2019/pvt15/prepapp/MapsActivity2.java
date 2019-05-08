@@ -13,11 +13,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.dsv2019.pvt15.prepapp.mapobject.BombShelter;
-import com.dsv2019.pvt15.prepapp.mapobject.Hospital;
-import com.dsv2019.pvt15.prepapp.mapobject.MapObject;
-import com.dsv2019.pvt15.prepapp.mapobject.Position;
-import com.dsv2019.pvt15.prepapp.mapobject.Water;
+import com.dsv2019.pvt15.prepapp.maprelated.BombShelter;
+import com.dsv2019.pvt15.prepapp.maprelated.Hospital;
+import com.dsv2019.pvt15.prepapp.maprelated.MapObject;
+import com.dsv2019.pvt15.prepapp.maprelated.Position;
+import com.dsv2019.pvt15.prepapp.maprelated.Water;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
