@@ -8,12 +8,10 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/activity_base"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="218dp"></include>
+        layout="@layout/activity_base" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/userButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -25,44 +23,38 @@
         android:src="@drawable/user_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/include"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintVertical_bias="0.273" />
 
     <ImageButton
-        android:id="@+id/ellipse"
-        android:layout_width="98dp"
-        android:layout_height="94dp"
+        android:id="@+id/newsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/download"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="0.146"
-        tools:ignore="MissingConstraints" />
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:clickable="true"
+        android:src="@drawable/news"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mapsButton"
+        app:layout_constraintTop_toBottomOf="@+id/userButton" />
 
     <ImageButton
         android:id="@+id/mapsButton"
-        android:layout_width="102dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
         android:background="@null"
         android:src="@drawable/maps"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.427"
-        app:layout_constraintStart_toEndOf="@+id/ellipse"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="0.146"
-        tools:ignore="MissingConstraints" />
-
+        app:layout_constraintEnd_toStartOf="@+id/newsButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/include"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userButton" />
 
 </android.support.constraint.ConstraintLayout>
