@@ -1,4 +1,4 @@
-package com.dsv2019.pvt15.prepapp.mapobject;
+package com.dsv2019.pvt15.prepapp.maprelated;
 
 public class Water extends MapObject {
 

@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">PrepApp</string>
-    <string name="title_activity_maps2">Map</string>
+    <string name="title_activity_maps2">Karta</string>
 
     <!-->activity_news<-->
-    <string name="news_section_header">NEWS</string>
+    <string name="news_section_header">Nyheter</string>
+
+    <string name="tips_section_header">Tips</string>
 </resources>

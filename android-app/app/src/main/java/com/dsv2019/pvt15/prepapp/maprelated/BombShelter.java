@@ -1,6 +1,4 @@
-package com.dsv2019.pvt15.prepapp.mapobject;
-
-import java.util.Map;
+package com.dsv2019.pvt15.prepapp.maprelated;
 
 public class BombShelter extends MapObject {
 

@@ -1,7 +1,10 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,11 +15,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+<<<<<<< HEAD
 import com.dsv2019.pvt15.prepapp.mapobject.BombShelter;
 import com.dsv2019.pvt15.prepapp.mapobject.Hospital;
 import com.dsv2019.pvt15.prepapp.mapobject.MapObject;
 import com.dsv2019.pvt15.prepapp.mapobject.Position;
 import com.dsv2019.pvt15.prepapp.mapobject.Water;
+=======
+import com.dsv2019.pvt15.prepapp.maprelated.BombShelter;
+import com.dsv2019.pvt15.prepapp.maprelated.Hospital;
+import com.dsv2019.pvt15.prepapp.maprelated.MapObject;
+import com.dsv2019.pvt15.prepapp.maprelated.Position;
+import com.dsv2019.pvt15.prepapp.maprelated.Water;
+>>>>>>> 82ceeb4e07acdd97762dcd73271c6a7e8259d024
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,7 +40,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback
 {
@@ -79,7 +93,11 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
 
         //calls for the imagebuttons on the map.
-        initializeMapMarkers();
+
+        // initializeMapMarkers();
+
+        LatLng shelterTest = getLocationFromAddress(this, "Skebokvarnsvägen 335, Stockholm");
+        mMap.addMarker(new MarkerOptions().position(shelterTest).title("Skyddsrum"));
 
     }
 
@@ -212,7 +230,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     @Override
                     public void onComplete(@NonNull Task task)
                     {
-                        if (task.isSuccessful() && task.getResult() != null) {
+                        if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
 
@@ -293,4 +311,36 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
         }
     }
+
+<<<<<<< HEAD
+    public LatLng getLocationFromAddress(Context context, String strAddress)
+    {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude());
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
+    }
 }
+=======
+
+}
+
+
+>>>>>>> 82ceeb4e07acdd97762dcd73271c6a7e8259d024
