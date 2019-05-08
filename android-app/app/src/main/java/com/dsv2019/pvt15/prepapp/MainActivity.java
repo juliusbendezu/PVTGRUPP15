@@ -7,12 +7,14 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class MainActivity extends Activity {
+
     private ImageButton mapsButton;
+    private ImageButton newsButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         mapsButton = findViewById(R.id.mapsButton);
         mapsButton.setOnClickListener(new View.OnClickListener() {
@@ -22,5 +24,12 @@ public class MainActivity extends Activity {
                 startActivity(startIntent);
             }
         });
+
+        newsButton = findViewById(R.id.newsButton);
+        newsButton.setOnClickListener(l -> {
+            Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
+            startActivity(intent);
+        });
+
     }
 }

@@ -1,9 +1,9 @@
 package com.dsv2019.pvt15.prepapp;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
-public class NewsActivity extends AppCompatActivity {
+public class NewsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
