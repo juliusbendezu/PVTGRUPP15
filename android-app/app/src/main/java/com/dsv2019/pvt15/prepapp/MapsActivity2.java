@@ -213,7 +213,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     @Override
                     public void onComplete(@NonNull Task task)
                     {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful() & task != null) {
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
 
