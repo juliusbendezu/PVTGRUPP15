@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class MainActivity extends Activity {
+
     private ImageButton mapsButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

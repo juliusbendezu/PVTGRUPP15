@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.dsv2019.pvt15.prepapp.mapobject.BombShelter;
 import com.dsv2019.pvt15.prepapp.mapobject.Hospital;
 import com.dsv2019.pvt15.prepapp.mapobject.MapObject;
@@ -213,7 +212,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     @Override
                     public void onComplete(@NonNull Task task)
                     {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful() && task.getResult() != null) {
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
 
@@ -294,8 +293,4 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
         }
     }
-
-
 }
-
-
