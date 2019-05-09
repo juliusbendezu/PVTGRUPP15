@@ -9,15 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
-
-import com.dsv2019.pvt15.prepapp.maprelated.BombShelter;
-import com.dsv2019.pvt15.prepapp.maprelated.Hospital;
-import com.dsv2019.pvt15.prepapp.maprelated.MapObject;
-import com.dsv2019.pvt15.prepapp.maprelated.Position;
-import com.dsv2019.pvt15.prepapp.maprelated.Water;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,7 +20,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
+import com.dsv2019.pvt15.prepapp.models.ShelterObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback
@@ -39,16 +36,10 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
-
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-
-    private ImageButton vattenButton;
-    private ImageButton skyddButton;
-    private ImageButton akutButton;
-
-    ArrayList<MapObject> mapObjects = new ArrayList<>();
+    private ArrayList<ShelterObject> shelterObjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,6 +48,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps2);
 
         getLocationPermission();
+        generateShelterObjects();
     }
 
     @Override
@@ -76,125 +68,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+            addShelterMarkersToMap();
         }
-
-        //calls for the imagebuttons on the map.
-        initializeMapMarkers();
-
-    }
-
-    //this has the oncklick-settings for all mapbuttons
-    // as well as hardcoded places in the beginning
-    private void initializeMapMarkers()
-    {
-
-        LatLng stockholm = new LatLng(59, 18);
-        mMap.addMarker(new MarkerOptions().position(stockholm).title("Marker in Sthlm"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(stockholm));
-
-        //hardcoded places for each category
-        Position pos = new Position(59.5, 18.5);
-        BombShelter bm = new BombShelter(pos, "BS1-Hågavägen 95, 112 61 sthlm", 180);
-        mapObjects.add(bm);
-        Position posi = new Position(60, 19);
-        Hospital bmm = new Hospital(posi, "BS-Hågavägen 95, 112 61 sthlm", "Akutmottagning");
-        mapObjects.add(bmm);
-        Position posit = new Position(59.3, 18.7);
-        Water w1 = new Water(posit, "V1-Hågavägen 95, 112 61 sthlm");
-        mapObjects.add(w1);
-        Position positi = new Position(59.8, 18.9);
-        Water w = new Water(positi, "V-Hågavägen 95, 112 61 sthlm");
-        mapObjects.add(w);
-
-        //Sets the imagebuttons
-        vattenButton = findViewById(R.id.vatten);
-        skyddButton = findViewById(R.id.skyddsrum);
-        akutButton = findViewById(R.id.akutmottagning);
-
-        //sorts out the waterbuttons onclicksettings
-        vattenButton.setOnClickListener(new View.OnClickListener()
-        {
-            boolean visible = false;
-
-            @Override
-            public void onClick(View v)
-            {
-                //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
-                mMap.clear();
-                if (visible == false) {
-                    for (MapObject mo : mapObjects) {
-                        if (mo instanceof Water) {
-                            LatLng marker = new LatLng(mo.getPos().getX(), mo.getPos().getY());
-                            mMap.addMarker(new MarkerOptions().position(marker).title(mo.toString()));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                        }
-                    }
-                    visible = true;
-                } else {
-                    mMap.clear();
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                    visible = false;
-
-                }
-            }
-        });
-
-        //sorts out the Hospitalbuttons onclicksettings
-        akutButton.setOnClickListener(new View.OnClickListener()
-        {
-            boolean visible = false;
-
-            @Override
-            public void onClick(View v)
-            {
-                //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
-                mMap.clear();
-
-                // vad som ska hända om man klickar på skyddsrum
-                if (visible == false) {
-                    for (MapObject mo : mapObjects) {
-                        if (mo instanceof Hospital) {
-                            LatLng marker = new LatLng(mo.getPos().getX(), mo.getPos().getY());
-                            mMap.addMarker(new MarkerOptions().position(marker).title(mo.toString()));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                        }
-                    }
-                    visible = true;
-                } else {
-                    mMap.clear();
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                    visible = false;
-
-                }
-            }
-        });
-
-        //sorts out the bunkerButtons onclicksettings
-        skyddButton.setOnClickListener(new View.OnClickListener()
-        {
-            boolean skyddsRumvisible = false;
-
-            @Override
-            public void onClick(View v)
-            {
-                //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
-                mMap.clear();
-                if (skyddsRumvisible == false) {
-                    for (MapObject mo : mapObjects) {
-                        if (mo instanceof BombShelter) {
-                            LatLng marker = new LatLng(mo.getPos().getX(), mo.getPos().getY());
-                            mMap.addMarker(new MarkerOptions().position(marker).title(mo.toString()));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                        }
-                    }
-                    skyddsRumvisible = true;
-                } else {
-                    mMap.clear();
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                    skyddsRumvisible = false;
-                }
-            }
-        });
     }
 
     private void getDeviceLocation()
@@ -294,6 +170,51 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+    // Generates the Shelter objects from the shelters_csv_file and adds them to the shelterObjects ArrayList.
+    private void generateShelterObjects()
+    {
+        shelterObjects = new ArrayList<>();
+
+        Log.i("SHELTER_TEST", "METHOD generateShelterObjects() STARTED");
+
+        InputStream is = getResources().openRawResource(R.raw.shelters_csv_file);
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(is, Charset.forName("UTF-8")));
+        String line = "";
+
+        try {
+            while ((line = reader.readLine()) != null) {
+                // Split the line into different tokens (using the comma as a separator).
+                String[] tokens = line.split(",");
+
+                String address = tokens[0];
+                double latitude = Double.parseDouble(tokens[1]);
+                double longitude = Double.parseDouble(tokens[2]);
+                int numberOfOccupants = Integer.parseInt(tokens[3]);
+
+                ShelterObject object = new ShelterObject(address, latitude, longitude, numberOfOccupants);
+                shelterObjects.add(object);
+
+            }
+
+        } catch (IOException e1) {
+            Log.e("MapsActivity2", "Error" + line, e1);
+            e1.printStackTrace();
+        }
+        Log.i("SHELTER_TEST", "The size of the arraylist after reading in objects: " + shelterObjects.size());
+    }
+
+    // Iterates through the ArrayList shelterObjects and adds a marker with data from that object to the map.
+    private void addShelterMarkersToMap()
+    {
+        for (ShelterObject obj : shelterObjects) {
+            LatLng latLng = new LatLng(obj.getLatitude(), obj.getLongitude());
+            mMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(obj.getAddress())
+                    .snippet("Antal platser: " + obj.getNumberOfOccupants()));
+        }
+    }
 
 }
 
