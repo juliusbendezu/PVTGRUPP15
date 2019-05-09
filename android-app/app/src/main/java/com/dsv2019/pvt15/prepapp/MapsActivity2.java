@@ -9,7 +9,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,10 +20,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.dsv2019.pvt15.prepapp.models.ShelterObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,8 +35,7 @@ import java.util.ArrayList;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback
 {
-
-    private static final String TAG = "MapActivity";
+    private static final String TAG = "MapsActivity2";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
@@ -40,12 +44,39 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private ArrayList<ShelterObject> shelterObjects;
+    private ArrayList<Marker> shelterMarkers;
+    private ImageButton shelterImageButton;
+    private boolean shelterButtonIsPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
+
+        shelterImageButton = findViewById(R.id.shelter_image_button);
+        shelterImageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                shelterButtonIsPressed = !shelterButtonIsPressed;
+
+                if (shelterButtonIsPressed) {
+                    for (Marker marker : shelterMarkers) {
+                        marker.setVisible(false);
+                    }
+
+                }
+                else {
+                    for (Marker marker : shelterMarkers) {
+                        marker.setVisible(true);
+                    }
+
+                }
+
+            }
+        });
 
         getLocationPermission();
         generateShelterObjects();
@@ -68,8 +99,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
-
+            mMap.getUiSettings().setMapToolbarEnabled(false);
             addShelterMarkersToMap();
+
         }
     }
 
@@ -95,7 +127,8 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM);
 
-                        } else {
+                        }
+                        else {
                             Log.d(TAG, "onComplete: current location is null");
                             Toast.makeText(MapsActivity2.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
@@ -133,12 +166,14 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionsGranted = true;
                 initMap();
-            } else {
+            }
+            else {
                 ActivityCompat.requestPermissions(this,
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
-        } else {
+        }
+        else {
             ActivityCompat.requestPermissions(this,
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
@@ -170,12 +205,12 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
-    // Generates the Shelter objects from the shelters_csv_file and adds them to the shelterObjects ArrayList.
+    // Generates the Shelter objects from the csv file and adds them to the  ArrayList.
     private void generateShelterObjects()
     {
         shelterObjects = new ArrayList<>();
 
-        Log.i("SHELTER_TEST", "METHOD generateShelterObjects() STARTED");
+        Log.i(TAG, "METHOD generateShelterObjects() STARTED");
 
         InputStream is = getResources().openRawResource(R.raw.shelters_csv_file);
         BufferedReader reader = new BufferedReader(
@@ -198,21 +233,24 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
 
         } catch (IOException e1) {
-            Log.e("MapsActivity2", "Error" + line, e1);
+            Log.e(TAG, "Error" + line, e1);
             e1.printStackTrace();
         }
-        Log.i("SHELTER_TEST", "The size of the arraylist after reading in objects: " + shelterObjects.size());
+        Log.i(TAG, "The size of the arraylist after reading in objects: " + shelterObjects.size());
     }
 
-    // Iterates through the ArrayList shelterObjects and adds a marker with data from that object to the map.
+    // Iterates through the ArrayList of Shelter objects and adds a marker with data from that object to the map. The markers are saved in another ArrayList so they can be referenced later.
     private void addShelterMarkersToMap()
     {
+        shelterMarkers = new ArrayList<>();
+
         for (ShelterObject obj : shelterObjects) {
             LatLng latLng = new LatLng(obj.getLatitude(), obj.getLongitude());
-            mMap.addMarker(new MarkerOptions()
+            Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(latLng)
                     .title(obj.getAddress())
                     .snippet("Antal platser: " + obj.getNumberOfOccupants()));
+            shelterMarkers.add(marker);
         }
     }
 
