@@ -1,42 +1,37 @@
 package com.dsv2019.pvt15.prepapp.models;
 
-public class ShelterObject
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+
+public class ShelterObject implements ClusterItem
 {
-    private String address;
-    private double latitude;
-    private double longitude;
-    private int numberOfOccupants;
+    private final LatLng mPosition;
+    private final String mTitle;
+    private final String mSnippet;
 
-    public ShelterObject(String address, double latitude, double longitude, int numberOfOccupants)
+
+    public ShelterObject(LatLng latLng, String mTitle, String mSnippet)
     {
-        this.address = address;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.numberOfOccupants = numberOfOccupants;
+        this.mPosition = latLng;
+        this.mTitle = mTitle;
+        this.mSnippet = mSnippet;
     }
 
-    public String getAddress()
+    @Override
+    public LatLng getPosition()
     {
-        return address;
+        return mPosition;
     }
 
-
-    public double getLatitude()
+    @Override
+    public String getTitle()
     {
-        return latitude;
+        return mTitle;
     }
 
-
-    public double getLongitude()
+    @Override
+    public String getSnippet()
     {
-        return longitude;
+        return mSnippet;
     }
-
-
-    public int getNumberOfOccupants()
-    {
-        return numberOfOccupants;
-    }
-
-
 }

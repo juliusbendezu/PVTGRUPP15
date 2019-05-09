@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.dsv2019.pvt15.prepapp.models.ShelterObject;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,6 +33,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback
 {
@@ -43,10 +46,12 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private ArrayList<ShelterObject> shelterObjects;
-    private ArrayList<Marker> shelterMarkers;
     private ImageButton shelterImageButton;
     private boolean shelterButtonIsPressed = false;
+
+    private List<MarkerOptions> listMarkers = new ArrayList<>();
+    private ClusterManager<ShelterObject> clusterManager;
+    private List<ShelterObject> shelterObjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -63,23 +68,21 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 shelterButtonIsPressed = !shelterButtonIsPressed;
 
                 if (shelterButtonIsPressed) {
-                    for (Marker marker : shelterMarkers) {
-                        marker.setVisible(false);
-                    }
+                    clusterManager.clearItems();
+                    clusterManager.cluster();
 
                 }
                 else {
-                    for (Marker marker : shelterMarkers) {
-                        marker.setVisible(true);
-                    }
+                    clusterManager.addItems(shelterObjects);
+                    clusterManager.cluster();
 
                 }
+
 
             }
         });
 
         getLocationPermission();
-        generateShelterObjects();
     }
 
     @Override
@@ -100,7 +103,10 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             mMap.getUiSettings().setMapToolbarEnabled(false);
-            addShelterMarkersToMap();
+
+            clusterManager = new ClusterManager<>(this, googleMap);
+            generateShelterObjects();
+            setupClusterManager();
 
         }
     }
@@ -204,11 +210,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
         }
     }
-
-    // Generates the Shelter objects from the csv file and adds them to the  ArrayList.
+    
     private void generateShelterObjects()
     {
-        shelterObjects = new ArrayList<>();
 
         Log.i(TAG, "METHOD generateShelterObjects() STARTED");
 
@@ -225,10 +229,11 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 String address = tokens[0];
                 double latitude = Double.parseDouble(tokens[1]);
                 double longitude = Double.parseDouble(tokens[2]);
-                int numberOfOccupants = Integer.parseInt(tokens[3]);
+                LatLng latLng = new LatLng(latitude, longitude);
+                String numberOfOccupants = tokens[3];
 
-                ShelterObject object = new ShelterObject(address, latitude, longitude, numberOfOccupants);
-                shelterObjects.add(object);
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(address).snippet("Antal platser: " + numberOfOccupants);
+                listMarkers.add(markerOptions);
 
             }
 
@@ -236,24 +241,38 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             Log.e(TAG, "Error" + line, e1);
             e1.printStackTrace();
         }
-        Log.i(TAG, "The size of the arraylist after reading in objects: " + shelterObjects.size());
     }
 
-    // Iterates through the ArrayList of Shelter objects and adds a marker with data from that object to the map. The markers are saved in another ArrayList so they can be referenced later.
-    private void addShelterMarkersToMap()
-    {
-        shelterMarkers = new ArrayList<>();
 
-        for (ShelterObject obj : shelterObjects) {
-            LatLng latLng = new LatLng(obj.getLatitude(), obj.getLongitude());
-            Marker marker = mMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .title(obj.getAddress())
-                    .snippet("Antal platser: " + obj.getNumberOfOccupants()));
-            shelterMarkers.add(marker);
+    private void addClusterItems()
+    {
+        shelterObjects = new ArrayList<>();
+
+        for (MarkerOptions markerOptions : listMarkers) {
+
+            ShelterObject clusterItem = new ShelterObject(markerOptions.getPosition(), markerOptions.getTitle(), markerOptions.getSnippet());
+            shelterObjects.add(clusterItem);
+
+            clusterManager.addItem(clusterItem);
         }
     }
 
+    private void setRenderer()
+    {
+        MarkerClusterRenderer<ShelterObject> clusterRenderer = new MarkerClusterRenderer<>(this, mMap, clusterManager);
+        clusterManager.setRenderer(clusterRenderer);
+    }
+
+    private void setupClusterManager()
+    {
+        setRenderer();
+        addClusterItems();
+        mMap.setOnCameraIdleListener(clusterManager);
+        mMap.setOnMarkerClickListener(clusterManager);
+        clusterManager.cluster();
+
+
+    }
 }
 
 
