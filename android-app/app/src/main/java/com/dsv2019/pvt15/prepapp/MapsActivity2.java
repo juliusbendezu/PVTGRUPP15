@@ -21,10 +21,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.dsv2019.pvt15.prepapp.models.ShelterObject;
+import com.dsv2019.pvt15.prepapp.models.Shelter;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.io.BufferedReader;
@@ -33,7 +32,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback
@@ -48,9 +46,8 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private ImageButton shelterImageButton;
     private boolean shelterButtonIsPressed = false;
-
-    private List<MarkerOptions> listMarkers = new ArrayList<>();
-    private ClusterManager<ShelterObject> clusterManager;
+    private List<Shelter> shelterList = new ArrayList<>();
+    private ClusterManager<Shelter> clusterManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -103,7 +100,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
             clusterManager = new ClusterManager<>(this, googleMap);
             generateShelterObjects();
-            setupClusterManager();
+            setupClustering();
 
         }
     }
@@ -202,6 +199,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+    /* Reads in the shelters from the .csv file, turning them into Shelter objects, finally adding them to a list so they can be processed by the cluster manager.*/
     private void generateShelterObjects()
     {
 
@@ -223,8 +221,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 LatLng latLng = new LatLng(latitude, longitude);
                 String numberOfOccupants = tokens[3];
 
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(address).snippet("Antal platser: " + numberOfOccupants);
-                listMarkers.add(markerOptions);
+                Shelter clusterItem = new Shelter(latLng, address, numberOfOccupants);
+                shelterList.add(clusterItem);
+
 
             }
 
@@ -237,28 +236,17 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private void addClusterItems()
     {
 
-        for (MarkerOptions markerOptions : listMarkers) {
+        clusterManager.addItems(shelterList);
 
-            ShelterObject clusterItem = new ShelterObject(markerOptions.getPosition(), markerOptions.getTitle(), markerOptions.getSnippet());
-
-            clusterManager.addItem(clusterItem);
-        }
     }
 
-    private void setRenderer()
+    private void setupClustering()
     {
-        MarkerClusterRenderer<ShelterObject> clusterRenderer = new MarkerClusterRenderer<>(this, mMap, clusterManager);
+        MarkerClusterRenderer<Shelter> clusterRenderer = new MarkerClusterRenderer<>(this, mMap, clusterManager);
         clusterManager.setRenderer(clusterRenderer);
-    }
-
-    private void setupClusterManager()
-    {
-        setRenderer();
-        addClusterItems();
         mMap.setOnCameraIdleListener(clusterManager);
         mMap.setOnMarkerClickListener(clusterManager);
+        addClusterItems();
         clusterManager.cluster();
-
-
     }
 }
