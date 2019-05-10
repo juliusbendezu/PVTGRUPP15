@@ -1,56 +1,60 @@
 package com.dsv2019.pvt15.prepapp.ApiHandler;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.dsv2019.pvt15.prepapp.models.NewsItem;
 
-import java.util.TreeSet;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 public class ApiHandler {
 
     private static final String NEWS_FEED_SERVICE = "http://api.krisinformation.se/v1/capmessage/?format=json";
 
-    private static final String JSON_FOR_TESTING = "{\n" +
-            "    \"Identifier\": \"11643\",\n" +
-            "    \"Sender\": \"https://www.krisinformation.se/\",\n" +
-            "    \"Sent\": \"2019-04-29T10:50:59+02:00\",\n" +
-            "    \"Published\": \"2019-04-29T10:50:59+02:00\",\n" +
-            "    \"Status\": \"Actual\",\n" +
-            "    \"MsgType\": \"Alert\",\n" +
-            "    \"Scope\": \"Public\",\n" +
-            "    \"InfoData\": [\n" +
-            "      {\n" +
-            "        \"Language\": \"sv-SE\",\n" +
-            "        \"Category\": \"Other\",\n" +
-            "        \"Event\": \"News\",\n" +
-            "        \"Urgency\": \"Unknown\",\n" +
-            "        \"Severity\": \"Unknown\",\n" +
-            "        \"Certainty\": \"Unknown\",\n" +
-            "        \"Headline\": \"Om Valborg och eldningsförbud\",\n" +
-            "        \"Description\": \"Det torra och varma vädret har gjort att brandrisken i skog och mark är stor i delar av Sverige. I många kommuner råder eldningsförbud.\",\n" +
-            "        \"SenderName\": \"\",\n" +
-            "        \"Web\": \"https://www.krisinformation.se/nyheter/2019/april/om-valborg-och-eldningsforbud/\",\n" +
-            "        \"Area\": [\n" +
-            "          {\n" +
-            "            \"AreaDesc\": \"Sverige\",\n" +
-            "            \"Type\": \"Sovereign country\",\n" +
-            "            \"Polygon\": [\n" +
-            "              {\n" +
-            "                \"Polygons\": \"16.596265846848,62.8114849680804\"\n" +
-            "              }\n" +
-            "            ]\n" +
-            "          }\n" +
-            "        ]\n" +
-            "      }\n" +
-            "    ],\n" +
-            "    \"Resources\": null,\n" +
-            "    \"Active\": true,\n" +
-            "    \"IsNewVma\": false\n" +
-            "  }";
+    private RequestQueue requestQueue;
 
-    public TreeSet<NewsItem> getNewsFeedAsItems(){
-        TreeSet<NewsItem> newsFeed = new TreeSet<>();
+    public void setRequestQueue(Context context) {
+        this.requestQueue = Volley.newRequestQueue(context);
+    }
 
+    public void getNewsFeed(ArrayList<NewsItem> newsFeed) {
 
-        return newsFeed;
+        JsonArrayRequest request = new JsonArrayRequest(NEWS_FEED_SERVICE,
+                response -> {
+                    for (int i = 0; i < 10; i++) {
+                        try {
+                            JSONObject bigObject = (JSONObject) response.get(i);
+                            JSONObject innerObject = bigObject.getJSONArray("InfoData").getJSONObject(0);
+                            NewsItem n = new NewsItem(
+                                    innerObject.getString("Headline"),
+                                    innerObject.getString("Description"),
+                                    innerObject.getString("Web"),
+                                    bigObject.getString("Sender"),
+                                    bigObject.getString("Sent"));
+                            Log.d("GetNewsFeed", "NewsItem: " + n);
+                            newsFeed.add(n);
+                            Log.d("GetNewsFeed", "newsFeed size: " + newsFeed.size());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                Throwable::printStackTrace);
+
+        requestQueue.add(request);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        requestQueue.stop();
+        Log.d("GetNewsFeed", "List: " + newsFeed);
+
     }
 
 }
