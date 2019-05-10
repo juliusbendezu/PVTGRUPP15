@@ -51,7 +51,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
     private List<MarkerOptions> listMarkers = new ArrayList<>();
     private ClusterManager<ShelterObject> clusterManager;
-    private List<ShelterObject> shelterObjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,12 +72,10 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
                 }
                 else {
-                    clusterManager.addItems(shelterObjects);
+                    addClusterItems();
                     clusterManager.cluster();
 
                 }
-
-
             }
         });
 
@@ -126,8 +123,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     @Override
                     public void onComplete(@NonNull Task task)
                     {
-                        if (task.isSuccessful() & task != null) {
-                            Log.d(TAG, "onComplete: found location!");
+                        if (task.isSuccessful() && task.getResult() != null) {
                             Location currentLocation = (Location) task.getResult();
 
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
@@ -135,7 +131,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
                         }
                         else {
-                            Log.d(TAG, "onComplete: current location is null");
                             Toast.makeText(MapsActivity2.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -189,7 +184,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
-        Log.d(TAG, "onRequestPermissionsResult: called.");
         mLocationPermissionsGranted = false;
 
         switch (requestCode) {
@@ -198,19 +192,16 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     for (int i = 0; i < grantResults.length; i++) {
                         if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                             mLocationPermissionsGranted = false;
-                            Log.d(TAG, "onRequestPermissionsResult: permission failed");
                             return;
                         }
                     }
-                    Log.d(TAG, "onRequestPermissionsResult: permission granted");
                     mLocationPermissionsGranted = true;
-                    //initialize our map
                     initMap();
                 }
             }
         }
     }
-    
+
     private void generateShelterObjects()
     {
 
@@ -243,15 +234,12 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
-
     private void addClusterItems()
     {
-        shelterObjects = new ArrayList<>();
 
         for (MarkerOptions markerOptions : listMarkers) {
 
             ShelterObject clusterItem = new ShelterObject(markerOptions.getPosition(), markerOptions.getTitle(), markerOptions.getSnippet());
-            shelterObjects.add(clusterItem);
 
             clusterManager.addItem(clusterItem);
         }
@@ -274,5 +262,3 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
     }
 }
-
-
