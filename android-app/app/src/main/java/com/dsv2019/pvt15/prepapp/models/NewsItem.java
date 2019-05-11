@@ -10,18 +10,22 @@ public class NewsItem implements Comparable<NewsItem> {
     private String title;
     private String description;
     private String url;
-    private String author;
+    private String sender;
     private Date date;
+    private String stringDate; //As backup if parsing fails + used for toString
 
     public NewsItem(String title, String description, String url, String author, String jsonDate) {
         this.title = title;
         this.description = description;
         this.url = url;
-        this.author = author;
+        this.sender = author;
 
         String correctDate;
         correctDate = jsonDate.replace(jsonDate.charAt(10), ' ');
         correctDate = correctDate.substring(0, 19);
+
+        //Removes seconds, they are only interesting when comparing dates.
+        stringDate = correctDate.substring(0,16);
 
         SimpleDateFormat formatter = new SimpleDateFormat();
         try {
@@ -44,8 +48,8 @@ public class NewsItem implements Comparable<NewsItem> {
         return url;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getSender() {
+        return sender;
     }
 
     public Date getDate() {
@@ -60,13 +64,13 @@ public class NewsItem implements Comparable<NewsItem> {
         return title.equals(newsItem.title) &&
                 description.equals(newsItem.description) &&
                 url.equals(newsItem.url) &&
-                author.equals(newsItem.author) &&
+                sender.equals(newsItem.sender) &&
                 date.equals(newsItem.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, url, author, date);
+        return Objects.hash(title, description, url, sender, date);
     }
 
     @Override
@@ -74,15 +78,8 @@ public class NewsItem implements Comparable<NewsItem> {
         return date.compareTo(o.date);
     }
 
-    @Override
-    public String toString() {
-        return "NewsItem{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", url='" + url + '\'' +
-                ", author='" + author + '\'' +
-                ", date=" + date +
-                '}';
+    public String getSummary(){
+        return String.format("%s\n%s\n%s", stringDate, title, sender);
     }
 
 }

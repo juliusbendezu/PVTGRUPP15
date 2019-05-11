@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.dsv2019.pvt15.prepapp.ApiHandler.ApiHandler;
+import com.dsv2019.pvt15.prepapp.apihandler.ApiHandler;
 import com.dsv2019.pvt15.prepapp.models.NewsItem;
 
 import org.json.JSONException;

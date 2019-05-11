@@ -21,4 +21,10 @@ public class NewsItemTest {
         assertEquals(newsItem1.compareTo(newsItem2), LESS_THAN);
     }
 
+    @Test
+    public void summaryTest(){
+        String summaryTemplate = "2019-05-19 12:25\nMin första nyhet\nJulius";
+        assertEquals(newsItem1.getSummary(), summaryTemplate);
+    }
+
 }
