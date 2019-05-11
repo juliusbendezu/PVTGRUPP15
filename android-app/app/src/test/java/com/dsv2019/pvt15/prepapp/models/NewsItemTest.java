@@ -1,8 +1,6 @@
 package com.dsv2019.pvt15.prepapp.models;
 
 import org.junit.Test;
-
-
 import static org.junit.Assert.*;
 
 public class NewsItemTest {
@@ -20,7 +18,7 @@ public class NewsItemTest {
     @Test
     public void compareTo() {
         final int LESS_THAN = -1;
-        assertTrue(newsItem1.compareTo(newsItem2) == LESS_THAN);
+        assertEquals(newsItem1.compareTo(newsItem2), LESS_THAN);
     }
 
 }

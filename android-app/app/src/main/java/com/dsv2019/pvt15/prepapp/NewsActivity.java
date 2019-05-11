@@ -3,6 +3,8 @@ package com.dsv2019.pvt15.prepapp;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -32,14 +34,14 @@ public class NewsActivity extends Activity {
         //apiHandler = new ApiHandler();
         //apiHandler.setRequestQueue(this);
         //newsFeed = new ArrayList<>();
-        //apiHandler.getNewsFeed(newsFeed);
+        //apiHandler.requestNewsFeed(newsFeed);
 
         requestQueue = Volley.newRequestQueue(this);
         newsFeed = new ArrayList<>();
-        getNewsFeed();
+        requestNewsFeed();
     }
 
-    public void getNewsFeed() {
+    public void requestNewsFeed() {
 
         JsonArrayRequest request = new JsonArrayRequest(NEWS_FEED_SERVICE,
                 response -> {
@@ -47,14 +49,15 @@ public class NewsActivity extends Activity {
                         try {
                             JSONObject bigObject = (JSONObject) response.get(i);
                             JSONObject innerObject = bigObject.getJSONArray("InfoData").getJSONObject(0);
-                            NewsItem n = new NewsItem(
+                            NewsItem newsItem = new NewsItem(
                                     innerObject.getString("Headline"),
                                     innerObject.getString("Description"),
                                     innerObject.getString("Web"),
                                     bigObject.getString("Sender"),
                                     bigObject.getString("Sent"));
-                            Log.d("GetNewsFeed", "NewsItem: " + n);
-                            newsFeed.add(n);
+                            Log.d("GetNewsFeed", "NewsItem: " + newsItem);
+                            newsFeed.add(newsItem);
+                            displayNews(newsItem);
                             Log.d("GetNewsFeed", "newsFeed size: " + newsFeed.size());
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -66,6 +69,13 @@ public class NewsActivity extends Activity {
         requestQueue.add(request);
 
         Log.d("GetNewsFeed", "List: " + newsFeed);
+
+    }
+
+    private void displayNews(NewsItem newsItem) {
+        LinearLayout layout = findViewById(R.id.newsLinearLayout);
+
+        TextView newsTV = new TextView(this);
 
     }
 
