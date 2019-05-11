@@ -1,8 +1,5 @@
 package com.dsv2019.pvt15.prepapp.models;
 
-
-import android.util.Log;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,20 +19,17 @@ public class NewsItem implements Comparable<NewsItem> {
         this.url = url;
         this.author = author;
 
-        Log.d("NewsItem", "jsonDate: " + jsonDate);
         String correctDate;
         correctDate = jsonDate.replace(jsonDate.charAt(10), ' ');
         correctDate = correctDate.substring(0, 19);
-        Log.d("NewsItem", "correctDate: " + correctDate);
 
         SimpleDateFormat formatter = new SimpleDateFormat();
-
         try {
             date = formatter.parse(correctDate);
         } catch (ParseException e) {
+            date = null;
             e.printStackTrace();
         }
-
     }
 
     public String getTitle() {
