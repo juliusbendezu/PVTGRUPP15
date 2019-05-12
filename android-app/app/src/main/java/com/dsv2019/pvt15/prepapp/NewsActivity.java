@@ -1,9 +1,11 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
@@ -36,6 +38,8 @@ public class NewsActivity extends Activity {
         //apiHandler.setRequestQueue(this);
         //newsFeed = new ArrayList<>();
         //apiHandler.requestNewsFeed(newsFeed);
+
+        findViewById(R.id.homeButton).setOnClickListener(l -> startActivity(new Intent(this, MainActivity.class)));
 
         requestQueue = Volley.newRequestQueue(this);
         newsFeed = new ArrayList<>();
