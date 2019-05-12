@@ -1,15 +1,16 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.dsv2019.pvt15.prepapp.apihandler.ApiHandler;
+import com.dsv2019.pvt15.prepapp.customcomponents.NewsItemView;
 import com.dsv2019.pvt15.prepapp.models.NewsItem;
 
 import org.json.JSONException;
@@ -57,7 +58,7 @@ public class NewsActivity extends Activity {
                                     bigObject.getString("Sent"));
                             Log.d("GetNewsFeed", "NewsItem: " + newsItem);
                             newsFeed.add(newsItem);
-                            displayNews(newsItem);
+                            addNews(newsItem);
                             Log.d("GetNewsFeed", "newsFeed size: " + newsFeed.size());
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -72,11 +73,19 @@ public class NewsActivity extends Activity {
 
     }
 
-    private void displayNews(NewsItem newsItem) {
+    private void addNews(NewsItem newsItem) {
         LinearLayout layout = findViewById(R.id.newsLinearLayout);
 
-        TextView newsTV = new TextView(this);
+        NewsItemView newsItemView = new NewsItemView(this, newsItem);
 
+        newsItemView.setOnClickListener(l -> {
+            if (newsItemView.getBackground() == null)
+                newsItemView.setBackgroundColor(Color.CYAN);
+            else
+                newsItemView.setBackground(null);
+        });
+
+        layout.addView(newsItemView);
     }
 
 }
