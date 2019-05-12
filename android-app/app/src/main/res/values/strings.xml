@@ -4,6 +4,7 @@
 
     <!-->activity_news<-->
     <string name="news_section_header">Nyheter</string>
+    <string name="news_disclaimer">Alla nyheter är hämtade från krisinformation.se API</string>
 
 
     <!-->activity_tips<-->
