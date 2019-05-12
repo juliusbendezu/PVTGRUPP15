@@ -2,7 +2,6 @@ package com.dsv2019.pvt15.prepapp.customcomponents;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
@@ -28,7 +27,7 @@ public class NewsItemView extends LinearLayout {
     public NewsItemView(Context context, NewsItem newsItem) {
         super(context);
         setWillNotDraw(false);
-        paint.setColor(Color.BLACK);
+        paint.setColor(getResources().getColor(R.color.mainblue));
         paint.setStrokeWidth(6);
         setWeightSum(1);
 
