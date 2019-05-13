@@ -13,11 +13,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.dsv2019.pvt15.prepapp.maprelated.BombShelter;
-import com.dsv2019.pvt15.prepapp.maprelated.Hospital;
-import com.dsv2019.pvt15.prepapp.maprelated.MapObject;
-import com.dsv2019.pvt15.prepapp.maprelated.Position;
-import com.dsv2019.pvt15.prepapp.maprelated.Water;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,36 +20,61 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.dsv2019.pvt15.prepapp.models.Shelter;
+import com.google.maps.android.clustering.ClusterManager;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback
 {
-
-    private static final String TAG = "MapActivity";
+    private static final String TAG = "MapsActivity2";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
-
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-
-    private ImageButton vattenButton;
-    private ImageButton skyddButton;
-    private ImageButton akutButton;
-
-    ArrayList<MapObject> mapObjects = new ArrayList<>();
+    private ImageButton shelterImageButton;
+    private boolean shelterButtonIsPressed = false;
+    private List<Shelter> shelterList = new ArrayList<>();
+    private ClusterManager<Shelter> clusterManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
+
+        shelterImageButton = findViewById(R.id.shelter_image_button);
+        shelterImageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                shelterButtonIsPressed = !shelterButtonIsPressed;
+
+                if (shelterButtonIsPressed) {
+                    clusterManager.clearItems();
+                    clusterManager.cluster();
+
+                }
+                else {
+                    addClusterItems();
+                    clusterManager.cluster();
+
+                }
+            }
+        });
 
         getLocationPermission();
     }
@@ -76,125 +96,13 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mMap.getUiSettings().setMapToolbarEnabled(false);
+
+            clusterManager = new ClusterManager<>(this, googleMap);
+            generateShelterObjects();
+            setupClustering();
+
         }
-
-        //calls for the imagebuttons on the map.
-        initializeMapMarkers();
-
-    }
-
-    //this has the oncklick-settings for all mapbuttons
-    // as well as hardcoded places in the beginning
-    private void initializeMapMarkers()
-    {
-
-        LatLng stockholm = new LatLng(59, 18);
-        mMap.addMarker(new MarkerOptions().position(stockholm).title("Marker in Sthlm"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(stockholm));
-
-        //hardcoded places for each category
-        Position pos = new Position(59.5, 18.5);
-        BombShelter bm = new BombShelter(pos, "BS1-Hågavägen 95, 112 61 sthlm", 180);
-        mapObjects.add(bm);
-        Position posi = new Position(60, 19);
-        Hospital bmm = new Hospital(posi, "BS-Hågavägen 95, 112 61 sthlm", "Akutmottagning");
-        mapObjects.add(bmm);
-        Position posit = new Position(59.3, 18.7);
-        Water w1 = new Water(posit, "V1-Hågavägen 95, 112 61 sthlm");
-        mapObjects.add(w1);
-        Position positi = new Position(59.8, 18.9);
-        Water w = new Water(positi, "V-Hågavägen 95, 112 61 sthlm");
-        mapObjects.add(w);
-
-        //Sets the imagebuttons
-        vattenButton = findViewById(R.id.vatten);
-        skyddButton = findViewById(R.id.skyddsrum);
-        akutButton = findViewById(R.id.akutmottagning);
-
-        //sorts out the waterbuttons onclicksettings
-        vattenButton.setOnClickListener(new View.OnClickListener()
-        {
-            boolean visible = false;
-
-            @Override
-            public void onClick(View v)
-            {
-                //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
-                mMap.clear();
-                if (visible == false) {
-                    for (MapObject mo : mapObjects) {
-                        if (mo instanceof Water) {
-                            LatLng marker = new LatLng(mo.getPos().getX(), mo.getPos().getY());
-                            mMap.addMarker(new MarkerOptions().position(marker).title(mo.toString()));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                        }
-                    }
-                    visible = true;
-                } else {
-                    mMap.clear();
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                    visible = false;
-
-                }
-            }
-        });
-
-        //sorts out the Hospitalbuttons onclicksettings
-        akutButton.setOnClickListener(new View.OnClickListener()
-        {
-            boolean visible = false;
-
-            @Override
-            public void onClick(View v)
-            {
-                //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
-                mMap.clear();
-
-                // vad som ska hända om man klickar på skyddsrum
-                if (visible == false) {
-                    for (MapObject mo : mapObjects) {
-                        if (mo instanceof Hospital) {
-                            LatLng marker = new LatLng(mo.getPos().getX(), mo.getPos().getY());
-                            mMap.addMarker(new MarkerOptions().position(marker).title(mo.toString()));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                        }
-                    }
-                    visible = true;
-                } else {
-                    mMap.clear();
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                    visible = false;
-
-                }
-            }
-        });
-
-        //sorts out the bunkerButtons onclicksettings
-        skyddButton.setOnClickListener(new View.OnClickListener()
-        {
-            boolean skyddsRumvisible = false;
-
-            @Override
-            public void onClick(View v)
-            {
-                //rensar kartan från markers som kan ha kommit om man var på en annan kategori innan.
-                mMap.clear();
-                if (skyddsRumvisible == false) {
-                    for (MapObject mo : mapObjects) {
-                        if (mo instanceof BombShelter) {
-                            LatLng marker = new LatLng(mo.getPos().getX(), mo.getPos().getY());
-                            mMap.addMarker(new MarkerOptions().position(marker).title(mo.toString()));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                        }
-                    }
-                    skyddsRumvisible = true;
-                } else {
-                    mMap.clear();
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                    skyddsRumvisible = false;
-                }
-            }
-        });
     }
 
     private void getDeviceLocation()
@@ -212,15 +120,14 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     @Override
                     public void onComplete(@NonNull Task task)
                     {
-                        if (task.isSuccessful() & task != null) {
-                            Log.d(TAG, "onComplete: found location!");
+                        if (task.isSuccessful() && task.getResult() != null) {
                             Location currentLocation = (Location) task.getResult();
 
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM);
 
-                        } else {
-                            Log.d(TAG, "onComplete: current location is null");
+                        }
+                        else {
                             Toast.makeText(MapsActivity2.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -257,12 +164,14 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionsGranted = true;
                 initMap();
-            } else {
+            }
+            else {
                 ActivityCompat.requestPermissions(this,
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
-        } else {
+        }
+        else {
             ActivityCompat.requestPermissions(this,
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
@@ -272,7 +181,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
-        Log.d(TAG, "onRequestPermissionsResult: called.");
         mLocationPermissionsGranted = false;
 
         switch (requestCode) {
@@ -281,20 +189,64 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     for (int i = 0; i < grantResults.length; i++) {
                         if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                             mLocationPermissionsGranted = false;
-                            Log.d(TAG, "onRequestPermissionsResult: permission failed");
                             return;
                         }
                     }
-                    Log.d(TAG, "onRequestPermissionsResult: permission granted");
                     mLocationPermissionsGranted = true;
-                    //initialize our map
                     initMap();
                 }
             }
         }
     }
 
+    /* Reads in the shelters from the .csv file, turning them into Shelter objects, finally adding them to a list so they can be processed by the cluster manager.*/
+    private void generateShelterObjects()
+    {
 
+        Log.i(TAG, "METHOD generateShelterObjects() STARTED");
+
+        InputStream is = getResources().openRawResource(R.raw.shelters_csv_file);
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(is, Charset.forName("UTF-8")));
+        String line = "";
+
+        try {
+            while ((line = reader.readLine()) != null) {
+                // Split the line into different tokens (using the comma as a separator).
+                String[] tokens = line.split(",");
+
+                String address = tokens[0];
+                double latitude = Double.parseDouble(tokens[1]);
+                double longitude = Double.parseDouble(tokens[2]);
+                LatLng latLng = new LatLng(latitude, longitude);
+                String numberOfOccupants = tokens[3];
+
+                Shelter clusterItem = new Shelter(latLng, address, numberOfOccupants);
+                shelterList.add(clusterItem);
+
+
+            }
+
+        } catch (IOException e1) {
+            Log.e(TAG, "Error" + line, e1);
+            e1.printStackTrace();
+        }
+    }
+
+    private void addClusterItems()
+    {
+
+        clusterManager.addItems(shelterList);
+
+    }
+
+    private void setupClustering()
+    {
+        MarkerClusterRenderer<Shelter> clusterRenderer = new MarkerClusterRenderer<>(this, mMap, clusterManager);
+        clusterManager.setRenderer(clusterRenderer);
+        mMap.setOnCameraIdleListener(clusterManager);
+        mMap.setOnMarkerClickListener(clusterManager);
+        addClusterItems();
+        clusterManager.cluster();
+    }
 }
-
-
