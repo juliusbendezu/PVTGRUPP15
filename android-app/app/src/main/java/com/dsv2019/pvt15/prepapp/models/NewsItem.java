@@ -79,7 +79,7 @@ public class NewsItem implements Comparable<NewsItem> {
     }
 
     public String getSummary(){
-        return String.format("%s\n%s\n%s", stringDate, title, sender);
+        return String.format("%s\n%s", stringDate, title);
     }
 
 }
