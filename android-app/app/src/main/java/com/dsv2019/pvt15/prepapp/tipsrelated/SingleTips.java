@@ -12,17 +12,16 @@ public class SingleTips
     private String description;
     private int likes = 0;
     private String creator;
-    private int category;
+    private int categoryNR;
+    private String categoryName;
     private int ID;
 
 
-
-
-    public SingleTips(String name, String description, int category,String creator,int ID) {
+    public SingleTips(String name, String description, int categoryNR,String creator,int ID) {
         this.description=description;
         this.name=name;
         this.ID=ID;
-        this.category=category;
+        this.categoryNR=categoryNR;
         this.creator=creator;
     }
 
@@ -34,6 +33,22 @@ public class SingleTips
         }
     }
 
+    private void setCategory(){
+        if (categoryNR == 1){
+            categoryName ="Värme";
+        }else if(categoryNR ==2){
+            categoryName ="Vatten";
+        }else if(categoryNR==3){
+            categoryName ="skydd";
+        }else if(categoryNR==4){
+            categoryName="Mat";
+        }else if(categoryNR==5){
+            categoryName="Sjukvård";
+        }else {
+            categoryName = "Informationssäkerhet";
+        }
+    }
+
     public String getName(){
         return name;
     }
@@ -41,7 +56,7 @@ public class SingleTips
         return ID;
     }
     public int getCategory(){
-        return category;
+        return categoryNR;
     }
     public String getDescription(){
         return description;
@@ -62,7 +77,7 @@ public class SingleTips
                 description.equals(singleTips.description) &&
                 creator.equals(singleTips.creator) &&
                 ID==(singleTips.ID) &&
-                category==(singleTips.category)&&
+                categoryNR==(singleTips.categoryNR)&&
                 likes == (singleTips.likes);
     }
 
@@ -73,7 +88,8 @@ public class SingleTips
 
     @Override
     public String toString() {
-        return String.format(name + ID + System.getProperty("line.separator")+ "skapad av: "+creator );
+        //setCategory();
+        return String.format("Namn: "+ name + ID + System.getProperty("line.separator")+ "skapad av: "+creator );
     }
 
     @Override
