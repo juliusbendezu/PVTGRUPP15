@@ -32,6 +32,6 @@ public class Shelter implements ClusterItem
     @Override
     public String getSnippet()
     {
-        return numberOfOccupants;
+        return "Antal platser: "+numberOfOccupants;
     }
 }

@@ -53,7 +53,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private ImageButton shelterImageButton;
+    private ImageButton healthClinicImageButton;
     private boolean shelterButtonIsPressed = false;
+    private boolean healthClinicButtonIsPressed = false;
     private List<Shelter> shelterList = new ArrayList<>();
     private List<HealthClinic> clinicList = new ArrayList<>();
     private ClusterManager<Shelter> clusterManager;
@@ -84,6 +86,23 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
             }
         });
+
+        healthClinicImageButton = findViewById(R.id.health_clinic_image_button);
+        healthClinicImageButton.setOnClickListener(v ->
+        {
+            healthClinicButtonIsPressed = !healthClinicButtonIsPressed;
+            if (healthClinicButtonIsPressed)
+            {
+                healthClinicImageButton.setImageResource(R.drawable.akut);
+            }
+            else
+            {
+                healthClinicImageButton.setImageResource(R.drawable.akut_grey);
+            }
+
+
+        });
+
 
         getLocationPermission();
         generateShelterObjects();
@@ -258,6 +277,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+    /* Reads information from the Eniro API and creates HealthClinic objects, finally adding them to a list so they can be processed by the cluster manager.*/
     private void generateHealthClinicObjects()
     {
         RequestQueue requestQueue = Volley.newRequestQueue(this);

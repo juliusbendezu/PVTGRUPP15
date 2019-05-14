@@ -12,14 +12,15 @@ import com.google.maps.android.clustering.ClusterItem;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
-public class ShelterClusterRenderer<T extends ClusterItem> extends DefaultClusterRenderer<T>
+public class HealthClinicClusterRenderer<T extends ClusterItem> extends DefaultClusterRenderer<T>
 {
     private final Context context;
 
-    public ShelterClusterRenderer(Context context, GoogleMap googleMap, ClusterManager<T> clusterManager)
+    public HealthClinicClusterRenderer(Context context, GoogleMap map, ClusterManager<T> clusterManager)
     {
-        super(context, googleMap, clusterManager);
+        super(context, map, clusterManager);
         this.context = context;
+
     }
 
     @Override
@@ -33,8 +34,8 @@ public class ShelterClusterRenderer<T extends ClusterItem> extends DefaultCluste
     {
         super.onBeforeClusterItemRendered(item, markerOptions);
 
-       Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.minibunker);
-       markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.mini_akut);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
 
     }
 }
