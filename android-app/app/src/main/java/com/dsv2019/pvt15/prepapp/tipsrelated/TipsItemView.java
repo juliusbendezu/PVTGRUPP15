@@ -38,7 +38,6 @@ public class TipsItemView extends LinearLayout {
         paint.setStrokeWidth(6);
         setWeightSum(1);
 
-
         TextView tipsSummary = new TextView(context);
         tipsSummary.setText("");
         styleTextView(tipsSummary,st);
@@ -70,11 +69,8 @@ public class TipsItemView extends LinearLayout {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        //Drawing the border
         canvas.drawLine(0, 0, getWidth(), 0, paint); //TOP
-        //canvas.drawLine(0, getHeight(), getWidth(), getHeight(), paint); //BOTTOM
-        //canvas.drawLine(getWidth(), 0, getWidth(), getHeight(), paint); //RIGHT
-        //canvas.drawLine(0, 0,0, getHeight(), paint); //LEFT
+
     }
 }
 
