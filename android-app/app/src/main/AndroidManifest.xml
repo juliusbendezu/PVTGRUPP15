@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CategoryActivity"></activity>
+        <activity android:name=".tipsrelated.CreateNewTip"></activity>
+        <activity android:name=".CategoryActivity" />
         <activity android:name=".TipsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

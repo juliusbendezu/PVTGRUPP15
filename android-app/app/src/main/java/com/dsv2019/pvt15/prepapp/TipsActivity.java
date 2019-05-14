@@ -3,19 +3,18 @@ package com.dsv2019.pvt15.prepapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.SingleTips;
 import com.dsv2019.pvt15.prepapp.tipsrelated.TipsItemView;
 
-import static android.graphics.Color.WHITE;
 import static android.graphics.Color.luminance;
 
 
@@ -25,9 +24,11 @@ public class TipsActivity extends Activity {
     private int categoryNR;
     private String categoryName;
     private TextView categoryText;
-
-
     private ImageButton backButton;
+    private ImageButton createNewTipButton;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ public class TipsActivity extends Activity {
         categoryNR =(int) getIntent().getExtras().get("category");
 
         createBackBtn();
+        createNewTipButton();
         loadTheTips();
         setCategoryView();
 
@@ -58,6 +60,17 @@ public class TipsActivity extends Activity {
         categoryText = findViewById(R.id.categoryTextView);
         categoryText.setText(categoryName);
 
+    }
+
+    public void createNewTipButton(){
+        createNewTipButton = findViewById(R.id.createNewTipButton);
+        createNewTipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), CreateNewTip.class);
+                startActivity(startIntent);
+            }
+        });
     }
 
     public void createBackBtn(){
