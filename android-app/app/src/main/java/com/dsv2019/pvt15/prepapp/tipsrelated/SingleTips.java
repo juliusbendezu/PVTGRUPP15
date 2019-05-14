@@ -5,6 +5,12 @@ public class SingleTips   {
     private String name;
     private String description;
     private int likes;
+    private String creator;
+    private int category;
+    private int ID;
+
+
+
 
     public SingleTips(String name, String description) {
         this.description=description;
@@ -27,6 +33,6 @@ public class SingleTips   {
         return String.format(name + " Description: " + description);
     }
 
-    
+
   //  String.format("%s\n%s", stringDate, title)
 }
