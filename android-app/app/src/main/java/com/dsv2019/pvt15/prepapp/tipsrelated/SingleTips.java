@@ -24,6 +24,9 @@ public class SingleTips   {
 
     @Override
     public String toString() {
-        return name + " Description: " + description;
+        return String.format(name + " Description: " + description);
     }
+
+    
+  //  String.format("%s\n%s", stringDate, title)
 }
