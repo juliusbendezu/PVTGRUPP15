@@ -71,12 +71,6 @@ public class SingleTips
         return Objects.hash(ID);
     }
 
-//    @Override
-//    public int compareTo(SingleTips o) {
-//        return likes.compareTo(o.likes);
-//    }
-
-
     @Override
     public String toString() {
         return String.format(name + " Description: " + description);
@@ -84,10 +78,13 @@ public class SingleTips
 
     @Override
     public int compareTo(SingleTips o) {
-        return 0;
+        if (o.likes < likes){
+            return 1;
+        }else if(o.likes>likes){
+            return -1;
+        }else{
+            return 0;
+        }
 
     }
-
-
-    //  String.format("%s\n%s", stringDate, title)
 }
