@@ -233,6 +233,11 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+    private void generateHospitalObjects()
+    {
+        
+    }
+
     private void addClusterItems()
     {
 

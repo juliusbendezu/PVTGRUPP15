@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity2"
     tools:layout="@layout/activity_maps2">
 
     <ImageButton
-    android:id="@+id/shelter_image_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center|bottom"
-    android:layout_marginTop="20dp"
-    android:background="@null"
-    android:contentDescription="shelter_button"
-    android:padding="10dp"
-    android:paddingRight="10dp"
-    android:src="@drawable/shelter"/>
+        android:id="@+id/shelter_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginRight="30dp"
+        android:background="@null"
+        android:contentDescription="shelter_button"
+        android:padding="10dp"
+        android:src="@drawable/shelter" />
+
+    <ImageButton
+        android:id="@+id/hospital_image_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginLeft="30dp"
+        android:background="@null"
+        android:contentDescription="hospital_button"
+        android:padding="10dp"
+        android:src="@drawable/akut" />
+
 </fragment>
