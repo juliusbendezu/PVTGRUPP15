@@ -34,7 +34,7 @@ public class HealthClinicClusterRenderer<T extends ClusterItem> extends DefaultC
     {
         super.onBeforeClusterItemRendered(item, markerOptions);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.mini_akut);
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.mini_health_clinic);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
 
     }

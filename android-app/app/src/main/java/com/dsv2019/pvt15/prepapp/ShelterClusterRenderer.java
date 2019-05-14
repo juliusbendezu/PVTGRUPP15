@@ -33,7 +33,7 @@ public class ShelterClusterRenderer<T extends ClusterItem> extends DefaultCluste
     {
         super.onBeforeClusterItemRendered(item, markerOptions);
 
-       Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.minibunker);
+       Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.mini_shelter);
        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
 
     }

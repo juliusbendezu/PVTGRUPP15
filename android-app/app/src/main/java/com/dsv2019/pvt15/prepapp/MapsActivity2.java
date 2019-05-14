@@ -9,7 +9,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -73,7 +72,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
             if (shelterButtonIsPressed)
             {
-                shelterImageButton.setImageResource(R.drawable.sheltergrey);
+                shelterImageButton.setImageResource(R.drawable.shelter_grey);
                 clusterManager.clearItems();
                 clusterManager.cluster();
 
@@ -93,11 +92,11 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             healthClinicButtonIsPressed = !healthClinicButtonIsPressed;
             if (healthClinicButtonIsPressed)
             {
-                healthClinicImageButton.setImageResource(R.drawable.akut);
+                healthClinicImageButton.setImageResource(R.drawable.health_clinic);
             }
             else
             {
-                healthClinicImageButton.setImageResource(R.drawable.akut_grey);
+                healthClinicImageButton.setImageResource(R.drawable.health_clinic_grey);
             }
 
 
