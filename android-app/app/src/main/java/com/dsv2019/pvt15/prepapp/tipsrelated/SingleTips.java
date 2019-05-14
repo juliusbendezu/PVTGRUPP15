@@ -73,7 +73,7 @@ public class SingleTips
 
     @Override
     public String toString() {
-        return String.format(name + " Description: " + description);
+        return String.format(name + "%s\n%s"+" Description: " + description);
     }
 
     @Override
