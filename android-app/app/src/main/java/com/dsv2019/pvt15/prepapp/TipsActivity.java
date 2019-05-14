@@ -30,8 +30,5 @@ public class TipsActivity extends Activity {
             }
         });
 
-
-
-
     }
 }

@@ -4,7 +4,9 @@ import com.dsv2019.pvt15.prepapp.models.NewsItem;
 
 import java.util.Objects;
 
-public class SingleTips implements Comparable<SingleTips>  {
+public class SingleTips
+
+        implements Comparable<SingleTips>  {
 
     private String name;
     private String description;
@@ -60,7 +62,8 @@ public class SingleTips implements Comparable<SingleTips>  {
                 description.equals(singleTips.description) &&
                 creator.equals(singleTips.creator) &&
                 ID==(singleTips.ID) &&
-                category==(singleTips.category);
+                category==(singleTips.category)&&
+                likes == (singleTips.likes);
     }
 
     @Override
@@ -68,10 +71,10 @@ public class SingleTips implements Comparable<SingleTips>  {
         return Objects.hash(ID);
     }
 
-    @Override
-    public int compareTo(SingleTips o) {
-        return likes.compareTo(o.likes);
-    }
+//    @Override
+//    public int compareTo(SingleTips o) {
+//        return likes.compareTo(o.likes);
+//    }
 
 
     @Override
@@ -79,6 +82,12 @@ public class SingleTips implements Comparable<SingleTips>  {
         return String.format(name + " Description: " + description);
     }
 
+    @Override
+    public int compareTo(SingleTips o) {
+        return 0;
 
-  //  String.format("%s\n%s", stringDate, title)
+    }
+
+
+    //  String.format("%s\n%s", stringDate, title)
 }
