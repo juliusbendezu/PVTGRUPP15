@@ -65,25 +65,23 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps2);
 
         shelterImageButton = findViewById(R.id.shelter_image_button);
-        shelterImageButton.setOnClickListener(new View.OnClickListener()
+        shelterImageButton.setOnClickListener(v ->
         {
-            @Override
-            public void onClick(View v)
+            shelterButtonIsPressed = !shelterButtonIsPressed;
+
+            if (shelterButtonIsPressed)
             {
-                shelterButtonIsPressed = !shelterButtonIsPressed;
+                shelterImageButton.setImageResource(R.drawable.sheltergrey);
+                clusterManager.clearItems();
+                clusterManager.cluster();
 
-                if (shelterButtonIsPressed)
-                {
-                    clusterManager.clearItems();
-                    clusterManager.cluster();
+            }
+            else
+            {
+                shelterImageButton.setImageResource(R.drawable.shelter);
+                addClusterItems();
+                clusterManager.cluster();
 
-                }
-                else
-                {
-                    addClusterItems();
-                    clusterManager.cluster();
-
-                }
             }
         });
 
@@ -297,7 +295,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                                 clinicList.add(clinic);
                             }
                         }
-                        Log.i(TAG, ""+clinicList.size());
+                        Log.i(TAG, "" + clinicList.size());
                     } catch (JSONException e)
                     {
                         e.printStackTrace();
@@ -317,7 +315,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
     private void setupClustering()
     {
-        MarkerClusterRenderer<Shelter> clusterRenderer = new MarkerClusterRenderer<>(this, mMap, clusterManager);
+        ShelterClusterRenderer<Shelter> clusterRenderer = new ShelterClusterRenderer<>(this, mMap, clusterManager);
         clusterManager.setRenderer(clusterRenderer);
         mMap.setOnCameraIdleListener(clusterManager);
         mMap.setOnMarkerClickListener(clusterManager);
