@@ -6,6 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,7 +29,7 @@ public class TipsItemView extends LinearLayout {
         super(context, attrs);
     }
 
-    public TipsItemView(Context context, SingleTips SingleTips) {
+    public TipsItemView(Context context, SingleTips st) {
         super(context);
         setWillNotDraw(false);
         paint.setColor(Color.BLACK);
@@ -34,8 +37,13 @@ public class TipsItemView extends LinearLayout {
         setWeightSum(1);
 
         TextView tipsSummary = new TextView(context);
-        tipsSummary.append(SingleTips.toString());
+        String name= st.getName();
+        String toSendBack = name+ st.getID()+System.getProperty("line.separator")+ "by: " +st.getCreator();
+        SpannableString boldString = new SpannableString(toSendBack);
+        tipsSummary.setText("");
         styleTextView(tipsSummary);
+        boldString.setSpan(new StyleSpan(Typeface.BOLD), 1, 1+name.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tipsSummary.append(toSendBack);
         addView(tipsSummary);
 
         ImageView buttonImage = new ImageView(context);
@@ -43,9 +51,9 @@ public class TipsItemView extends LinearLayout {
         addView(buttonImage);
     }
 
+
     private void styleTextView(TextView tv) {
         tv.setPadding(40, 20, 20, 20);
-        tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
         tv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, (float) 0.8));
     }
 

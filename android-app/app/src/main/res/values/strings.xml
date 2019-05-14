@@ -15,6 +15,8 @@
     <string name="HomeButton">HemSymbolen</string>
     <string name="account_name">Account name</string>
     <string name="mail_mail_com">mail@mail.com</string>
+    <string name="newTipText">Skapa ett nytt tips!</string>
+
 
 
     <!-->activity_category<-->

@@ -1,8 +1,20 @@
 package com.dsv2019.pvt15.prepapp.tipsrelated;
 
+import android.graphics.Typeface;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.style.StyleSpan;
+
+import com.dsv2019.pvt15.prepapp.R;
 import com.dsv2019.pvt15.prepapp.models.NewsItem;
 
 import java.util.Objects;
+
+import static android.text.Html.*;
 
 public class SingleTips
 
@@ -88,10 +100,13 @@ public class SingleTips
 
     @Override
     public String toString() {
-        //setCategory();
-        return String.format("Namn: "+ name + ID + System.getProperty("line.separator")+ "skapad av: "+creator );
-    }
 
+        SpannableString string = new SpannableString(name);
+        string.setSpan(new StyleSpan(Typeface.BOLD), 0, name.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return string.toString();
+
+//+ID+System.getProperty("line.separator")+ "by: " +creator);
+    }
     @Override
     public int compareTo(SingleTips o) {
         if (o.likes < likes){
