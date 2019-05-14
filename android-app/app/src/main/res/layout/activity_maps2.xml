@@ -20,7 +20,7 @@
         android:src="@drawable/shelter" />
 
     <ImageButton
-        android:id="@+id/hospital_image_button"
+        android:id="@+id/health_clinic_image_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
