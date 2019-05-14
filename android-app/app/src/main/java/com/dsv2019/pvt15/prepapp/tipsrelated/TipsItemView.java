@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -28,6 +29,7 @@ public class TipsItemView extends LinearLayout {
     public TipsItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
+    String toSendBack;
 
     public TipsItemView(Context context, SingleTips st) {
         super(context);
@@ -36,14 +38,10 @@ public class TipsItemView extends LinearLayout {
         paint.setStrokeWidth(6);
         setWeightSum(1);
 
+
         TextView tipsSummary = new TextView(context);
-        String name= st.getName();
-        String toSendBack = name+ st.getID()+System.getProperty("line.separator")+ "by: " +st.getCreator();
-        SpannableString boldString = new SpannableString(toSendBack);
         tipsSummary.setText("");
-        styleTextView(tipsSummary);
-        boldString.setSpan(new StyleSpan(Typeface.BOLD), 1, 1+name.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        tipsSummary.append(toSendBack);
+        styleTextView(tipsSummary,st);
         addView(tipsSummary);
 
         ImageView buttonImage = new ImageView(context);
@@ -52,8 +50,13 @@ public class TipsItemView extends LinearLayout {
     }
 
 
-    private void styleTextView(TextView tv) {
+    private void styleTextView(TextView tv,SingleTips st) {
+        String boldString = "<b>" + st.getName() + "</b> " + st.getID();
+        tv.setText(Html.fromHtml(boldString));
+
+        String nonBold = ""+System.getProperty("line.separator")+ "by: " +st.getCreator();
         tv.setPadding(40, 20, 20, 20);
+        tv.append(nonBold);
         tv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, (float) 0.8));
     }
 

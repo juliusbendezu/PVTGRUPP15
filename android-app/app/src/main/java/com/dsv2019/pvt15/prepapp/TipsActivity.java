@@ -3,6 +3,7 @@ package com.dsv2019.pvt15.prepapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import com.dsv2019.pvt15.prepapp.tipsrelated.SingleTips;
 import com.dsv2019.pvt15.prepapp.tipsrelated.TipsItemView;
+
+import static android.graphics.Color.WHITE;
+import static android.graphics.Color.luminance;
 
 
 public class TipsActivity extends Activity {
