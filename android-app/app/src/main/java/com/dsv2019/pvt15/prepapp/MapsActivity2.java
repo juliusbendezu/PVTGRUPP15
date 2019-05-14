@@ -9,10 +9,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.dsv2019.pvt15.prepapp.models.HealthClinic;
+import com.dsv2019.pvt15.prepapp.models.Shelter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,11 +25,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.dsv2019.pvt15.prepapp.models.Shelter;
 import com.google.maps.android.clustering.ClusterManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,8 +52,11 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private ImageButton shelterImageButton;
+    private ImageButton healthClinicImageButton;
     private boolean shelterButtonIsPressed = false;
+    private boolean healthClinicButtonIsPressed = false;
     private List<Shelter> shelterList = new ArrayList<>();
+    private List<HealthClinic> clinicList = new ArrayList<>();
     private ClusterManager<Shelter> clusterManager;
 
     @Override
@@ -56,27 +66,46 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps2);
 
         shelterImageButton = findViewById(R.id.shelter_image_button);
-        shelterImageButton.setOnClickListener(new View.OnClickListener()
+        shelterImageButton.setOnClickListener(v ->
         {
-            @Override
-            public void onClick(View v)
+            shelterButtonIsPressed = !shelterButtonIsPressed;
+
+            if (shelterButtonIsPressed)
             {
-                shelterButtonIsPressed = !shelterButtonIsPressed;
+                shelterImageButton.setImageResource(R.drawable.shelter_grey);
+                clusterManager.clearItems();
+                clusterManager.cluster();
 
-                if (shelterButtonIsPressed) {
-                    clusterManager.clearItems();
-                    clusterManager.cluster();
+            }
+            else
+            {
+                shelterImageButton.setImageResource(R.drawable.shelter);
+                addClusterItems();
+                clusterManager.cluster();
 
-                }
-                else {
-                    addClusterItems();
-                    clusterManager.cluster();
-
-                }
             }
         });
 
+        healthClinicImageButton = findViewById(R.id.health_clinic_image_button);
+        healthClinicImageButton.setOnClickListener(v ->
+        {
+            healthClinicButtonIsPressed = !healthClinicButtonIsPressed;
+            if (healthClinicButtonIsPressed)
+            {
+                healthClinicImageButton.setImageResource(R.drawable.health_clinic);
+            }
+            else
+            {
+                healthClinicImageButton.setImageResource(R.drawable.health_clinic_grey);
+            }
+
+
+        });
+
+
         getLocationPermission();
+        generateShelterObjects();
+        generateHealthClinicObjects();
     }
 
     @Override
@@ -86,12 +115,14 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         Log.d(TAG, "onMapReady: map is ready");
         mMap = googleMap;
 
-        if (mLocationPermissionsGranted) {
+        if (mLocationPermissionsGranted)
+        {
             getDeviceLocation();
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            {
                 return;
             }
             mMap.setMyLocationEnabled(true);
@@ -99,9 +130,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             mMap.getUiSettings().setMapToolbarEnabled(false);
 
             clusterManager = new ClusterManager<>(this, googleMap);
-            generateShelterObjects();
             setupClustering();
-
         }
     }
 
@@ -111,8 +140,10 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        try {
-            if (mLocationPermissionsGranted) {
+        try
+        {
+            if (mLocationPermissionsGranted)
+            {
 
                 final Task location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener()
@@ -120,20 +151,23 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                     @Override
                     public void onComplete(@NonNull Task task)
                     {
-                        if (task.isSuccessful() && task.getResult() != null) {
+                        if (task.isSuccessful() && task.getResult() != null)
+                        {
                             Location currentLocation = (Location) task.getResult();
 
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM);
 
                         }
-                        else {
+                        else
+                        {
                             Toast.makeText(MapsActivity2.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
-        } catch (SecurityException e) {
+        } catch (SecurityException e)
+        {
             Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
         }
     }
@@ -159,19 +193,23 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        {
             if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            {
                 mLocationPermissionsGranted = true;
                 initMap();
             }
-            else {
+            else
+            {
                 ActivityCompat.requestPermissions(this,
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
         }
-        else {
+        else
+        {
             ActivityCompat.requestPermissions(this,
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
@@ -183,11 +221,16 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     {
         mLocationPermissionsGranted = false;
 
-        switch (requestCode) {
-            case LOCATION_PERMISSION_REQUEST_CODE: {
-                if (grantResults.length > 0) {
-                    for (int i = 0; i < grantResults.length; i++) {
-                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+        switch (requestCode)
+        {
+            case LOCATION_PERMISSION_REQUEST_CODE:
+            {
+                if (grantResults.length > 0)
+                {
+                    for (int i = 0; i < grantResults.length; i++)
+                    {
+                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED)
+                        {
                             mLocationPermissionsGranted = false;
                             return;
                         }
@@ -202,16 +245,15 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     /* Reads in the shelters from the .csv file, turning them into Shelter objects, finally adding them to a list so they can be processed by the cluster manager.*/
     private void generateShelterObjects()
     {
-
-        Log.i(TAG, "METHOD generateShelterObjects() STARTED");
-
         InputStream is = getResources().openRawResource(R.raw.shelters_csv_file);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8")));
         String line = "";
 
-        try {
-            while ((line = reader.readLine()) != null) {
+        try
+        {
+            while ((line = reader.readLine()) != null)
+            {
                 // Split the line into different tokens (using the comma as a separator).
                 String[] tokens = line.split(",");
 
@@ -227,15 +269,60 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
             }
 
-        } catch (IOException e1) {
+        } catch (IOException e1)
+        {
             Log.e(TAG, "Error" + line, e1);
             e1.printStackTrace();
         }
     }
 
-    private void generateHospitalObjects()
+    /* Reads information from the Eniro API and creates HealthClinic objects, finally adding them to a list so they can be processed by the cluster manager.*/
+    private void generateHealthClinicObjects()
     {
-        
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "https://api.eniro.com/cs/search/basic?profile=PVT15&key=2588305061743139325&country=se&version=1.1.3&search_word=akutmottagning&geo_area=Stockholm&from_list=1&to_list=100";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                response ->
+                {
+                    try
+                    {
+                        JSONArray jsonArray = response.getJSONArray("adverts");
+
+                        for (int i = 0; i < jsonArray.length(); i++)
+                        {
+                            JSONObject healthClinic = jsonArray.getJSONObject(i);
+
+                            JSONObject companyInfo = healthClinic.getJSONObject("companyInfo");
+                            String companyName = companyInfo.getString("companyName");
+
+                            JSONObject addressInfo = healthClinic.getJSONObject("address");
+                            String address = addressInfo.getString("streetName");
+
+                            JSONObject location = healthClinic.getJSONObject("location");
+                            JSONArray coordinates = location.getJSONArray("coordinates");
+
+                            /*Some locations don't have coordinates available so we only process those that have them*/
+                            if (coordinates.length() > 0)
+                            {
+                                JSONObject coordinatesInfo = (JSONObject) coordinates.get(0);
+                                double longitude = Double.parseDouble(coordinatesInfo.getString("longitude"));
+                                double latitude = Double.parseDouble(coordinatesInfo.getString("latitude"));
+                                LatLng latLng = new LatLng(latitude, longitude);
+
+                                HealthClinic clinic = new HealthClinic(latLng, address, companyName);
+                                clinicList.add(clinic);
+                            }
+                        }
+                        Log.i(TAG, "" + clinicList.size());
+                    } catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                }, error -> error.printStackTrace());
+
+        requestQueue.add(request);
     }
 
     private void addClusterItems()
@@ -247,7 +334,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
     private void setupClustering()
     {
-        MarkerClusterRenderer<Shelter> clusterRenderer = new MarkerClusterRenderer<>(this, mMap, clusterManager);
+        ShelterClusterRenderer<Shelter> clusterRenderer = new ShelterClusterRenderer<>(this, mMap, clusterManager);
         clusterManager.setRenderer(clusterRenderer);
         mMap.setOnCameraIdleListener(clusterManager);
         mMap.setOnMarkerClickListener(clusterManager);

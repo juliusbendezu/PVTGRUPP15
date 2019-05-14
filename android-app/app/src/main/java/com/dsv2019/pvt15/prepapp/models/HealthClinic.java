@@ -3,35 +3,34 @@ package com.dsv2019.pvt15.prepapp.models;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
-public class Shelter implements ClusterItem
+public class HealthClinic implements ClusterItem
 {
     private final LatLng position;
     private final String address;
-    private final String numberOfOccupants;
+    private final String name;
 
-
-    public Shelter(LatLng latLng, String mTitle, String mSnippet)
+    public HealthClinic(LatLng position, String address, String name)
     {
-        this.position = latLng;
-        this.address = mTitle;
-        this.numberOfOccupants = mSnippet;
+        this.position = position;
+        this.address = address;
+        this.name = name;
     }
 
     @Override
     public LatLng getPosition()
     {
-        return position;
+        return null;
     }
 
     @Override
     public String getTitle()
     {
-        return address;
+        return name;
     }
 
     @Override
     public String getSnippet()
     {
-        return "Antal platser: "+numberOfOccupants;
+        return address;
     }
 }
