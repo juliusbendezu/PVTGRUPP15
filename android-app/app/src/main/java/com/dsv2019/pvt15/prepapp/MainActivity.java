@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 
         tipsButton = findViewById(R.id.tipsButton);
         tipsButton.setOnClickListener(l -> {
-            Intent intent = new Intent(getApplicationContext(), TipsActivity.class);
+            Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
             startActivity(intent);
         });
 
