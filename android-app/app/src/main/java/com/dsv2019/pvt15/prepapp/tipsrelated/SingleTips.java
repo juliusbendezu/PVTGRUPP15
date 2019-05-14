@@ -73,7 +73,7 @@ public class SingleTips
 
     @Override
     public String toString() {
-        return String.format(name + "%s\n%s"+" Description: " + description);
+        return String.format(name + ID + System.getProperty("line.separator")+ "skapad av: "+creator );
     }
 
     @Override
