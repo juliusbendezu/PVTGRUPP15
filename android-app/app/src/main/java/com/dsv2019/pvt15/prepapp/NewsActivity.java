@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -34,6 +35,9 @@ public class NewsActivity extends Activity {
     RequestQueue requestQueue;
     ArrayList<NewsItem> newsFeed;
 
+
+    ProgressBar spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +52,8 @@ public class NewsActivity extends Activity {
 
         requestQueue = Volley.newRequestQueue(this);
         newsFeed = new ArrayList<>();
+        spinner = findViewById(R.id.progressSpinner);
+
         requestNewsFeed();
     }
 
@@ -66,6 +72,10 @@ public class NewsActivity extends Activity {
                                     bigObject.getString("Sender"),
                                     bigObject.getString("Sent"));
                             Log.d("GetNewsFeed", "NewsItem: " + newsItem);
+
+                            if(i == 0)
+                                spinner.setVisibility(View.GONE);
+
                             newsFeed.add(newsItem);
                             addNews(newsItem);
                             Log.d("GetNewsFeed", "newsFeed size: " + newsFeed.size());
