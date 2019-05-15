@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
     <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="322dp"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/info_window_title"
@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Information"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -27,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/montserrat"
             android:text="Adress: "
             android:textStyle="bold" />
 
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Latitud: "
             android:textStyle="bold" />
 
@@ -45,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Longitud: "
             android:textStyle="bold" />
 
@@ -54,8 +58,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/montserrat"
             android:text="Antal platser: "
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/infowindowcolor" />
 
     </LinearLayout>
 
