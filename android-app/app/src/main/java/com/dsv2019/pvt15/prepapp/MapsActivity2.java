@@ -9,8 +9,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -51,14 +51,10 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private ImageButton shelterImageButton;
-    private ImageButton healthClinicImageButton;
-    private boolean shelterButtonIsDeactivated = false;
-    private boolean healthClinicButtonIsDeactivated = true;
+    private ToggleButton toggleButton;
     private List<Shelter> shelterList = new ArrayList<>();
     private List<HealthClinic> clinicList = new ArrayList<>();
-    private ClusterManager<Shelter> clusterManager;
-
+    private ClusterManager<Shelter> shelterClusterManager;
     private ClusterManager<HealthClinic> healthClinicClusterManager;
 
     @Override
@@ -67,46 +63,24 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
 
-        shelterImageButton = findViewById(R.id.shelter_image_button);
-        shelterImageButton.setOnClickListener(v ->
+        toggleButton = findViewById(R.id.map_toggle_button);
+        toggleButton.setOnCheckedChangeListener((buttonView, isChecked) ->
         {
-            shelterButtonIsDeactivated = !shelterButtonIsDeactivated;
-
-            if (shelterButtonIsDeactivated)
+            if (isChecked)
             {
-                shelterImageButton.setImageResource(R.drawable.shelter_grey);
-                clusterManager.clearItems();
-                clusterManager.cluster();
-                clusterManager = null;
-
-            }
-            else
-            {
-                shelterImageButton.setImageResource(R.drawable.shelter);
-                setupShelterClustering();
-                addShelterClusterItems();
-                clusterManager.cluster();
-
-            }
-        });
-
-        healthClinicImageButton = findViewById(R.id.health_clinic_image_button);
-        healthClinicImageButton.setOnClickListener(v ->
-        {
-            healthClinicButtonIsDeactivated = !healthClinicButtonIsDeactivated;
-            if (healthClinicButtonIsDeactivated)
-            {
-                healthClinicImageButton.setImageResource(R.drawable.health_clinic_grey);
+                //show shelters
                 healthClinicClusterManager.clearItems();
                 healthClinicClusterManager.cluster();
                 healthClinicClusterManager = null;
+                setupShelterClustering();
             }
             else
             {
-                healthClinicImageButton.setImageResource(R.drawable.health_clinic);
+                //show health clinics
+                shelterClusterManager.clearItems();
+                shelterClusterManager.cluster();
+                shelterClusterManager = null;
                 setupHealthClinicClustering();
-                addHealthClinicClusterItems();
-                healthClinicClusterManager.cluster();
             }
         });
         getLocationPermission();
@@ -135,7 +109,6 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             healthClinicClusterManager = new ClusterManager<>(this, googleMap);
             generateHealthClinicObjects();
             generateShelterObjects();
-
             setupShelterClustering();
         }
     }
@@ -335,7 +308,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private void addShelterClusterItems()
     {
 
-        clusterManager.addItems(shelterList);
+        shelterClusterManager.addItems(shelterList);
 
     }
 
@@ -346,13 +319,13 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
     private void setupShelterClustering()
     {
-        clusterManager = new ClusterManager<>(this, mMap);
-        ShelterClusterRenderer<Shelter> clusterRenderer = new ShelterClusterRenderer<>(this, mMap, clusterManager);
-        clusterManager.setRenderer(clusterRenderer);
-        mMap.setOnCameraIdleListener(clusterManager);
-        mMap.setOnMarkerClickListener(clusterManager);
+        shelterClusterManager = new ClusterManager<>(this, mMap);
+        ShelterClusterRenderer<Shelter> clusterRenderer = new ShelterClusterRenderer<>(this, mMap, shelterClusterManager);
+        shelterClusterManager.setRenderer(clusterRenderer);
+        mMap.setOnCameraIdleListener(shelterClusterManager);
+        mMap.setOnMarkerClickListener(shelterClusterManager);
         addShelterClusterItems();
-        clusterManager.cluster();
+        shelterClusterManager.cluster();
     }
 
     private void setupHealthClinicClustering()
@@ -362,6 +335,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         healthClinicClusterManager.setRenderer(clusterRenderer);
         mMap.setOnCameraIdleListener(healthClinicClusterManager);
         mMap.setOnMarkerClickListener(healthClinicClusterManager);
+        addHealthClinicClusterItems();
         healthClinicClusterManager.cluster();
 
 
