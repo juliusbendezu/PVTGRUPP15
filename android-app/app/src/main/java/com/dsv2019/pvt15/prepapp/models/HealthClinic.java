@@ -19,7 +19,7 @@ public class HealthClinic implements ClusterItem
     @Override
     public LatLng getPosition()
     {
-        return null;
+        return position;
     }
 
     @Override
