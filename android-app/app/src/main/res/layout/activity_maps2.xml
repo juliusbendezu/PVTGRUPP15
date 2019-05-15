@@ -13,32 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/togglebutton_selector"
-        android:textOff="@null"
-        android:textOn="@null"
         android:checked="true"
-        android:layout_marginBottom="5dp"/>
-
-    <!--<ImageButton-->
-    <!--android:id="@+id/shelter_image_button"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center|bottom"-->
-    <!--android:layout_marginRight="30dp"-->
-    <!--android:background="@null"-->
-    <!--android:contentDescription="shelter_button"-->
-    <!--android:padding="10dp"-->
-    <!--android:src="@drawable/shelter" />-->
-
-    <!--<ImageButton-->
-    <!--android:id="@+id/health_clinic_image_button"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center|bottom"-->
-    <!--android:layout_marginLeft="30dp"-->
-    <!--android:background="@null"-->
-    <!--android:contentDescription="hospital_button"-->
-    <!--android:padding="10dp"-->
-    <!--android:src="@drawable/health_clinic_grey" />-->
-
+        android:textOff="@null"
+        android:textOn="@null" />
 </fragment>

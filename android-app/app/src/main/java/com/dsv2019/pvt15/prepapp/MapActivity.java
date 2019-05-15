@@ -41,9 +41,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback
 {
-    private static final String TAG = "MapsActivity2";
+    private static final String TAG = "MapActivity";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
@@ -51,6 +51,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+
     private ToggleButton toggleButton;
     private List<Shelter> shelterList = new ArrayList<>();
     private List<HealthClinic> clinicList = new ArrayList<>();
@@ -68,18 +69,20 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         {
             if (isChecked)
             {
-                //show shelters
+                //removes the health clinic manager so we can set up the shelter manager
                 healthClinicClusterManager.clearItems();
                 healthClinicClusterManager.cluster();
                 healthClinicClusterManager = null;
+
                 setupShelterClustering();
             }
             else
             {
-                //show health clinics
+                //removes the shelter manager so we can set up the health clinic manager
                 shelterClusterManager.clearItems();
                 shelterClusterManager.cluster();
                 shelterClusterManager = null;
+
                 setupHealthClinicClustering();
             }
         });
@@ -106,7 +109,9 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             mMap.getUiSettings().setMapToolbarEnabled(false);
 
+            /*This is here because of the temporary bug fix with Volley and loading in of Health Clinic objects.*/
             healthClinicClusterManager = new ClusterManager<>(this, googleMap);
+
             generateHealthClinicObjects();
             generateShelterObjects();
             setupShelterClustering();
@@ -140,7 +145,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
                         }
                         else
                         {
-                            Toast.makeText(MapsActivity2.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -162,7 +167,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         Log.d(TAG, "initMap: initializing map");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
-        mapFragment.getMapAsync(MapsActivity2.this);
+        mapFragment.getMapAsync(MapActivity.this);
     }
 
     private void getLocationPermission()

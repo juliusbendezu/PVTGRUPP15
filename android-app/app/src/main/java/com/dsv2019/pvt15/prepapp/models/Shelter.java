@@ -9,12 +9,11 @@ public class Shelter implements ClusterItem
     private final String address;
     private final String numberOfOccupants;
 
-
-    public Shelter(LatLng latLng, String mTitle, String mSnippet)
+    public Shelter(LatLng position, String address, String numberOfOccupants)
     {
-        this.position = latLng;
-        this.address = mTitle;
-        this.numberOfOccupants = mSnippet;
+        this.position = position;
+        this.address = address;
+        this.numberOfOccupants = numberOfOccupants;
     }
 
     @Override

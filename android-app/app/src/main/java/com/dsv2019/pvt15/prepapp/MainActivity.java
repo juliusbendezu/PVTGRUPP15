@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
         mapsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), MapsActivity2.class);
+                Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
                 startActivity(startIntent);
             }
         });
