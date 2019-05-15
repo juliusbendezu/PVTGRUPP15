@@ -56,6 +56,10 @@ public class NewsItem implements Comparable<NewsItem> {
         return date;
     }
 
+    public String getStringDate() {
+        return stringDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

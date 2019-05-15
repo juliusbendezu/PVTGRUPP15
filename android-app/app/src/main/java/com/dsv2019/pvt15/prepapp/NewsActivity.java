@@ -1,12 +1,17 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageButton;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -50,7 +55,7 @@ public class NewsActivity extends Activity {
 
         JsonArrayRequest request = new JsonArrayRequest(NEWS_FEED_SERVICE,
                 response -> {
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < 20; i++) {
                         try {
                             JSONObject bigObject = (JSONObject) response.get(i);
                             JSONObject innerObject = bigObject.getJSONArray("InfoData").getJSONObject(0);
@@ -83,13 +88,35 @@ public class NewsActivity extends Activity {
         NewsItemView newsItemView = new NewsItemView(this, newsItem);
 
         newsItemView.setOnClickListener(l -> {
-            if (newsItemView.getBackground() == null)
-                newsItemView.setBackgroundColor(Color.CYAN);
-            else
-                newsItemView.setBackground(null);
+
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View popupView = inflater.inflate(R.layout.popup_news, null);
+            PopupWindow pw = new PopupWindow(popupView,
+                    (int) (newsItemView.getWidth() * .8),
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    true);
+
+            setPopupValues(popupView, newsItem);
+            pw.showAtLocation(newsItemView, Gravity.CENTER, 0, 0);
+
         });
 
         layout.addView(newsItemView);
     }
 
+    private void setPopupValues(View popup, NewsItem newsItem) {
+        TextView title, date, desc, web;
+
+        title = popup.findViewById(R.id.titleTextView);
+        title.append(newsItem.getTitle());
+
+        date = popup.findViewById(R.id.dateTextView);
+        date.append(newsItem.getStringDate());
+
+        desc = popup.findViewById(R.id.descriptionTextView);
+        desc.append(newsItem.getDescription());
+
+        web = popup.findViewById(R.id.webTextView);
+        web.append(newsItem.getUrl());
+    }
 }

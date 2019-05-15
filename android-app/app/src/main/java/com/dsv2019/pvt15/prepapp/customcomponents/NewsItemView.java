@@ -29,7 +29,7 @@ public class NewsItemView extends LinearLayout {
         super(context);
         setWillNotDraw(false);
         paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(6);
+        paint.setStrokeWidth(7);
         setWeightSum(1);
 
         TextView newsSummaryTV = new TextView(context);
