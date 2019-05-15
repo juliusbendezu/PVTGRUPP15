@@ -1,6 +1,7 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -25,6 +29,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.maps.android.clustering.ClusterManager;
@@ -41,7 +46,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback
+public class MapActivity extends FragmentActivity implements
+        OnMapReadyCallback,
+        ClusterManager.OnClusterItemClickListener<Shelter>
 {
     private static final String TAG = "MapActivity";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -58,11 +65,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
     private ClusterManager<Shelter> shelterClusterManager;
     private ClusterManager<HealthClinic> healthClinicClusterManager;
 
+    private Shelter clickedShelter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps2);
+        setContentView(R.layout.activity_map);
 
         toggleButton = findViewById(R.id.map_toggle_button);
         toggleButton.setOnCheckedChangeListener((buttonView, isChecked) ->
@@ -92,7 +101,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
-        Toast.makeText(this, "Map is Ready", Toast.LENGTH_SHORT).show();
         mMap = googleMap;
 
         if (mLocationPermissionsGranted)
@@ -114,6 +122,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
 
             generateHealthClinicObjects();
             generateShelterObjects();
+
             setupShelterClustering();
         }
     }
@@ -312,9 +321,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void addShelterClusterItems()
     {
-
         shelterClusterManager.addItems(shelterList);
-
     }
 
     private void addHealthClinicClusterItems()
@@ -330,6 +337,42 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnCameraIdleListener(shelterClusterManager);
         mMap.setOnMarkerClickListener(shelterClusterManager);
         addShelterClusterItems();
+
+        shelterClusterManager.setOnClusterItemClickListener(this);
+        mMap.setInfoWindowAdapter(shelterClusterManager.getMarkerManager());
+        mMap.setOnInfoWindowClickListener(shelterClusterManager);
+
+        shelterClusterManager.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
+        {
+            @Override
+            public View getInfoWindow(Marker marker)
+            {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                final View view = inflater.inflate(R.layout.custom_info_window_shelter, null);
+
+                TextView address = view.findViewById(R.id.info_window_address);
+                TextView occupants = view.findViewById(R.id.info_window_occupants);
+                TextView latitude = view.findViewById(R.id.info_window_latitude);
+                TextView longitude = view.findViewById(R.id.info_window_longitude);
+
+                address.append(clickedShelter.getTitle());
+                occupants.append(clickedShelter.getSnippet());
+                latitude.append("" + clickedShelter.getLatitude());
+                longitude.append("" + clickedShelter.getLongitude());
+
+
+                return view;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker)
+            {
+                return null;
+            }
+        });
+
+
         shelterClusterManager.cluster();
     }
 
@@ -344,5 +387,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback
         healthClinicClusterManager.cluster();
 
 
+    }
+
+    @Override
+    public boolean onClusterItemClick(Shelter shelter)
+    {
+        clickedShelter = shelter;
+        return false;
     }
 }
