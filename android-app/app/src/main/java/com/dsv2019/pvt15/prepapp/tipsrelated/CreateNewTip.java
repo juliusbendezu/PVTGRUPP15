@@ -79,21 +79,27 @@ public class CreateNewTip extends Activity {
         if((boolean) ((CheckBox) findViewById(R.id.warmthCheckBox)).isChecked()==true){
             catChecked[0]=true;
         }else {catChecked[0]=false;}
-        if((boolean) ((CheckBox) findViewById(R.id.waterCheckBox)).isChecked()==true){
+        if((boolean) ((CheckBox) findViewById(R.id.waterCheckBox)).isChecked()){
             catChecked[1]=true;
         }else {catChecked[1]=false;}
-        if((boolean) ((CheckBox) findViewById(R.id.shelterCheckBox)).isChecked()==true){
+        if((boolean) ((CheckBox) findViewById(R.id.shelterCheckBox)).isChecked()){
             catChecked[2]=true;
         }else {catChecked[2]=false;}
-        if((boolean) ((CheckBox) findViewById(R.id.foodCheckBox)).isChecked()==true){
+        if((boolean) ((CheckBox) findViewById(R.id.foodCheckBox)).isChecked()){
             catChecked[3]=true;
         }else {catChecked[3]=false;}
-        if((boolean) ((CheckBox) findViewById(R.id.healthCheckBox)).isChecked()==true){
+        if((boolean) ((CheckBox) findViewById(R.id.healthCheckBox)).isChecked()){
             catChecked[4]=true;
         }else {catChecked[4]=false;}
-        if((boolean) ((CheckBox) findViewById(R.id.securityCheckBox)).isChecked()==true){
+        if((boolean) ((CheckBox) findViewById(R.id.securityCheckBox)).isChecked()){
             catChecked[5]=true;
         }else {catChecked[5]=false;}
+        if((boolean) ((CheckBox) findViewById(R.id.storageCheckBox)).isChecked()){
+            catChecked[6]=true;
+        }else {catChecked[6]=false;}
+        if((boolean) ((CheckBox) findViewById(R.id.otherCheckBox)).isChecked()){
+            catChecked[7]=true;
+        }else {catChecked[7]=false;}
         return catChecked;
     }
 
