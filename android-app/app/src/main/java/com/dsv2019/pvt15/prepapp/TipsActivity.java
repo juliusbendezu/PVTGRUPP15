@@ -1,6 +1,7 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,19 +9,26 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.dsv2019.pvt15.prepapp.tipsrelated.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
-import com.dsv2019.pvt15.prepapp.tipsrelated.SingleTips;
+import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.TipsItemView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.graphics.Color.luminance;
 
 
 public class TipsActivity extends Activity {
 
-    ArrayList<SingleTips> tipsList = new ArrayList<>();
+    ArrayList<Tip> tipsList = new ArrayList<>();
     private int categoryNR;
     private String categoryName;
     private TextView categoryText;
@@ -38,8 +46,9 @@ public class TipsActivity extends Activity {
 
         createBackBtn();
         createNewTipButton();
-       // loadTheTips();
+        loadTheTips();
         setCategoryView();
+
 
     }
 
@@ -89,24 +98,58 @@ public class TipsActivity extends Activity {
     }
 
 
-//    // denna bör egentligen baseras på categoryNR som vi ska avända för att hämta tipsen ur tabellen.
-//    public void loadTheTips(){
-//
-//        SingleTips singleTipsLong = new SingleTips("Ett långt tips","här är ett tips här är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tips",categoryNR,"Elsa",1);
-//        tipsList.add(singleTipsLong);
-//        addTips(singleTipsLong);
-//
-//        for (int i = 2; i < 10; i++) {
-//            SingleTips singleTips = new SingleTips("Ett Tips","här är ett tips",categoryNR,"Elsa",i);
-//            tipsList.add(singleTips);
-//            addTips(singleTips);
-//        }
-//    }
 
-    private void addTips(SingleTips singleTips) {
+    public void loadTheTips() {
+        if(InternetConnection.checkConnection(getApplicationContext())){
+            final ProgressDialog dialog;
+
+            dialog = new ProgressDialog(TipsActivity.this);
+            dialog.setTitle("Getting the tips");
+            dialog.setMessage("please wait");
+            dialog.show();
+
+
+            BaseAPIService api = RetrofitClient.getApiService();
+
+            Call<List<Tip>> call = api.getTips();
+            //Call<String> call =api.getHelloString();
+
+            //Call<List<Post>> call =api.getPosts();
+
+
+
+            call.enqueue(new Callback<List<Tip>>() {
+                @Override
+                public void onResponse(Call<List<Tip>> call, Response<List<Tip>> response) {
+                    dialog.dismiss();
+                    if(!response.isSuccessful()){
+                        Toast.makeText(TipsActivity.this,"Tipsen har inte laddats"+response.code(),Toast.LENGTH_LONG).show();
+                    }
+
+                    List<Tip> allTips = response.body();
+                    //Toast.makeText(TipsActivity.this,"Tipsen har laddats "+allTips.get(0).getName(),Toast.LENGTH_LONG).show();
+
+
+                        System.out.println(allTips.get(1).getTitel());
+
+
+
+                }
+
+                @Override
+                public void onFailure(Call<List<Tip>> call, Throwable t) {
+                    dialog.dismiss();
+                    Toast.makeText(TipsActivity.this,"Tipsen har inte laddats2",Toast.LENGTH_LONG).show();
+
+                }
+            });
+        }
+    }
+
+    private void addTips(Tip tip) {
         LinearLayout layout = findViewById(R.id.newsLinearLayout);
 
-        TipsItemView tipsItemView = new TipsItemView(this, singleTips);
+        TipsItemView tipsItemView = new TipsItemView(this, tip);
 
         tipsItemView.setOnClickListener(l -> {
             if (tipsItemView.getBackground() == null)

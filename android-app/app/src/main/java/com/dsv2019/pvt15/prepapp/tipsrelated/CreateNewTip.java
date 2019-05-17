@@ -1,12 +1,8 @@
 package com.dsv2019.pvt15.prepapp.tipsrelated;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -65,7 +61,7 @@ public class CreateNewTip extends Activity {
 
 
 
-            SingleTips newSP = new SingleTips(title,descritption,checkChosenCategory(),"Elsa");
+            Tip newSP = new Tip(title,descritption,checkChosenCategory(),"Elsa");
 
 
 //                Intent startIntent = new Intent(getApplicationContext(), CreateNewTip.class);

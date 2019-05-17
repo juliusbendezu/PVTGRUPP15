@@ -5,18 +5,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dsv2019.pvt15.prepapp.R;
-import com.dsv2019.pvt15.prepapp.models.NewsItem;
 
 public class TipsItemView extends LinearLayout {
 
@@ -31,7 +26,7 @@ public class TipsItemView extends LinearLayout {
     }
     String toSendBack;
 
-    public TipsItemView(Context context, SingleTips st) {
+    public TipsItemView(Context context, Tip st) {
         super(context);
         setWillNotDraw(false);
         paint.setColor(Color.BLACK);
@@ -49,8 +44,8 @@ public class TipsItemView extends LinearLayout {
     }
 
 
-    private void styleTextView(TextView tv,SingleTips st) {
-        String boldString = "<b>" + st.getName() + "</b> " + st.getID();
+    private void styleTextView(TextView tv, Tip st) {
+        String boldString = "<b>" + st.getTitel() + "</b> ";
         tv.setText(Html.fromHtml(boldString));
 
         String nonBold = ""+System.getProperty("line.separator")+ "by: " +st.getCreator();
