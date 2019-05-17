@@ -105,7 +105,6 @@ public class SingleTips
         string.setSpan(new StyleSpan(Typeface.BOLD), 0, name.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return string.toString();
 
-//+ID+System.getProperty("line.separator")+ "by: " +creator);
     }
     @Override
     public int compareTo(SingleTips o) {
