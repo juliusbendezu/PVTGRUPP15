@@ -26,14 +26,14 @@ public class SingleTips
     private String creator;
     private int categoryNR;
     private String categoryName;
+    private boolean[]categoryCheck;
     private int ID;
 
 
-    public SingleTips(String name, String description, int categoryNR,String creator,int ID) {
+    public SingleTips(String name, String description, boolean[] categoryCheck,String creator) {
         this.description=description;
         this.name=name;
-        this.ID=ID;
-        this.categoryNR=categoryNR;
+        this.categoryCheck=categoryCheck;
         this.creator=creator;
     }
 

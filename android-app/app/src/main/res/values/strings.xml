@@ -20,6 +20,17 @@
     <string name="chooseCategoryHint">Välj en eller fler kategorier</string>
     <string name="descriptionHint">Beskriv ditt tips</string>
     <string name="saveText">Spara</string>
+    <string name="warmthCheckBoxText">Värme</string>
+    <string name="waterCheckBoxText">Vatten</string>
+    <string name="shelterCheckBoxText">Skydd</string>
+    <string name="foodCheckBoxText">Mat</string>
+    <string name="healthCheckBoxText">Sjukvård</string>
+    <string name="securityCheckBoxText">Informationssäkerhet</string>
+    <string name="storageCheckBoxText">Förvaring</string>
+    <string name="otherCheckBoxText">Övrigt</string>
+
+
+
 
     <string-array name="categoryArray">
         <item>Värme1</item>
@@ -48,6 +59,8 @@
     <string name="foodButton">Mat 4</string>
     <string name="healthButton">Sjukvård 5</string>
     <string name="securityButton">Informationssäkerhet 6</string>
+    <string name="storageButton">Förvaring 7</string>
+    <string name="otherButton">Övrigt 8</string>
 
 
 </resources>

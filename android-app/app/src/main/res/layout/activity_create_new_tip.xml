@@ -11,8 +11,8 @@
         layout="@layout/activity_base"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
     <ImageButton
         android:id="@+id/backButton"
@@ -51,7 +51,6 @@
         android:layout_width="64dp"
         android:layout_height="61dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/lightBulb"
         android:src="@drawable/fortipspage"
@@ -65,7 +64,7 @@
         android:layout_width="310dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
@@ -84,10 +83,9 @@
 
     <EditText
         android:id="@+id/tipDescriptionEdittext"
-        android:layout_width="310dp"
-        android:layout_height="150dp"
+        android:layout_width="315dp"
+        android:layout_height="103dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="100dp"
         android:ems="10"
@@ -98,49 +96,39 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categorySpinner"
-        app:layout_constraintVertical_bias="0.095"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.104"
         tools:targetApi="o" />
-
-    <Spinner
-        android:id="@+id/categorySpinner"
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:focusable="auto"
-        android:focusableInTouchMode="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseCategoryTextView" />
 
     <TextView
         android:id="@+id/chooseCategoryTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/chooseCategoryHint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
+        app:layout_constraintHorizontal_bias="0.186"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tipTitelEdittext" />
 
     <ImageButton
         android:id="@+id/saveButton"
-        android:layout_width="50dp"
-        android:layout_height="48dp"
+        android:layout_width="35dp"
+        android:layout_height="28dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveText"
+        app:layout_constraintVertical_bias="0.086"
         app:srcCompat="@android:drawable/checkbox_on_background"
         tools:ignore="ContentDescription" />
 
@@ -149,12 +137,118 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/saveText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="305dp"
+        android:layout_height="126dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseCategoryTextView">
+
+        <LinearLayout
+            android:id="@+id/topLinearLayoutForCheckButtons"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/waterCheckBox"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:text="@string/waterCheckBoxText"
+                android:textSize="12sp" />
+
+
+            <CheckBox
+                android:id="@+id/warmthCheckBox"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top"
+                android:text="@string/warmthCheckBoxText"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/firstMiddleLinearLayoutForCheckButtons"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+
+            <CheckBox
+                android:id="@+id/shelterCheckBox"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:text="@string/shelterCheckBoxText"
+                android:textSize="12sp" />
+
+            <CheckBox
+                android:id="@+id/foodCheckBox"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:text="@string/foodCheckBoxText"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/secondMiddleLinearLayoutForCheckButtons"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/healthCheckBox"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:text="@string/healthCheckBoxText"
+                android:textSize="12sp" />
+
+            <CheckBox
+                android:id="@+id/securityCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="@string/securityCheckBoxText"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomLinearLayoutForCheckButtons"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/storageCheckBox"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:text="@string/storageCheckBoxText"
+                android:textSize="12sp" />
+
+            <CheckBox
+                android:id="@+id/otherCheckBox"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:text="@string/otherCheckBoxText"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </RadioGroup>
 
 </android.support.constraint.ConstraintLayout>

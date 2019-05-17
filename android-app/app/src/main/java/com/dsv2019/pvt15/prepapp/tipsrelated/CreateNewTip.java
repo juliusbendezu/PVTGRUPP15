@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 
 import com.dsv2019.pvt15.prepapp.R;
 
-public class CreateNewTip extends Activity implements AdapterView.OnItemSelectedListener{
+public class CreateNewTip extends Activity {
 
     private String title;
     private String descritption;
@@ -24,6 +25,7 @@ public class CreateNewTip extends Activity implements AdapterView.OnItemSelected
     private EditText tipTitelEditText;
     private EditText tipDescriptionEditText;
     private Spinner categorySpinner;
+    private boolean[] catChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +34,11 @@ public class CreateNewTip extends Activity implements AdapterView.OnItemSelected
 
         categoryList = getResources().getStringArray(R.array.categoryArray);
 
+        catChecked = new boolean[7];
         createTipTitle();
         createDescription();
-        fillCategorySpinner();
+        createSaveButton();
+
     }
 
     public void createTipTitle() {
@@ -47,29 +51,90 @@ public class CreateNewTip extends Activity implements AdapterView.OnItemSelected
         descritption = tipDescriptionEditText.getText().toString();
     }
 
-    public void fillCategorySpinner(CreateNewTip this) {
-        categorySpinner = findViewById(R.id.categorySpinner);
-        //Getting the instance of Spinner and applying OnItemSelectedListener on it
+    //kolla retrofit
+    public void createSaveButton(){
+        saveButton = findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checkIsSelected = checkSelectionExists();
+                if (checkIsSelected == false){
+                    Toast.makeText(CreateNewTip.this, "Du måste välja minst en kategori", Toast.LENGTH_SHORT).show();
+                }
 
-        //Creating the ArrayAdapter instance having the bank name list
-        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryList);
-        categorySpinner.setOnItemSelectedListener(this);
 
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        categorySpinner.setAdapter(aa);
+
+
+            SingleTips newSP = new SingleTips(title,descritption,checkChosenCategory(),"Elsa");
+
+
+//                Intent startIntent = new Intent(getApplicationContext(), CreateNewTip.class);
+//                startActivity(startIntent);
+            }
+        });
     }
 
+    private boolean[] checkChosenCategory(){
 
-    //Performing action onItemSelected and onNothing selected
-    @Override
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-        Toast.makeText(getApplicationContext(), categoryList[position], Toast.LENGTH_LONG).show();
+        if((boolean) ((CheckBox) findViewById(R.id.warmthCheckBox)).isChecked()==true){
+            catChecked[0]=true;
+        }else {catChecked[0]=false;}
+        if((boolean) ((CheckBox) findViewById(R.id.waterCheckBox)).isChecked()==true){
+            catChecked[1]=true;
+        }else {catChecked[1]=false;}
+        if((boolean) ((CheckBox) findViewById(R.id.shelterCheckBox)).isChecked()==true){
+            catChecked[2]=true;
+        }else {catChecked[2]=false;}
+        if((boolean) ((CheckBox) findViewById(R.id.foodCheckBox)).isChecked()==true){
+            catChecked[3]=true;
+        }else {catChecked[3]=false;}
+        if((boolean) ((CheckBox) findViewById(R.id.healthCheckBox)).isChecked()==true){
+            catChecked[4]=true;
+        }else {catChecked[4]=false;}
+        if((boolean) ((CheckBox) findViewById(R.id.securityCheckBox)).isChecked()==true){
+            catChecked[5]=true;
+        }else {catChecked[5]=false;}
+        return catChecked;
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> arg0) {
-// TODO Auto-generated method stub
+    private boolean checkSelectionExists() {
+        boolean selectionExists = false;
+        selectionExists = (boolean) ((CheckBox) findViewById(R.id.warmthCheckBox)).isChecked() ? true : false ||
+                (boolean) ((CheckBox) findViewById(R.id.waterCheckBox)).isChecked() ? true : false ||
+                (boolean) ((CheckBox) findViewById(R.id.foodCheckBox)).isChecked() ? true : false ||
+                (boolean) ((CheckBox) findViewById(R.id.healthCheckBox)).isChecked() ? true : false ||
+                (boolean) ((CheckBox) findViewById(R.id.securityCheckBox)).isChecked() ? true : false ||
+                (boolean) ((CheckBox) findViewById(R.id.shelterCheckBox)).isChecked() ? true : false;
+        return selectionExists;
     }
 }
 
+
+
+
+//Spara denna för preppförrådskod. (orkar inte söka upp det igen sen)
+//    public void fillCategorySpinner(CreateNewTip this) {
+//        categorySpinner = findViewById(R.id.categorySpinner);
+//        //Getting the instance of Spinner and applying OnItemSelectedListener on it
+//
+//        //Creating the ArrayAdapter instance having the bank name list
+//        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryList);
+//        categorySpinner.setOnItemSelectedListener(this);
+//
+//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        //Setting the ArrayAdapter data on the Spinner
+//        categorySpinner.setAdapter(aa);
+//    }
+
+//
+//    //Performing action onItemSelected and onNothing selected
+//    @Override
+//    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+//        Toast.makeText(getApplicationContext(), categoryList[position], Toast.LENGTH_LONG).show();
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> arg0) {
+//// TODO Auto-generated method stub
+//
+//    }

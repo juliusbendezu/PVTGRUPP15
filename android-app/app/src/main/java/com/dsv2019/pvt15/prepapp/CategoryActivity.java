@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+
+import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
 
 public class CategoryActivity extends Activity {
 
@@ -15,6 +18,10 @@ public class CategoryActivity extends Activity {
     private Button foodButton4;
     private Button healthButton5;
     private Button securityButton6;
+    private Button storageButton7;
+    private Button otherButton8;
+    private ImageButton createNewTip;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,10 @@ public class CategoryActivity extends Activity {
         setFoodButton();
         setHealthButton();
         setSecurityButton();
+        setStorageButton();
+        setOtherButton();
+        setCreateNewTipButton();
+        //setHomeButton();
 
     }
 
@@ -100,4 +111,41 @@ public class CategoryActivity extends Activity {
         });
 
     }
+    private void setStorageButton(){
+         storageButton7 = findViewById(R.id.storageButton);
+        storageButton7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), TipsActivity.class);
+                startIntent.putExtra("category", 7);
+                startActivity(startIntent);
+            }
+        });
+
+    }
+    private void setOtherButton(){
+        otherButton8 = findViewById(R.id.otherButton);
+        otherButton8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), TipsActivity.class);
+                startIntent.putExtra("category", 8);
+                startActivity(startIntent);
+            }
+        });
+
+    }
+    private void setCreateNewTipButton(){
+        createNewTip=findViewById(R.id.createNewTipButtonn);
+        createNewTip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), CreateNewTip.class);
+                startActivity(startIntent);
+            }
+        });
+
+    }
+
+
 }

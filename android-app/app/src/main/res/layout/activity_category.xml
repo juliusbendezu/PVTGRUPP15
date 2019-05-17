@@ -51,8 +51,8 @@
 
     <ImageView
         android:id="@+id/lightBulb"
-        android:layout_width="94dp"
-        android:layout_height="86dp"
+        android:layout_width="68dp"
+        android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
@@ -65,9 +65,10 @@
     <Button
         android:id="@+id/warmthButtom"
         android:layout_width="199dp"
-        android:layout_height="52dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/warmthButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,9 +77,9 @@
     <Button
         android:id="@+id/waterButton"
         android:layout_width="199dp"
-        android:layout_height="52dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:text="@string/waterButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,9 +89,9 @@
     <Button
         android:id="@+id/shelterButton"
         android:layout_width="199dp"
-        android:layout_height="52dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:text="@string/shelterButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,9 +101,9 @@
     <Button
         android:id="@+id/foodButton"
         android:layout_width="199dp"
-        android:layout_height="52dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:text="@string/foodButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -112,9 +113,9 @@
     <Button
         android:id="@+id/healthButton"
         android:layout_width="199dp"
-        android:layout_height="52dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:text="@string/healthButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,14 +125,64 @@
     <Button
         android:id="@+id/securityButton"
         android:layout_width="199dp"
-        android:layout_height="52dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:text="@string/securityButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/healthButton" />
+
+    <Button
+        android:id="@+id/storageButton"
+        android:layout_width="199dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/storageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/securityButton" />
+
+    <Button
+        android:id="@+id/otherButton"
+        android:layout_width="199dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/otherButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storageButton" />
+
+    <ImageButton
+        android:id="@+id/createNewTipButtonn"
+        android:layout_width="47dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createNewTipText"
+        android:contentDescription="TODO" />
+
+    <TextView
+        android:id="@+id/createNewTipText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/newTipText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/otherButton" />
 
 
 </android.support.constraint.ConstraintLayout>

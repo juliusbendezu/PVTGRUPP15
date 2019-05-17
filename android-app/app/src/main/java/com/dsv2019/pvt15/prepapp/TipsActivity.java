@@ -38,7 +38,7 @@ public class TipsActivity extends Activity {
 
         createBackBtn();
         createNewTipButton();
-        loadTheTips();
+       // loadTheTips();
         setCategoryView();
 
     }
@@ -49,13 +49,17 @@ public class TipsActivity extends Activity {
         }else if(categoryNR ==2){
             categoryName ="Vatten";
         }else if(categoryNR==3){
-            categoryName ="skydd";
+            categoryName ="Skydd";
         }else if(categoryNR==4){
             categoryName="Mat";
         }else if(categoryNR==5){
             categoryName="Sjukvård";
-        }else {
+        }else if (categoryNR ==6){
             categoryName = "Informationssäkerhet";
+        }else if(categoryNR==7){
+            categoryName="Förvaring";
+        }else{
+            categoryName ="Övrigt";
         }
         categoryText = findViewById(R.id.categoryTextView);
         categoryText.setText(categoryName);
@@ -85,19 +89,19 @@ public class TipsActivity extends Activity {
     }
 
 
-    // denna bör egentligen baseras på categoryNR som vi ska avända för att hämta tipsen ur tabellen.
-    public void loadTheTips(){
-
-        SingleTips singleTipsLong = new SingleTips("Ett långt tips","här är ett tips här är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tips",categoryNR,"Elsa",1);
-        tipsList.add(singleTipsLong);
-        addTips(singleTipsLong);
-
-        for (int i = 2; i < 10; i++) {
-            SingleTips singleTips = new SingleTips("Ett Tips","här är ett tips",categoryNR,"Elsa",i);
-            tipsList.add(singleTips);
-            addTips(singleTips);
-        }
-    }
+//    // denna bör egentligen baseras på categoryNR som vi ska avända för att hämta tipsen ur tabellen.
+//    public void loadTheTips(){
+//
+//        SingleTips singleTipsLong = new SingleTips("Ett långt tips","här är ett tips här är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tipshär är ett tips",categoryNR,"Elsa",1);
+//        tipsList.add(singleTipsLong);
+//        addTips(singleTipsLong);
+//
+//        for (int i = 2; i < 10; i++) {
+//            SingleTips singleTips = new SingleTips("Ett Tips","här är ett tips",categoryNR,"Elsa",i);
+//            tipsList.add(singleTips);
+//            addTips(singleTips);
+//        }
+//    }
 
     private void addTips(SingleTips singleTips) {
         LinearLayout layout = findViewById(R.id.newsLinearLayout);
