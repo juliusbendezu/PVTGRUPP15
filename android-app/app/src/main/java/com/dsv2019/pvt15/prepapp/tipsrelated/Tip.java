@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 public class Tip {
 
     private int id;
-    private String titel;
+    private String title;
     private String description;
     private boolean warmth;
     private boolean water;
@@ -33,7 +33,7 @@ public class Tip {
     }
 
     public String getTitel() {
-        return titel;
+        return title;
     }
 
     public String getDescription() {
@@ -86,7 +86,7 @@ public class Tip {
 
     public Tip(String name, String description, boolean[] categoryCheck, String creator) {
         this.description=description;
-        this.titel=name;
+        this.title=name;
         this.creator=creator;
     }
 
