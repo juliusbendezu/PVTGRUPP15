@@ -1,6 +1,7 @@
-package com.dsv2019.pvt15.prepapp.tipsrelated;
+package com.dsv2019.pvt15.prepapp.apihandler;
 
 import com.dsv2019.pvt15.prepapp.Post;
+import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
 
 import java.util.List;
 

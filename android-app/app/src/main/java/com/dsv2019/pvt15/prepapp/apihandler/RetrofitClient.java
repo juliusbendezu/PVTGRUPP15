@@ -1,7 +1,4 @@
-package com.dsv2019.pvt15.prepapp;
-
-import com.dsv2019.pvt15.prepapp.tipsrelated.BaseAPIService;
-import com.google.gson.Gson;
+package com.dsv2019.pvt15.prepapp.apihandler;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

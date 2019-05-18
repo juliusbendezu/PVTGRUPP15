@@ -32,7 +32,7 @@ public class Tip {
         return id;
     }
 
-    public String getTitel() {
+    public String getTitle() {
         return title;
     }
 

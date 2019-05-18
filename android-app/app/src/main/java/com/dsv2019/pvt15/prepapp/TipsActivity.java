@@ -14,7 +14,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dsv2019.pvt15.prepapp.tipsrelated.BaseAPIService;
+import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
+import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
+import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.TipsItemView;
@@ -114,10 +116,6 @@ public class TipsActivity extends Activity {
             Call<List<Tip>> call = api.getTips();
             //Call<String> call =api.getHelloString();
 
-            //Call<List<Post>> call =api.getPosts();
-
-
-
             call.enqueue(new Callback<List<Tip>>() {
                 @Override
                 public void onResponse(Call<List<Tip>> call, Response<List<Tip>> response) {
@@ -130,7 +128,7 @@ public class TipsActivity extends Activity {
                     //Toast.makeText(TipsActivity.this,"Tipsen har laddats "+allTips.get(0).getName(),Toast.LENGTH_LONG).show();
 
 
-                        System.out.println(allTips.get(1).getTitel());
+                        System.out.println(allTips.get(1).getTitle());
 
 
 
