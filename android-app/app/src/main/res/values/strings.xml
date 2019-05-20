@@ -8,6 +8,8 @@
     <string name="news_section_header">Nyheter</string>
     <string name="news_disclaimer">Alla nyheter är hämtade från krisinformation.se API</string>
 
+    <!-->activity_pantry<-->
+    <string name="pantry_header">Förråd</string>
 
     <!-->activity_tips<-->
     <string name="tips_section_header">Tips &amp; Tricks</string>
@@ -30,8 +32,6 @@
     <string name="otherCheckBoxText">Övrigt</string>
 
 
-
-
     <string-array name="categoryArray">
         <item>Värme1</item>
         <item>Vatten2</item>
@@ -43,12 +43,6 @@
 
     <color name="white">#F2F2F2</color>
     <color name="infowindowcolor">#CF6F6F</color>
-
-
-
-
-
-
 
 
     <!-->activity_category<-->

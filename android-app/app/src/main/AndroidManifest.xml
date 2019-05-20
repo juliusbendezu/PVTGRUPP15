@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".tipsrelated.CreateNewTip"></activity>
+        <activity android:name=".PantryActivity"></activity>
+        <activity android:name=".tipsrelated.CreateNewTip" />
         <activity android:name=".CategoryActivity" />
         <activity android:name=".TipsActivity" />
         <!--
