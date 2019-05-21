@@ -31,6 +31,9 @@
     <string name="storageCheckBoxText">Förvaring</string>
     <string name="otherCheckBoxText">Övrigt</string>
 
+    <string name="facebook_app_id">2174193092616862</string>
+    <string name="fb_login_protocol_scheme">fb2174193092616862</string>
+
 
     <string-array name="categoryArray">
         <item>Värme1</item>
