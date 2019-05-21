@@ -45,7 +45,7 @@ public class TipsItemView extends LinearLayout {
 
 
     private void styleTextView(TextView tv, Tip st) {
-        String boldString = "<b>" + st.getTitel() + "</b> ";
+        String boldString = "<b>" + st.getTitle() + "</b> ";
         tv.setText(Html.fromHtml(boldString));
 
         String nonBold = ""+System.getProperty("line.separator")+ "by: " +st.getCreator();
