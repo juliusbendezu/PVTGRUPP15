@@ -1,6 +1,5 @@
 package com.dsv2019.pvt15.prepapp.apihandler;
 
-import com.dsv2019.pvt15.prepapp.Post;
 import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
 
 import java.util.List;
@@ -19,8 +18,6 @@ public interface BaseAPIService {
     @GET("helloThere/General")
     Call<String> getHelloString();
 
-    @GET("posts")
-    Call<List<Post>> getPosts();
 
 
 
