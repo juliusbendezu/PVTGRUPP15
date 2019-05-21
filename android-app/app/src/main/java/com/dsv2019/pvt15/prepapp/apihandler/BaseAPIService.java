@@ -9,6 +9,8 @@ import retrofit2.http.GET;
 
 public interface BaseAPIService {
 
+    String mockUsername = "Julius";
+
     @GET("tips/all")
     Call<List<Tip>> getTips();
 
@@ -18,7 +20,7 @@ public interface BaseAPIService {
     @GET("helloThere/General")
     Call<String> getHelloString();
 
-
-
-
+    @GET("pantry/" + mockUsername)
+    Call<String> getPantry();
+    
 }
