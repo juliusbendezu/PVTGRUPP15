@@ -99,7 +99,6 @@ public class TipsActivity extends Activity {
         });
     }
 
-
     public void loadTheTips() {
         if (InternetConnection.checkConnection(getApplicationContext())) {
             final ProgressDialog dialog;

@@ -1,6 +1,7 @@
 package com.dsv2019.pvt15.prepapp.tipsrelated;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -10,17 +11,25 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.dsv2019.pvt15.prepapp.R;
+import com.dsv2019.pvt15.prepapp.TipsActivity;
+import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
+import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
+import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CreateNewTip extends Activity {
 
     private String title;
     private String descritption;
-    private String category;
     private ImageButton saveButton;
     private String[] categoryList;
     private EditText tipTitelEditText;
     private EditText tipDescriptionEditText;
-    private Spinner categorySpinner;
     private boolean[] catChecked;
 
     @Override
@@ -30,11 +39,10 @@ public class CreateNewTip extends Activity {
 
         categoryList = getResources().getStringArray(R.array.categoryArray);
 
-        catChecked = new boolean[7];
+        catChecked = new boolean[8];
         createTipTitle();
         createDescription();
         createSaveButton();
-
     }
 
     public void createTipTitle() {
@@ -57,17 +65,48 @@ public class CreateNewTip extends Activity {
                 if (checkIsSelected == false){
                     Toast.makeText(CreateNewTip.this, "Du måste välja minst en kategori", Toast.LENGTH_SHORT).show();
                 }
+                addATip();
 
-
-
-
-            Tip newSP = new Tip(title,descritption,checkChosenCategory(),"Elsa");
-
-
-//                Intent startIntent = new Intent(getApplicationContext(), CreateNewTip.class);
-//                startActivity(startIntent);
             }
         });
+    }
+
+    public void addATip() {
+        if (InternetConnection.checkConnection(getApplicationContext())) {
+            final ProgressDialog dialog;
+
+            dialog = new ProgressDialog(CreateNewTip.this);
+            dialog.setTitle("Saving the tip");
+            dialog.setMessage("please wait");
+            dialog.show();
+
+
+            BaseAPIService api = RetrofitClient.getApiService();
+
+            Call<Tip> call = api.addTip(title,descritption,catChecked[0],catChecked[1],catChecked[2],catChecked[3],catChecked[4],catChecked[5],catChecked[6],catChecked[7],0,"Elsa");
+
+            call.enqueue(new Callback<Tip>() {
+                @Override
+                public void onResponse(Call<Tip> call, Response<Tip> response) {
+                    dialog.dismiss();
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(CreateNewTip.this, "Tipset har inte sparats " + response.code(), Toast.LENGTH_LONG).show();
+                        call.clone().enqueue(this);
+                    }
+                    Toast.makeText(CreateNewTip.this, "Tipset har sparats " , Toast.LENGTH_LONG).show();
+
+                    }
+
+
+
+                @Override
+                public void onFailure(Call<Tip> call, Throwable t) {
+                    dialog.dismiss();
+                    Toast.makeText(CreateNewTip.this, "Tipset har inte sparats2", Toast.LENGTH_LONG).show();
+                    call.clone().enqueue(this);
+                }
+            });
+        }
     }
 
     private boolean[] checkChosenCategory(){
@@ -110,33 +149,3 @@ public class CreateNewTip extends Activity {
         return selectionExists;
     }
 }
-
-
-
-
-//Spara denna för preppförrådskod. (orkar inte söka upp det igen sen)
-//    public void fillCategorySpinner(CreateNewTip this) {
-//        categorySpinner = findViewById(R.id.categorySpinner);
-//        //Getting the instance of Spinner and applying OnItemSelectedListener on it
-//
-//        //Creating the ArrayAdapter instance having the bank name list
-//        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryList);
-//        categorySpinner.setOnItemSelectedListener(this);
-//
-//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        //Setting the ArrayAdapter data on the Spinner
-//        categorySpinner.setAdapter(aa);
-//    }
-
-//
-//    //Performing action onItemSelected and onNothing selected
-//    @Override
-//    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-//        Toast.makeText(getApplicationContext(), categoryList[position], Toast.LENGTH_LONG).show();
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> arg0) {
-//// TODO Auto-generated method stub
-//
-//    }
