@@ -31,6 +31,7 @@ import static android.graphics.Color.luminance;
 public class TipsActivity extends Activity {
 
     ArrayList<Tip> tipsList = new ArrayList<>();
+    Tip[] newListToSort;
     private int categoryNR;
     private String categoryName;
     private TextView categoryText;
@@ -123,13 +124,17 @@ public class TipsActivity extends Activity {
                         call.clone().enqueue(this);
                     }
 
-
                     List<Tip> allTips = response.body();
-                    //Toast.makeText(TipsActivity.this,"Tipsen har laddats "+allTips.get(0).getName(),Toast.LENGTH_LONG).show();
+                    for (int i = 0; i < allTips.size(); i++) {
+                        Tip tipToCheck = allTips.get(i);
+                        checkTheTipsCategoryandAdd(tipToCheck);
+                    }
+                    sort(tipsList);
 
 
-                    System.out.println(allTips.get(1).getTitle());
-
+                    for (int i = 0; i < newListToSort.length; i++) {
+                        addTips(newListToSort[i]);
+                    }
 
                 }
 
@@ -142,6 +147,80 @@ public class TipsActivity extends Activity {
             });
         }
     }
+
+    private void sort(List<Tip> listToSort) {
+
+        newListToSort = new Tip[listToSort.size()];
+        int n = listToSort.size();
+        for (int u = 0; u < listToSort.size(); u++) {
+            newListToSort[u] = listToSort.get(u);
+        }
+
+        // One by one move boundary of unsorted subarray
+        for (int i = 0; i < n - 1; i++) {
+            // Find the minimum element in unsorted array
+            int min_idx = i;
+            for (int j = i + 1; j < n; j++) {
+                if(newListToSort[j].equals(newListToSort[min_idx])){
+                if (newListToSort[j].getLikes() < newListToSort[min_idx].getLikes()) {
+                    newListToSort[min_idx] = newListToSort[j];
+                }
+            }}
+
+
+            // Swap the found minimum element with the first
+            // element
+            Tip temp = newListToSort[min_idx];
+            newListToSort[min_idx] = newListToSort[i];
+            newListToSort[i] = temp;
+        }
+
+    }
+
+    private void checkTheTipsCategoryandAdd(Tip tipToCheck) {
+
+        if (categoryNR == 1) {
+            if (tipToCheck.isWarmth() == true) {
+                tipsList.add(tipToCheck);
+            }
+        }
+        if (categoryNR == 2) {
+            if (tipToCheck.isWater() == true) {
+                tipsList.add(tipToCheck);
+            }
+        }
+        if (categoryNR == 3) {
+            if (tipToCheck.isShelter() == true) {
+                tipsList.add(tipToCheck);
+            }
+        }
+        if (categoryNR == 4) {
+            if (tipToCheck.isFood() == true) {
+                tipsList.add(tipToCheck);
+            }
+        }
+        if (categoryNR == 5) {
+            if (tipToCheck.isHealth() == true) {
+                tipsList.add(tipToCheck);
+            }
+        }
+        if (categoryNR == 6) {
+            if (tipToCheck.isSecurity() == true) {
+                tipsList.add(tipToCheck);
+            }
+        }
+        if (categoryNR == 7) {
+            if (tipToCheck.isStorage() == true) {
+                tipsList.add(tipToCheck);
+            }
+        }
+        if (categoryNR == 8) {
+            if (tipToCheck.isOther() == true) {
+                tipsList.add(tipToCheck);
+            }
+        }
+    }
+
 
     private void addTips(Tip tip) {
         LinearLayout layout = findViewById(R.id.newsLinearLayout);

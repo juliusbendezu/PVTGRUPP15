@@ -48,7 +48,7 @@ public class TipsItemView extends LinearLayout {
         String boldString = "<b>" + st.getTitle() + "</b> ";
         tv.setText(Html.fromHtml(boldString));
 
-        String nonBold = ""+System.getProperty("line.separator")+ "by: " +st.getCreator();
+        String nonBold = ""+System.getProperty("line.separator")+ "by: " +st.getCreator()+" likes:"+st.getLikes();
         tv.setPadding(40, 20, 20, 20);
         tv.append(nonBold);
         tv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, (float) 0.8));
