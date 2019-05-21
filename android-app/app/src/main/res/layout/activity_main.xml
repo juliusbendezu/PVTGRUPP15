@@ -74,4 +74,19 @@
         app:layout_constraintTop_toBottomOf="@+id/mapsButton"
         app:layout_constraintVertical_bias="0.004" />
 
+    <ImageButton
+        android:id="@+id/pantryButton"
+        android:layout_width="96dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/pantry_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toEndOf="@+id/tipsButton"
+        app:layout_constraintTop_toBottomOf="@+id/newsButton"
+        app:layout_constraintVertical_bias="0.128" />
+
 </android.support.constraint.ConstraintLayout>

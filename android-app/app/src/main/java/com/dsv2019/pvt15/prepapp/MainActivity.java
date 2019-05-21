@@ -11,6 +11,7 @@ public class MainActivity extends Activity {
     private ImageButton mapsButton;
     private ImageButton newsButton;
     private ImageButton tipsButton;
+    private ImageButton pantryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,9 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
             startActivity(intent);
         });
+
+        pantryButton = findViewById(R.id.pantryButton);
+        pantryButton.setOnClickListener(l -> startActivity(new Intent(this, PantryActivity.class)));
 
 
     }
