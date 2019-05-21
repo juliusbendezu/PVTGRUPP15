@@ -10,12 +10,14 @@ public class PantryItem {
     private String category;
     private String expiryDate;
     private String generalCategory;
+    private int amount;
 
-    public PantryItem(String name, String category, String expiryDate, String generalCategory) {
+    public PantryItem(String name, String category, String expiryDate, String generalCategory, int amount) {
         this.name = name;
         this.category = category;
         this.expiryDate = expiryDate;
         this.generalCategory = generalCategory;
+        this.amount = amount;
     }
 
     public String getItemName() {
@@ -48,5 +50,13 @@ public class PantryItem {
 
     public void setGeneralCategory(String generalCategory){
         this.generalCategory = generalCategory;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

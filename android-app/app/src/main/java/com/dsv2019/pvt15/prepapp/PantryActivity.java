@@ -28,10 +28,10 @@ public class PantryActivity extends Activity {
 
 
         List<PantryItem> pantry = new ArrayList<>();
-        pantry.add(new PantryItem("Näskaffe", "Kaffe", "2020-05-04", PantryItem.FOOD_CATEGORY));
-        pantry.add(new PantryItem("Pastiller", "Tabletter", "2020-05-04", PantryItem.MEDICINE_CATEGORY));
-        pantry.add(new PantryItem("Såg", "Verktyg", "", PantryItem.OTHER_CATEGORY));
-        pantry.add(new PantryItem("Lyxkaffe", "Kaffe", "2022", PantryItem.FOOD_CATEGORY));
+        pantry.add(new PantryItem("Näskaffe", "Kaffe", "2020-05-04", PantryItem.FOOD_CATEGORY, 500));
+        pantry.add(new PantryItem("Pastiller", "Tabletter", "2020-05-04", PantryItem.MEDICINE_CATEGORY, 200));
+        pantry.add(new PantryItem("Såg", "Verktyg", "", PantryItem.OTHER_CATEGORY, 1000));
+        pantry.add(new PantryItem("Lyxkaffe", "Kaffe", "2022", PantryItem.FOOD_CATEGORY, 450));
 
         addPantry(pantry);
     }
