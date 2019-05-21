@@ -38,13 +38,12 @@ public class TipsActivity extends Activity {
     private ImageButton createNewTipButton;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tips);
 
-        categoryNR =(int) getIntent().getExtras().get("category");
+        categoryNR = (int) getIntent().getExtras().get("category");
 
         createBackBtn();
         createNewTipButton();
@@ -54,30 +53,30 @@ public class TipsActivity extends Activity {
 
     }
 
-    private void setCategoryView(){
-        if (categoryNR == 1){
-            categoryName ="Värme";
-        }else if(categoryNR ==2){
-            categoryName ="Vatten";
-        }else if(categoryNR==3){
-            categoryName ="Skydd";
-        }else if(categoryNR==4){
-            categoryName="Mat";
-        }else if(categoryNR==5){
-            categoryName="Sjukvård";
-        }else if (categoryNR ==6){
+    private void setCategoryView() {
+        if (categoryNR == 1) {
+            categoryName = "Värme";
+        } else if (categoryNR == 2) {
+            categoryName = "Vatten";
+        } else if (categoryNR == 3) {
+            categoryName = "Skydd";
+        } else if (categoryNR == 4) {
+            categoryName = "Mat";
+        } else if (categoryNR == 5) {
+            categoryName = "Sjukvård";
+        } else if (categoryNR == 6) {
             categoryName = "Informationssäkerhet";
-        }else if(categoryNR==7){
-            categoryName="Förvaring";
-        }else{
-            categoryName ="Övrigt";
+        } else if (categoryNR == 7) {
+            categoryName = "Förvaring";
+        } else {
+            categoryName = "Övrigt";
         }
         categoryText = findViewById(R.id.categoryTextView);
         categoryText.setText(categoryName);
 
     }
 
-    public void createNewTipButton(){
+    public void createNewTipButton() {
         createNewTipButton = findViewById(R.id.createNewTipButton);
         createNewTipButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +87,7 @@ public class TipsActivity extends Activity {
         });
     }
 
-    public void createBackBtn(){
+    public void createBackBtn() {
         backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +99,8 @@ public class TipsActivity extends Activity {
     }
 
 
-
     public void loadTheTips() {
-        if(InternetConnection.checkConnection(getApplicationContext())){
+        if (InternetConnection.checkConnection(getApplicationContext())) {
             final ProgressDialog dialog;
 
             dialog = new ProgressDialog(TipsActivity.this);
@@ -120,16 +118,17 @@ public class TipsActivity extends Activity {
                 @Override
                 public void onResponse(Call<List<Tip>> call, Response<List<Tip>> response) {
                     dialog.dismiss();
-                    if(!response.isSuccessful()){
-                        Toast.makeText(TipsActivity.this,"Tipsen har inte laddats"+response.code(),Toast.LENGTH_LONG).show();
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(TipsActivity.this, "Tipsen har inte laddats" + response.code(), Toast.LENGTH_LONG).show();
+                        call.clone().enqueue(this);
                     }
+
 
                     List<Tip> allTips = response.body();
                     //Toast.makeText(TipsActivity.this,"Tipsen har laddats "+allTips.get(0).getName(),Toast.LENGTH_LONG).show();
 
 
-                        System.out.println(allTips.get(1).getTitle());
-
+                    System.out.println(allTips.get(1).getTitle());
 
 
                 }
@@ -137,8 +136,8 @@ public class TipsActivity extends Activity {
                 @Override
                 public void onFailure(Call<List<Tip>> call, Throwable t) {
                     dialog.dismiss();
-                    Toast.makeText(TipsActivity.this,"Tipsen har inte laddats2",Toast.LENGTH_LONG).show();
-
+                    Toast.makeText(TipsActivity.this, "Tipsen har inte laddats2", Toast.LENGTH_LONG).show();
+                    call.clone().enqueue(this);
                 }
             });
         }
