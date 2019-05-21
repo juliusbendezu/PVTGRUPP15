@@ -1,5 +1,6 @@
 package com.dsv2019.pvt15.prepapp.apihandler;
 
+import com.dsv2019.pvt15.prepapp.models.PantryItem;
 import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public interface BaseAPIService {
     Call<String> getHelloString();
 
     @GET("pantry/" + mockUsername)
-    Call<String> getPantry();
-    
+    Call<List<PantryItem>> getPantry();
+
 }
