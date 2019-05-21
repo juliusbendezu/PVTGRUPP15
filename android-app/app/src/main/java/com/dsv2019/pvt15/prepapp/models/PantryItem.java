@@ -59,4 +59,9 @@ public class PantryItem {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %dg %s", name, amount, expiryDate);
+    }
 }

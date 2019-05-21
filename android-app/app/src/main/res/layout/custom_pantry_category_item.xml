@@ -22,9 +22,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.1"
+            android:layout_weight="0.2"
             android:paddingLeft="20dp"
             android:paddingRight="5dp" />
+
+        <!--
+        <Spinner
+            android:id="@+id/pantryItemsSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:background="@android:drawable/btn_dropdown"
+            android:gravity="center"
+            android:spinnerMode="dropdown"/>
+        -->
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -49,11 +60,12 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="3dp"
-            android:layout_height="29dp"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.1"
             android:paddingRight="20dp"
             android:src="@drawable/arrow_icon" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
