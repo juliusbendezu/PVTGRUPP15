@@ -6,35 +6,42 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+{
 
     private ImageButton mapsButton;
     private ImageButton newsButton;
     private ImageButton tipsButton;
     private ImageButton pantryButton;
+    private ImageButton facebookButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mapsButton = findViewById(R.id.mapsButton);
-        mapsButton.setOnClickListener(new View.OnClickListener() {
+        mapsButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
                 startActivity(startIntent);
             }
         });
 
         newsButton = findViewById(R.id.newsButton);
-        newsButton.setOnClickListener(l -> {
+        newsButton.setOnClickListener(l ->
+        {
             Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
             startActivity(intent);
         });
 
         tipsButton = findViewById(R.id.tipsButton);
-        tipsButton.setOnClickListener(l -> {
+        tipsButton.setOnClickListener(l ->
+        {
             Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
             startActivity(intent);
         });
@@ -42,6 +49,12 @@ public class MainActivity extends Activity {
         pantryButton = findViewById(R.id.pantryButton);
         pantryButton.setOnClickListener(l -> startActivity(new Intent(this, PantryActivity.class)));
 
+        facebookButton = findViewById(R.id.facebook_test_button);
+        facebookButton.setOnClickListener(v ->
+        {
+            Intent startIntent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(startIntent);
+        });
 
     }
 }
