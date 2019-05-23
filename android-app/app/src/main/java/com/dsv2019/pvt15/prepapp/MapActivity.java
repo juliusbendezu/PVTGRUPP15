@@ -42,6 +42,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,11 +59,12 @@ public class MapActivity extends FragmentActivity implements
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private ToggleButton toggleButton;
-    private List<Shelter> shelterList = new ArrayList<>();
-    private List<HealthClinic> clinicList = new ArrayList<>();
+    private List<Shelter> shelterList;
+    private List<HealthClinic> clinicList;
     private ClusterManager<Shelter> shelterClusterManager;
     private ClusterManager<HealthClinic> healthClinicClusterManager;
 
+    //These two are used in connection with the customized info windows, to get a reference to the ClusterItem clicked
     private Shelter clickedShelter;
     private HealthClinic clickedHealthClinic;
 
@@ -116,12 +118,12 @@ public class MapActivity extends FragmentActivity implements
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             mMap.getUiSettings().setMapToolbarEnabled(false);
 
-            /*This is here because of the temporary bug fix with Volley and loading in of Health Clinic objects.*/
+
+            //This is here because of the temporary bug fix with Volley and loading in of Health Clinic objects.
             healthClinicClusterManager = new ClusterManager<>(this, googleMap);
 
-            generateHealthClinicObjects();
-            generateShelterObjects();
-
+            shelterList = generateShelterObjects();
+            clinicList = generateHealthClinicObjects();
             setupShelterClustering();
         }
     }
@@ -235,8 +237,10 @@ public class MapActivity extends FragmentActivity implements
     }
 
     /* Reads in the shelters from the .csv file, turning them into Shelter objects, finally adding them to a list so they can be processed by the cluster manager.*/
-    private void generateShelterObjects()
+    private List<Shelter> generateShelterObjects()
     {
+        List<Shelter> shelterList = new ArrayList<>();
+
         InputStream is = getResources().openRawResource(R.raw.shelters_csv_file);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -266,11 +270,15 @@ public class MapActivity extends FragmentActivity implements
             Log.e(TAG, "Error" + line, e1);
             e1.printStackTrace();
         }
+
+        return shelterList;
     }
 
     /* Reads information from the Eniro API and creates HealthClinic objects, finally adding them to a list so they can be processed by the cluster manager.*/
-    private void generateHealthClinicObjects()
+    private List<HealthClinic> generateHealthClinicObjects()
     {
+        List<HealthClinic> clinicList = new ArrayList<>();
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "https://api.eniro.com/cs/search/basic?profile=PVT15&key=2588305061743139325&country=se&version=1.1.3&search_word=akutmottagning&geo_area=Stockholm&from_list=1&to_list=100";
 
@@ -316,6 +324,8 @@ public class MapActivity extends FragmentActivity implements
                 }, error -> error.printStackTrace());
 
         requestQueue.add(request);
+
+        return clinicList;
     }
 
     private void addShelterClusterItems()
