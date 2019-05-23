@@ -55,6 +55,8 @@ public class PantryActivity extends Activity {
     }
 
     private void addPantryItem() {
+        startActivity(new Intent(this, PantryAddItemForm.class));
+
         //Show form for adding pantryitem
         //Make a post request using retrofit
         //Refresh to show new item
