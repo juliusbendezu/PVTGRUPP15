@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -15,10 +14,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Arrays;
 
 public class LoginActivity extends Activity
@@ -37,6 +34,7 @@ public class LoginActivity extends Activity
 
         mCallbackManager = CallbackManager.Factory.create();
         mLoginButton = findViewById(R.id.login_button);
+
 
         mLoginButton.setReadPermissions(Arrays.asList(EMAIL));
         checkLoginStatus();
@@ -74,7 +72,6 @@ public class LoginActivity extends Activity
                 idTv.setText(null);
                 emailTv.setText(null);
                 Toast.makeText(LoginActivity.this, "User logged out", Toast.LENGTH_SHORT).show();
-
             }
             else
             {

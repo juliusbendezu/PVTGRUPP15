@@ -47,8 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapActivity extends FragmentActivity implements
-        OnMapReadyCallback,
-        ClusterManager.OnClusterItemClickListener<Shelter>
+        OnMapReadyCallback
 {
     private static final String TAG = "MapActivity";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -58,7 +57,6 @@ public class MapActivity extends FragmentActivity implements
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-
     private ToggleButton toggleButton;
     private List<Shelter> shelterList = new ArrayList<>();
     private List<HealthClinic> clinicList = new ArrayList<>();
@@ -66,6 +64,7 @@ public class MapActivity extends FragmentActivity implements
     private ClusterManager<HealthClinic> healthClinicClusterManager;
 
     private Shelter clickedShelter;
+    private HealthClinic clickedHealthClinic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -338,7 +337,20 @@ public class MapActivity extends FragmentActivity implements
         mMap.setOnMarkerClickListener(shelterClusterManager);
         addShelterClusterItems();
 
-        shelterClusterManager.setOnClusterItemClickListener(this);
+        shelterClusterManager.setOnClusterItemClickListener(
+                new ClusterManager.OnClusterItemClickListener<Shelter>()
+                {
+                    @Override
+                    public boolean onClusterItemClick(Shelter shelter)
+                    {
+
+                        clickedShelter = shelter;
+
+                        return false;
+                    }
+                });
+
+
         mMap.setInfoWindowAdapter(shelterClusterManager.getMarkerManager());
         mMap.setOnInfoWindowClickListener(shelterClusterManager);
 
@@ -384,15 +396,55 @@ public class MapActivity extends FragmentActivity implements
         mMap.setOnCameraIdleListener(healthClinicClusterManager);
         mMap.setOnMarkerClickListener(healthClinicClusterManager);
         addHealthClinicClusterItems();
+
+        healthClinicClusterManager.setOnClusterItemClickListener(
+                new ClusterManager.OnClusterItemClickListener<HealthClinic>()
+                {
+                    @Override
+                    public boolean onClusterItemClick(HealthClinic clinic)
+                    {
+
+                        clickedHealthClinic = clinic;
+
+                        return false;
+                    }
+                });
+
+        mMap.setInfoWindowAdapter(healthClinicClusterManager.getMarkerManager());
+        mMap.setOnInfoWindowClickListener(healthClinicClusterManager);
+
+        healthClinicClusterManager.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
+        {
+            @Override
+            public View getInfoWindow(Marker marker)
+            {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                final View view = inflater.inflate(R.layout.custom_info_window_healthclinic, null);
+
+                TextView name = view.findViewById(R.id.info_window_clinic_name);
+                TextView address = view.findViewById(R.id.info_window_clinic_address);
+                TextView latitude = view.findViewById(R.id.info_window_clinic_latitude);
+                TextView longitude = view.findViewById(R.id.info_window_clinic_longitude);
+
+                name.append(clickedHealthClinic.getTitle());
+                address.append(clickedHealthClinic.getSnippet());
+                latitude.append("" + clickedHealthClinic.getLatitude());
+                longitude.append("" + clickedHealthClinic.getLongitude());
+
+
+                return view;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker)
+            {
+                return null;
+            }
+        });
+
         healthClinicClusterManager.cluster();
 
 
-    }
-
-    @Override
-    public boolean onClusterItemClick(Shelter shelter)
-    {
-        clickedShelter = shelter;
-        return false;
     }
 }
