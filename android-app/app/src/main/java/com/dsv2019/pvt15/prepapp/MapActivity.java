@@ -353,9 +353,7 @@ public class MapActivity extends FragmentActivity implements
                     @Override
                     public boolean onClusterItemClick(Shelter shelter)
                     {
-
                         clickedShelter = shelter;
-
                         return false;
                     }
                 });
@@ -378,8 +376,8 @@ public class MapActivity extends FragmentActivity implements
                 TextView latitude = view.findViewById(R.id.info_window_latitude);
                 TextView longitude = view.findViewById(R.id.info_window_longitude);
 
-                address.append(clickedShelter.getTitle());
-                occupants.append(clickedShelter.getSnippet());
+                address.append(clickedShelter.getAddress());
+                occupants.append(clickedShelter.getNumberOfOccupants());
                 latitude.append("" + clickedShelter.getLatitude());
                 longitude.append("" + clickedShelter.getLongitude());
 
@@ -413,9 +411,7 @@ public class MapActivity extends FragmentActivity implements
                     @Override
                     public boolean onClusterItemClick(HealthClinic clinic)
                     {
-
                         clickedHealthClinic = clinic;
-
                         return false;
                     }
                 });
@@ -437,8 +433,8 @@ public class MapActivity extends FragmentActivity implements
                 TextView latitude = view.findViewById(R.id.info_window_clinic_latitude);
                 TextView longitude = view.findViewById(R.id.info_window_clinic_longitude);
 
-                name.append(clickedHealthClinic.getTitle());
-                address.append(clickedHealthClinic.getSnippet());
+                name.append(clickedHealthClinic.getName());
+                address.append(clickedHealthClinic.getAddress());
                 latitude.append("" + clickedHealthClinic.getLatitude());
                 longitude.append("" + clickedHealthClinic.getLongitude());
 
