@@ -11,16 +11,6 @@ public class Shelter implements ClusterItem
     private final Double latitude;
     private final Double longitude;
 
-    public Double getLatitude()
-    {
-        return latitude;
-    }
-
-    public Double getLongitude()
-    {
-        return longitude;
-    }
-
     public Shelter(LatLng position, String address, String numberOfOccupants)
     {
         this.position = position;
@@ -39,12 +29,32 @@ public class Shelter implements ClusterItem
     @Override
     public String getTitle()
     {
-        return address;
+        return null;
     }
 
     @Override
     public String getSnippet()
     {
-        return "" + numberOfOccupants;
+        return null;
+    }
+
+    public Double getLatitude()
+    {
+        return latitude;
+    }
+
+    public Double getLongitude()
+    {
+        return longitude;
+    }
+
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public String getNumberOfOccupants()
+    {
+        return numberOfOccupants;
     }
 }

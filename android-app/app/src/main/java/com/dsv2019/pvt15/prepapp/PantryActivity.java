@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class PantryActivity extends Activity {
 
     private final String EMPTY_PANTRY_MSG = "Du har inget i förrådet! Lägg till något?";
     LinearLayout layout;
+    Button addItemButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,30 +40,38 @@ public class PantryActivity extends Activity {
         findViewById(R.id.homeButton).setOnClickListener(l -> startActivity(new Intent(this, MainActivity.class)));
 
         layout = findViewById(R.id.pantryActivityItemsLayout);
-
+        addItemButton = findViewById(R.id.addPantryItemButton);
+        addItemButton.setOnClickListener(l -> addPantryItem());
 
 //      List<PantryItem> pantry = new ArrayList<>();
 //      pantry.add(new PantryItem("Näskaffe", "Kaffe", "2020-05-04", PantryItem.FOOD_CATEGORY, 500));
 //      pantry.add(new PantryItem("Pastiller", "Tabletter", "2020-05-04", PantryItem.MEDICINE_CATEGORY, 200));
 //      pantry.add(new PantryItem("Såg", "Verktyg", "", PantryItem.OTHER_CATEGORY, 1000));
 //      pantry.add(new PantryItem("Lyxkaffe", "Kaffe", "2022", PantryItem.FOOD_CATEGORY, 450));
-//      addPantry(pantry);
+//      showPantry(pantry);
 
-        showPantry();
+        getPantry();
 
     }
 
-    private void showPantry() {
+    private void addPantryItem() {
+        startActivity(new Intent(this, PantryAddItemForm.class));
+
+        //Show form for adding pantryitem
+        //Make a post request using retrofit
+        //Refresh to show new item
+    }
+
+    private void getPantry() {
         final ProgressDialog dialog;
         dialog = new ProgressDialog(this);
-        dialog.setTitle("Getting the tips");
+        dialog.setTitle("Loading pantry..");
         dialog.setMessage("please wait");
         dialog.show();
 
         if (!InternetConnection.checkConnection(this)) {
             Toast.makeText(this, "Could not load pantry, please try again", Toast.LENGTH_SHORT).show();
         }
-
 
         BaseAPIService apiService = RetrofitClient.getApiService();
         Call<List<PantryItem>> call = apiService.getPantry();
@@ -71,11 +81,10 @@ public class PantryActivity extends Activity {
                 if (!response.isSuccessful()) {
                     Toast.makeText(PantryActivity.this, "Could not load pantry, please try again", Toast.LENGTH_SHORT).show();
                 }
-
                 dialog.dismiss();
                 List<PantryItem> pantry;
                 pantry = response.body();
-                addPantry(pantry);
+                showPantry(pantry);
             }
 
             @Override
@@ -87,7 +96,7 @@ public class PantryActivity extends Activity {
 
     }
 
-    private void addPantry(List<PantryItem> pantry) {
+    private void showPantry(List<PantryItem> pantry) {
         if (pantry == null || pantry.isEmpty()) {
             showEmptyPantryMsg();
             return;

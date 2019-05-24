@@ -23,4 +23,28 @@
         app:layout_constraintStart_toStartOf="@+id/base_background"
         app:layout_constraintTop_toTopOf="@+id/base_background" />
 
+    <TextView
+        android:id="@+id/email_login_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Email will be shown here"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/login_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/id_login_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:hint="ID will be shown here"
+        app:layout_constraintBottom_toTopOf="@+id/email_login_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

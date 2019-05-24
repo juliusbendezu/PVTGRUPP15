@@ -42,13 +42,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MapActivity extends FragmentActivity implements
-        OnMapReadyCallback,
-        ClusterManager.OnClusterItemClickListener<Shelter>
+        OnMapReadyCallback
 {
     private static final String TAG = "MapActivity";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -58,14 +58,15 @@ public class MapActivity extends FragmentActivity implements
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-
     private ToggleButton toggleButton;
-    private List<Shelter> shelterList = new ArrayList<>();
-    private List<HealthClinic> clinicList = new ArrayList<>();
+    private List<Shelter> shelterList;
+    private List<HealthClinic> clinicList;
     private ClusterManager<Shelter> shelterClusterManager;
     private ClusterManager<HealthClinic> healthClinicClusterManager;
 
+    //These two are used in connection with the customized info windows, to get a reference to the ClusterItem clicked
     private Shelter clickedShelter;
+    private HealthClinic clickedHealthClinic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -117,12 +118,12 @@ public class MapActivity extends FragmentActivity implements
             mMap.getUiSettings().setMyLocationButtonEnabled(true);
             mMap.getUiSettings().setMapToolbarEnabled(false);
 
-            /*This is here because of the temporary bug fix with Volley and loading in of Health Clinic objects.*/
+
+            //This is here because of the temporary bug fix with Volley and loading in of Health Clinic objects.
             healthClinicClusterManager = new ClusterManager<>(this, googleMap);
 
-            generateHealthClinicObjects();
-            generateShelterObjects();
-
+            shelterList = generateShelterObjects();
+            clinicList = generateHealthClinicObjects();
             setupShelterClustering();
         }
     }
@@ -236,8 +237,10 @@ public class MapActivity extends FragmentActivity implements
     }
 
     /* Reads in the shelters from the .csv file, turning them into Shelter objects, finally adding them to a list so they can be processed by the cluster manager.*/
-    private void generateShelterObjects()
+    private List<Shelter> generateShelterObjects()
     {
+        List<Shelter> shelterList = new ArrayList<>();
+
         InputStream is = getResources().openRawResource(R.raw.shelters_csv_file);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -267,11 +270,15 @@ public class MapActivity extends FragmentActivity implements
             Log.e(TAG, "Error" + line, e1);
             e1.printStackTrace();
         }
+
+        return shelterList;
     }
 
     /* Reads information from the Eniro API and creates HealthClinic objects, finally adding them to a list so they can be processed by the cluster manager.*/
-    private void generateHealthClinicObjects()
+    private List<HealthClinic> generateHealthClinicObjects()
     {
+        List<HealthClinic> clinicList = new ArrayList<>();
+
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         String url = "https://api.eniro.com/cs/search/basic?profile=PVT15&key=2588305061743139325&country=se&version=1.1.3&search_word=akutmottagning&geo_area=Stockholm&from_list=1&to_list=100";
 
@@ -317,6 +324,8 @@ public class MapActivity extends FragmentActivity implements
                 }, error -> error.printStackTrace());
 
         requestQueue.add(request);
+
+        return clinicList;
     }
 
     private void addShelterClusterItems()
@@ -338,7 +347,18 @@ public class MapActivity extends FragmentActivity implements
         mMap.setOnMarkerClickListener(shelterClusterManager);
         addShelterClusterItems();
 
-        shelterClusterManager.setOnClusterItemClickListener(this);
+        shelterClusterManager.setOnClusterItemClickListener(
+                new ClusterManager.OnClusterItemClickListener<Shelter>()
+                {
+                    @Override
+                    public boolean onClusterItemClick(Shelter shelter)
+                    {
+                        clickedShelter = shelter;
+                        return false;
+                    }
+                });
+
+
         mMap.setInfoWindowAdapter(shelterClusterManager.getMarkerManager());
         mMap.setOnInfoWindowClickListener(shelterClusterManager);
 
@@ -356,8 +376,8 @@ public class MapActivity extends FragmentActivity implements
                 TextView latitude = view.findViewById(R.id.info_window_latitude);
                 TextView longitude = view.findViewById(R.id.info_window_longitude);
 
-                address.append(clickedShelter.getTitle());
-                occupants.append(clickedShelter.getSnippet());
+                address.append(clickedShelter.getAddress());
+                occupants.append(clickedShelter.getNumberOfOccupants());
                 latitude.append("" + clickedShelter.getLatitude());
                 longitude.append("" + clickedShelter.getLongitude());
 
@@ -384,15 +404,53 @@ public class MapActivity extends FragmentActivity implements
         mMap.setOnCameraIdleListener(healthClinicClusterManager);
         mMap.setOnMarkerClickListener(healthClinicClusterManager);
         addHealthClinicClusterItems();
+
+        healthClinicClusterManager.setOnClusterItemClickListener(
+                new ClusterManager.OnClusterItemClickListener<HealthClinic>()
+                {
+                    @Override
+                    public boolean onClusterItemClick(HealthClinic clinic)
+                    {
+                        clickedHealthClinic = clinic;
+                        return false;
+                    }
+                });
+
+        mMap.setInfoWindowAdapter(healthClinicClusterManager.getMarkerManager());
+        mMap.setOnInfoWindowClickListener(healthClinicClusterManager);
+
+        healthClinicClusterManager.getMarkerCollection().setOnInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
+        {
+            @Override
+            public View getInfoWindow(Marker marker)
+            {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                final View view = inflater.inflate(R.layout.custom_info_window_healthclinic, null);
+
+                TextView name = view.findViewById(R.id.info_window_clinic_name);
+                TextView address = view.findViewById(R.id.info_window_clinic_address);
+                TextView latitude = view.findViewById(R.id.info_window_clinic_latitude);
+                TextView longitude = view.findViewById(R.id.info_window_clinic_longitude);
+
+                name.append(clickedHealthClinic.getName());
+                address.append(clickedHealthClinic.getAddress());
+                latitude.append("" + clickedHealthClinic.getLatitude());
+                longitude.append("" + clickedHealthClinic.getLongitude());
+
+
+                return view;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker)
+            {
+                return null;
+            }
+        });
+
         healthClinicClusterManager.cluster();
 
 
-    }
-
-    @Override
-    public boolean onClusterItemClick(Shelter shelter)
-    {
-        clickedShelter = shelter;
-        return false;
     }
 }

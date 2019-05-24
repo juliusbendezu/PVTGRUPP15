@@ -29,13 +29,13 @@ public class HealthClinic implements ClusterItem
     @Override
     public String getTitle()
     {
-        return name;
+        return null;
     }
 
     @Override
     public String getSnippet()
     {
-        return address;
+        return null;
     }
 
     public Double getLatitude()
@@ -46,5 +46,15 @@ public class HealthClinic implements ClusterItem
     public Double getLongitude()
     {
         return longitude;
+    }
+
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 }

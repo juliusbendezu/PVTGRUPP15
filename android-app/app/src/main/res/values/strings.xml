@@ -11,6 +11,9 @@
     <!-->activity_pantry<-->
     <string name="pantry_header">Förråd</string>
 
+    <!-->activity_pantry_add_item_form-->
+    <string name="pantry_add_item_header">Lägg till</string>
+
     <!-->activity_tips<-->
     <string name="tips_section_header">Tips &amp; Tricks</string>
     <string name="lightBulb">bild</string>
