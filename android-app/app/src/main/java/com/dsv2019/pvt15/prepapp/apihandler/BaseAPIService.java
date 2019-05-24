@@ -29,19 +29,21 @@ public interface BaseAPIService {
     Call<List<PantryItem>> getPantry();
 
     @FormUrlEncoded
-    @POST("tips/add")
-    Call<Tip> addTip(@Field("title") String title,
-                        @Field("description") String description,
-                        @Field("warmth") boolean isWarmth,
-                       @Field("water") boolean isWater,
-                       @Field("shelter") boolean isShelter,
-                       @Field("food") boolean isFood,
-                       @Field("health") boolean isHealth,
-                       @Field("security") boolean isSecurity,
-                       @Field("storage") boolean isStorage,
-                       @Field("other") boolean isOther,
-                       @Field("likes") int likes,
-                       @Field("creator") String creator
+    @POST("tips/add/")
+    Call<Tip> addTip(
+            @Field("id") int id,
+            @Field("title") String title,
+            @Field("description") String description,
+            @Field("warmth") boolean warmth,
+            @Field("water") boolean water,
+            @Field("shelter") boolean shelter,
+            @Field("food") boolean food,
+            @Field("health") boolean health,
+            @Field("security") boolean security,
+            @Field("storage") boolean storage,
+            @Field("other") boolean other,
+            @Field("likes") int likes,
+            @Field("creator") String creator
     );
 
 

@@ -99,6 +99,7 @@ public class TipsActivity extends Activity {
         });
     }
 
+
     public void loadTheTips() {
         if (InternetConnection.checkConnection(getApplicationContext())) {
             final ProgressDialog dialog;
@@ -132,6 +133,7 @@ public class TipsActivity extends Activity {
 
 
                     for (int i = 0; i < newListToSort.length; i++) {
+                        System.out.println(newListToSort[i].getTitle() + " i loopen");
                         addTips(newListToSort[i]);
                     }
 
@@ -169,6 +171,7 @@ public class TipsActivity extends Activity {
 
             // Swap the found minimum element with the first
             // element
+
             Tip temp = newListToSort[min_idx];
             newListToSort[min_idx] = newListToSort[i];
             newListToSort[i] = temp;
