@@ -93,7 +93,7 @@ public class CreateNewTip extends Activity {
 
             //Defining the method insertuser of our interface
 
-            Call<Tip> call = api.addTip( title, descritption, catChecked[0], catChecked[1], catChecked[2], catChecked[3], catChecked[4], catChecked[5], catChecked[6], catChecked[7], 0, AccessToken.getCurrentAccessToken().getUserId());
+            Call<Tip> call = api.addTip( title, catChecked[0], catChecked[1], catChecked[2], catChecked[3], catChecked[4], catChecked[5], catChecked[6], catChecked[7], descritption, 0, AccessToken.getCurrentAccessToken().getUserId());
 
             //Creating an anonymous callback
             call.enqueue(new Callback<Tip>() {

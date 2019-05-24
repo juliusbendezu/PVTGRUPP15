@@ -29,10 +29,9 @@ public interface BaseAPIService {
     Call<List<PantryItem>> getPantry();
 
     @FormUrlEncoded
-    @POST("tips/add/")
+    @POST("tips/add")
     Call<Tip> addTip(
             @Field("title") String title,
-            @Field("description") String description,
             @Field("warmth") boolean warmth,
             @Field("water") boolean water,
             @Field("shelter") boolean shelter,
@@ -41,6 +40,7 @@ public interface BaseAPIService {
             @Field("security") boolean security,
             @Field("storage") boolean storage,
             @Field("other") boolean other,
+            @Field("description") String description,
             @Field("likes") int likes,
             @Field("creator") String creator
     );
