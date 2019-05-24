@@ -23,27 +23,18 @@ public interface BaseAPIService {
     @GET("helloThere/General")
     Call<String> getHelloString();
 
-    @GET("pantry/" + mockUsername)
-    Call<List<PantryItem>> getPantry();
-
-//    @FormUrlEncoded
-//    @POST("tips/add")
-//    Call<Tip> addTip(
-//            @Field("title") String title,
-//            @Field("warmth") boolean warmth,
-//            @Field("water") boolean water,
-//            @Field("shelter") boolean shelter,
-//            @Field("food") boolean food,
-//            @Field("health") boolean health,
-//            @Field("security") boolean security,
-//            @Field("storage") boolean storage,
-//            @Field("other") boolean other,
-//            @Field("description") String description,
-//            @Field("likes") int likes,
-//            @Field("creator") String creator
-//    );
-
     @POST("tips/add")
     Call<Tip> addTip(@Body Tip tip);
 
+
+    /*
+     * PANTRY
+     */
+
+
+    @GET("pantry/" + mockUsername)
+    Call<List<PantryItem>> getPantry();
+
+    @POST("pantry/add")
+    Call<PantryItem> addPantryItem(@Body PantryItem item);
 }
