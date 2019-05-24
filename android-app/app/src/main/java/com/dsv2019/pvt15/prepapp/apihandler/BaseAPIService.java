@@ -31,7 +31,6 @@ public interface BaseAPIService {
     @FormUrlEncoded
     @POST("tips/add/")
     Call<Tip> addTip(
-            @Field("id") int id,
             @Field("title") String title,
             @Field("description") String description,
             @Field("warmth") boolean warmth,

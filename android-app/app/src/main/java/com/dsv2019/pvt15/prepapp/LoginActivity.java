@@ -3,6 +3,7 @@ package com.dsv2019.pvt15.prepapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.AccessToken;
@@ -105,6 +106,7 @@ public class LoginActivity extends Activity
             String stringID = object.getString("id");
             String email = object.getString("email");
 
+
             idTv = findViewById(R.id.id_login_text);
             idTv.setText(stringID);
 
@@ -124,6 +126,8 @@ public class LoginActivity extends Activity
         if (AccessToken.getCurrentAccessToken() != null)
         {
             loadUserProfile(AccessToken.getCurrentAccessToken());
+
+
 
         }
     }

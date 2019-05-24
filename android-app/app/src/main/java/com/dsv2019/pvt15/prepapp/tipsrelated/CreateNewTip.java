@@ -16,6 +16,7 @@ import com.dsv2019.pvt15.prepapp.TipsActivity;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
+import com.facebook.AccessToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -92,7 +93,7 @@ public class CreateNewTip extends Activity {
 
             //Defining the method insertuser of our interface
 
-            Call<Tip> call = api.addTip(4, title, descritption, catChecked[0], catChecked[1], catChecked[2], catChecked[3], catChecked[4], catChecked[5], catChecked[6], catChecked[7], 0, "Elsa");
+            Call<Tip> call = api.addTip( title, descritption, catChecked[0], catChecked[1], catChecked[2], catChecked[3], catChecked[4], catChecked[5], catChecked[6], catChecked[7], 0, AccessToken.getCurrentAccessToken().getUserId());
 
             //Creating an anonymous callback
             call.enqueue(new Callback<Tip>() {
