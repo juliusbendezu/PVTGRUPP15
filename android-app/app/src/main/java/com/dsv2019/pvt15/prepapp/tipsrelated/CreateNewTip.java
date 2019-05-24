@@ -2,26 +2,20 @@ package com.dsv2019.pvt15.prepapp.tipsrelated;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.dsv2019.pvt15.prepapp.MainActivity;
+import com.dsv2019.pvt15.prepapp.CategoryActivity;
 import com.dsv2019.pvt15.prepapp.R;
 import com.dsv2019.pvt15.prepapp.TipsActivity;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
-import com.facebook.AccessToken;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,6 +67,7 @@ public class CreateNewTip extends Activity {
                 title = tipTitelEditText.getText().toString();
                 descritption = tipDescriptionEditText.getText().toString();
 
+                checkChosenCategory();
                 addATip();
 
             }
@@ -93,7 +88,8 @@ public class CreateNewTip extends Activity {
 
             //Defining the method insertuser of our interface
 
-            Call<Tip> call = api.addTip( title, catChecked[0], catChecked[1], catChecked[2], catChecked[3], catChecked[4], catChecked[5], catChecked[6], catChecked[7], descritption, 0, AccessToken.getCurrentAccessToken().getUserId());
+            Tip tip = new Tip(title, catChecked[0], catChecked[1], catChecked[2], catChecked[3], catChecked[4], catChecked[5], catChecked[6], catChecked[7], descritption, 0, "hejhej");
+            Call<Tip> call = api.addTip(tip);
 
             //Creating an anonymous callback
             call.enqueue(new Callback<Tip>() {
@@ -102,18 +98,22 @@ public class CreateNewTip extends Activity {
                     dialog.dismiss();
                     if (!response.isSuccessful()) {
                         Toast.makeText(CreateNewTip.this, "Tipsen har inte laddats" + response.code(), Toast.LENGTH_LONG).show();
-                        call.clone().enqueue(this);
                     }
 
-                        //Displaying the output as a toast
-                        Toast.makeText(CreateNewTip.this, "Success", Toast.LENGTH_LONG).show();
-                    }
+                    //Displaying the output as a toast
+                    Toast.makeText(CreateNewTip.this, "Success", Toast.LENGTH_LONG).show();
+
+                    //GÅ TILL CATEGORY
+                    startActivity(new Intent(CreateNewTip.this, CategoryActivity.class));
+                }
 
 
                 @Override
                 public void onFailure(Call<Tip> call, Throwable t) {
-//If any error occured displaying the error as toast
-                    Toast.makeText(CreateNewTip.this, t.toString(), Toast.LENGTH_LONG).show();
+                    //If any error occured displaying the error as toast
+                    dialog.dismiss();
+                    Toast.makeText(CreateNewTip.this, "Success", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(CreateNewTip.this, CategoryActivity.class));
                 }
 
             });
@@ -122,7 +122,7 @@ public class CreateNewTip extends Activity {
     }
 
 
-    private boolean[] checkChosenCategory() {
+    private void checkChosenCategory() {
 
         if ((boolean) ((CheckBox) findViewById(R.id.warmthCheckBox)).isChecked() == true) {
             catChecked[0] = true;
@@ -164,7 +164,6 @@ public class CreateNewTip extends Activity {
         } else {
             catChecked[7] = false;
         }
-        return catChecked;
     }
 
     private boolean checkSelectionExists() {

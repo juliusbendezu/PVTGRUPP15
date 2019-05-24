@@ -2,8 +2,7 @@ package com.dsv2019.pvt15.prepapp.tipsrelated;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Tip
-{
+public class Tip {
 
     private int id;
     private String title;
@@ -22,74 +21,74 @@ public class Tip
     @SerializedName("body")
     private String text;
 
+    public Tip(String title, boolean warmth, boolean water, boolean shelter, boolean food, boolean health, boolean security, boolean storage, boolean other, String description, int likes, String creator) {
+        this.title = title;
+        this.description = description;
+        this.warmth = warmth;
+        this.water = water;
+        this.shelter = shelter;
+        this.food = food;
+        this.health = health;
+        this.security = security;
+        this.storage = storage;
+        this.other = other;
+        this.likes = likes;
+        this.creator = creator;
+    }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public boolean isWarmth()
-    {
+    public boolean isWarmth() {
         return warmth;
     }
 
-    public boolean isWater()
-    {
+    public boolean isWater() {
         return water;
     }
 
-    public boolean isShelter()
-    {
+    public boolean isShelter() {
         return shelter;
     }
 
-    public boolean isFood()
-    {
+    public boolean isFood() {
         return food;
     }
 
-    public boolean isHealth()
-    {
+    public boolean isHealth() {
         return health;
     }
 
-    public boolean isSecurity()
-    {
+    public boolean isSecurity() {
         return security;
     }
 
-    public boolean isStorage()
-    {
+    public boolean isStorage() {
         return storage;
     }
 
-    public boolean isOther()
-    {
+    public boolean isOther() {
         return other;
     }
 
-    public int getLikes()
-    {
+    public int getLikes() {
         return likes;
     }
 
-    public String getCreator()
-    {
+    public String getCreator() {
         return creator;
     }
 
-    public String getText()
-    {
+    public String getText() {
         return text;
     }
 
@@ -145,15 +144,13 @@ public class Tip
         this.text = text;
     }
 
-    public Tip(String name, String description, boolean[] categoryCheck, String creator)
-    {
+    public Tip(String name, String description, boolean[] categoryCheck, String creator) {
         this.description = description;
         this.title = name;
         this.creator = creator;
     }
 
-    public void setLikes(int opinion)
-    {
+    public void setLikes(int opinion) {
         if (opinion > 0) {
             likes++;
         } else {

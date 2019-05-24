@@ -30,7 +30,7 @@
     <string name="shelterCheckBoxText">Skydd</string>
     <string name="foodCheckBoxText">Mat</string>
     <string name="healthCheckBoxText">Sjukvård</string>
-    <string name="securityCheckBoxText">Informationssäkerhet</string>
+    <string name="securityCheckBoxText">Säkerhet</string>
     <string name="storageCheckBoxText">Förvaring</string>
     <string name="otherCheckBoxText">Övrigt</string>
 
