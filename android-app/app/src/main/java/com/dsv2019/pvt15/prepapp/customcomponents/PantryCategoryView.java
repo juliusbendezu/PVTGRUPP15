@@ -1,14 +1,9 @@
 package com.dsv2019.pvt15.prepapp.customcomponents;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dsv2019.pvt15.prepapp.R;
 import com.dsv2019.pvt15.prepapp.models.PantryItem;
@@ -16,6 +11,10 @@ import com.dsv2019.pvt15.prepapp.models.PantryItem;
 import java.util.List;
 
 public class PantryCategoryView extends LinearLayout {
+
+    private boolean open = false;
+    ImageView pantryItemsArrow;
+
     public PantryCategoryView(Context context) {
         super(context);
     }
@@ -23,14 +22,6 @@ public class PantryCategoryView extends LinearLayout {
     public PantryCategoryView(Context context, List<PantryItem> items) {
         super(context);
         inflate(context, R.layout.custom_pantry_category_item, this);
-
-        //setSpinnerSolution(items);
-
-
-
-        /* Relates to when using center layout with 2 textviews in
-         * custom_pantry_category_item.xml
-         */
 
         String category = items.get(0).getCategory();
         TextView titleTv = findViewById(R.id.pantryCategoryTitle);
@@ -56,29 +47,24 @@ public class PantryCategoryView extends LinearLayout {
                 break;
         }
 
-        setOnClickListener(l -> showPantryItems(items));
+        pantryItemsArrow = findViewById(R.id.showPantryItemsArrow);
+        pantryItemsArrow.setOnClickListener(l -> showPantryItems(items));
 
-    }
 
-    private void setSpinnerSolution(List<PantryItem> items) {
-        /*
-        Spinner spinner = findViewById(R.id.pantryItemsSpinner);
-        String[] itemArray = new String[items.size()];
-        for (int i = 0; i < itemArray.length; i++) {
-            PantryItem item = items.get(i);
-            String title = String.format("%s %dg exp. %s",
-                    item.getItemName(), item.getAmount(), item.getExpiryDate());
-            itemArray[i] = title;
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item);
-        adapter.add(items.get(0).getCategory());
-        adapter.addAll(itemArray);
-        spinner.setAdapter(adapter);
-        */
     }
 
     private void showPantryItems(List<PantryItem> items) {
-        Toast.makeText(getContext(), items.toString(), Toast.LENGTH_SHORT).show();
+        LinearLayout itemsLayout = findViewById(R.id.pantryCategoryLayout);
+        if (!open) {
+            pantryItemsArrow.setRotation(90);
+            for (PantryItem item : items) {
+                itemsLayout.addView(new PantryItemSummaryView(getContext(), item));
+            }
+            open = true;
+        } else {
+            pantryItemsArrow.setRotation(0);
+            itemsLayout.removeViews(1, itemsLayout.getChildCount() - 1);
+            open = false;
+        }
     }
 }
