@@ -1,24 +1,29 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
 import com.dsv2019.pvt15.prepapp.models.PantryItem;
-
-import java.util.InputMismatchException;
+import com.facebook.AccessToken;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PantryAddItemForm extends Activity {
+    
+    //TODO FIX DATE INPUT HERE AND IN XML
+
+
     TextView header;
     Button saveItemButton;
 
@@ -28,20 +33,21 @@ public class PantryAddItemForm extends Activity {
     EditText dateInput;
     RadioGroup radioGroup;
 
+    //final String owner = AccessToken.getCurrentAccessToken().toString();
+    final String owner = "Julius";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantry_add_item_form);
 
         initComponents();
-
-
     }
 
     private void initComponents() {
 
         header = findViewById(R.id.addPantryItemHeader);
-        saveItemButton = findViewById(R.id.addPantryItemButton);
+        saveItemButton = findViewById(R.id.savePantryItemButton);
         saveItemButton.setOnClickListener(l -> savePantryItem());
 
         nameInput = findViewById(R.id.pantryEditName);
@@ -53,11 +59,14 @@ public class PantryAddItemForm extends Activity {
     }
 
     private void savePantryItem() {
-        checkFields();
-        //Make post request to api
+        PantryItem item = checkFields();
+        if (item == null)
+            return;
+        makeRequest(item);
+        startActivity(new Intent(this, PantryActivity.class));
     }
 
-    private void checkFields() {
+    private PantryItem checkFields() {
         String type;
         String name;
         String category;
@@ -76,45 +85,41 @@ public class PantryAddItemForm extends Activity {
                 type = PantryItem.OTHER_CATEGORY;
                 break;
             default:
-                //Not selected, show errormessage
-                return;
+                showErrorMessage("Du måste välja en typ!");
+                return null;
         }
 
         name = nameInput.getText().toString();
-        if(name.isEmpty()){
-            //doSomething
-            return;
+        if (name.isEmpty()) {
+            showErrorMessage("Namn kan inte vara tomt!");
+            return null;
         }
 
         category = categoryInput.getText().toString();
-        if(category.isEmpty()){
-            //doSomething
-            return;
+        if (category.isEmpty()) {
+            showErrorMessage("Kategori kan inte vara tomt!");
+            return null;
         }
 
-
-        try{
+        try {
             String stringAmount = amountInput.getText().toString();
             amount = Integer.parseInt(stringAmount);
-        }catch(InputMismatchException e){
-            //Errormessage
-            return;
+        } catch (NumberFormatException e) {
+            showErrorMessage("Skriv antal som ett heltal");
+            return null;
         }
 
-
         expiryDate = dateInput.getText().toString();
-        if(expiryDate.isEmpty()){
+        if (expiryDate.isEmpty()) {
             expiryDate = "-";
         }
 
-        PantryItem item = new PantryItem(name, category, expiryDate, type, amount);
-        makeRequest(item);
-
+        return new PantryItem(name, category, type, expiryDate, amount, owner);
     }
 
     private void makeRequest(PantryItem item) {
-        if(!InternetConnection.checkConnection(this)){
-            //Errormessage
+        if (!InternetConnection.checkConnection(this)) {
+            showErrorMessage("Ett fel upstod vid anslutning till servern, kontrollera din internetuppkoppling");
             return;
         }
 
@@ -124,20 +129,22 @@ public class PantryAddItemForm extends Activity {
         call.enqueue(new Callback<PantryItem>() {
             @Override
             public void onResponse(Call<PantryItem> call, Response<PantryItem> response) {
-                if(!response.isSuccessful()){
-                    //Errormessage try again
+                if (!response.isSuccessful()) {
+                    showErrorMessage("Ett fel uppstod vid anslutning till servern, vänlig försök igen: " + response.message());
                     return;
                 }
 
-                //Successmessage
-
+                Toast.makeText(PantryAddItemForm.this, "Success", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
-                //Errormessage
-                return;
+                showErrorMessage("Error: " + t.getMessage());
             }
         });
+    }
+
+    private void showErrorMessage(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 }

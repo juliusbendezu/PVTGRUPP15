@@ -10,23 +10,25 @@ public class PantryItem implements Serializable {
 
     private String name;
     private String category;
-    private String expiryDate;
     private String generalCategory;
+    private String expiryDate;
     private int amount;
+    private String owner;
 
-    public PantryItem(String name, String category, String expiryDate, String generalCategory, int amount) {
+    public PantryItem(String name, String category, String generalCategory, String expiryDate, int amount, String owner) {
         this.name = name;
         this.category = category;
-        this.expiryDate = expiryDate;
         this.generalCategory = generalCategory;
+        this.expiryDate = expiryDate;
         this.amount = amount;
+        this.owner = owner;
     }
 
-    public String getItemName() {
+    public String getName() {
         return name;
     }
 
-    public void setItemName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -38,14 +40,6 @@ public class PantryItem implements Serializable {
         this.category = category;
     }
 
-    public String getExpiryDate() {
-        return expiryDate;
-    }
-
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
-    }
-
     public String getGeneralCategory(){
         return generalCategory;
     }
@@ -54,12 +48,28 @@ public class PantryItem implements Serializable {
         this.generalCategory = generalCategory;
     }
 
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
     public int getAmount() {
         return amount;
     }
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     @Override
