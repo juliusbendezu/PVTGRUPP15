@@ -7,9 +7,16 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
+import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
+import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
 import com.dsv2019.pvt15.prepapp.models.PantryItem;
 
 import java.util.InputMismatchException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PantryAddItemForm extends Activity {
     TextView header;
@@ -101,6 +108,36 @@ public class PantryAddItemForm extends Activity {
         }
 
         PantryItem item = new PantryItem(name, category, expiryDate, type, amount);
+        makeRequest(item);
 
+    }
+
+    private void makeRequest(PantryItem item) {
+        if(!InternetConnection.checkConnection(this)){
+            //Errormessage
+            return;
+        }
+
+        BaseAPIService apiService = RetrofitClient.getApiService();
+        Call<PantryItem> call = apiService.addPantryItem(item);
+
+        call.enqueue(new Callback<PantryItem>() {
+            @Override
+            public void onResponse(Call<PantryItem> call, Response<PantryItem> response) {
+                if(!response.isSuccessful()){
+                    //Errormessage try again
+                    return;
+                }
+
+                //Successmessage
+
+            }
+
+            @Override
+            public void onFailure(Call<PantryItem> call, Throwable t) {
+                //Errormessage
+                return;
+            }
+        });
     }
 }
