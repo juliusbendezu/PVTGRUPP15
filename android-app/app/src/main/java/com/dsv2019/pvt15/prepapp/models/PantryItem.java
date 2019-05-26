@@ -8,6 +8,7 @@ public class PantryItem implements Serializable {
     public static final String MEDICINE_CATEGORY = "Medicine";
     public static final String OTHER_CATEGORY = "Other";
 
+    private int id;
     private String name;
     private String category;
     private String generalCategory;
@@ -15,6 +16,8 @@ public class PantryItem implements Serializable {
     private int amount;
     private String owner;
 
+
+    //Without ID
     public PantryItem(String name, String category, String generalCategory, String expiryDate, int amount, String owner) {
         this.name = name;
         this.category = category;
@@ -22,6 +25,25 @@ public class PantryItem implements Serializable {
         this.expiryDate = expiryDate;
         this.amount = amount;
         this.owner = owner;
+    }
+
+    //With ID
+    public PantryItem(int id, String name, String category, String generalCategory, String expiryDate, int amount, String owner) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.generalCategory = generalCategory;
+        this.expiryDate = expiryDate;
+        this.amount = amount;
+        this.owner = owner;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
