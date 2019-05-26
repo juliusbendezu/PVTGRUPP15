@@ -2,7 +2,7 @@ package com.dsv2019.pvt15.prepapp.models;
 
 import java.io.Serializable;
 
-public class PantryItem implements Serializable {
+public class PantryItem implements Serializable, Comparable<PantryItem> {
 
     public static final String FOOD_CATEGORY = "Food";
     public static final String MEDICINE_CATEGORY = "Medicine";
@@ -97,5 +97,10 @@ public class PantryItem implements Serializable {
     @Override
     public String toString() {
         return String.format("%s %dg %s", name, amount, expiryDate);
+    }
+
+    @Override
+    public int compareTo(PantryItem o) {
+        return name.compareTo(o.name);
     }
 }

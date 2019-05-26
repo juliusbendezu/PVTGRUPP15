@@ -9,21 +9,24 @@ import com.dsv2019.pvt15.prepapp.R;
 import com.dsv2019.pvt15.prepapp.models.PantryItem;
 
 import java.util.List;
+import java.util.Set;
 
 public class PantryCategoryView extends LinearLayout {
 
     private boolean open = false;
     ImageView pantryItemsArrow;
 
+    String type;
+
     public PantryCategoryView(Context context) {
         super(context);
     }
 
-    public PantryCategoryView(Context context, List<PantryItem> items) {
+    public PantryCategoryView(Context context, Set<PantryItem> items) {
         super(context);
         inflate(context, R.layout.custom_pantry_category_item, this);
 
-        String category = items.get(0).getCategory();
+        String category = items.iterator().next().getCategory();
         TextView titleTv = findViewById(R.id.pantryCategoryTitle);
         titleTv.append(category);
 
@@ -33,7 +36,8 @@ public class PantryCategoryView extends LinearLayout {
 
 
         ImageView imageView = findViewById(R.id.pantryCategoryImage);
-        String genCategory = items.get(0).getGeneralCategory();
+        String genCategory = items.iterator().next().getGeneralCategory();
+        type = genCategory;
 
         switch (genCategory) {
             case PantryItem.FOOD_CATEGORY:
@@ -53,7 +57,7 @@ public class PantryCategoryView extends LinearLayout {
 
     }
 
-    private void showPantryItems(List<PantryItem> items) {
+    private void showPantryItems(Set<PantryItem> items) {
         LinearLayout itemsLayout = findViewById(R.id.pantryCategoryLayout);
         if (!open) {
             pantryItemsArrow.setRotation(90);
@@ -66,5 +70,9 @@ public class PantryCategoryView extends LinearLayout {
             itemsLayout.removeViews(1, itemsLayout.getChildCount() - 1);
             open = false;
         }
+    }
+
+    public String getType(){
+        return type;
     }
 }
