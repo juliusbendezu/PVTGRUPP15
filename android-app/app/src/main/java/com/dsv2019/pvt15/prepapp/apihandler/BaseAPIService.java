@@ -16,6 +16,18 @@ public interface BaseAPIService {
     String mockUser = "Julius";
     String userId = AccessToken.getCurrentAccessToken().toString();
 
+    /*
+     * General
+     */
+
+    @GET("api/wakeup")
+    Call<String> wakeServer();
+
+
+    /*
+     * Tips
+     */
+
     @GET("tips/all")
     Call<List<Tip>> getTips();
 
@@ -32,7 +44,6 @@ public interface BaseAPIService {
     /*
      * PANTRY
      */
-
 
     @GET("pantry/" + mockUser)
     Call<List<PantryItem>> getPantry();
