@@ -124,8 +124,6 @@ public class PantryActivity extends Activity {
         empty.setGravity(Gravity.CENTER);
         empty.setTypeface(empty.getTypeface(), Typeface.BOLD);
 
-        //empty.setBackgroundResource(R.drawable.border); Not working correctly
-
         empty.setPadding(20, 100, 20, 100);
         layout.addView(empty);
     }
