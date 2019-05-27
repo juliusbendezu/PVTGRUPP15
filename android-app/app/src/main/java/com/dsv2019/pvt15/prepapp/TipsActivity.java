@@ -11,21 +11,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
-import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.TipsItemView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.graphics.Color.luminance;
 
 
 public class TipsActivity extends Activity {
@@ -162,11 +160,12 @@ public class TipsActivity extends Activity {
             // Find the minimum element in unsorted array
             int min_idx = i;
             for (int j = i + 1; j < n; j++) {
-                if(newListToSort[j].equals(newListToSort[min_idx])){
-                if (newListToSort[j].getLikes() < newListToSort[min_idx].getLikes()) {
-                    newListToSort[min_idx] = newListToSort[j];
+                if (newListToSort[j].equals(newListToSort[min_idx])) {
+                    if (newListToSort[j].getLikes() < newListToSort[min_idx].getLikes()) {
+                        newListToSort[min_idx] = newListToSort[j];
+                    }
                 }
-            }}
+            }
 
 
             // Swap the found minimum element with the first

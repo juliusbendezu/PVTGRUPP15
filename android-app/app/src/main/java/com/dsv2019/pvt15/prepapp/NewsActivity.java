@@ -3,7 +3,6 @@ package com.dsv2019.pvt15.prepapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -35,8 +34,7 @@ public class NewsActivity extends Activity {
     RequestQueue requestQueue;
     ArrayList<NewsItem> newsFeed;
 
-
-    ProgressBar spinner;
+    ProgressBar progressSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +50,7 @@ public class NewsActivity extends Activity {
 
         requestQueue = Volley.newRequestQueue(this);
         newsFeed = new ArrayList<>();
-        spinner = findViewById(R.id.progressSpinner);
+        progressSpinner = findViewById(R.id.progressSpinner);
 
         requestNewsFeed();
     }
@@ -73,8 +71,8 @@ public class NewsActivity extends Activity {
                                     bigObject.getString("Sent"));
                             Log.d("GetNewsFeed", "NewsItem: " + newsItem);
 
-                            if(i == 0)
-                                spinner.setVisibility(View.GONE);
+                            if (i == 0)
+                                progressSpinner.setVisibility(View.GONE);
 
                             newsFeed.add(newsItem);
                             addNews(newsItem);

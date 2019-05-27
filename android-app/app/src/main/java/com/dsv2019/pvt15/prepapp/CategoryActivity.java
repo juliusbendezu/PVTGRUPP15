@@ -2,7 +2,6 @@ package com.dsv2019.pvt15.prepapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +40,7 @@ public class CategoryActivity extends Activity {
 
     }
 
-    private void setWarmthButton(){
+    private void setWarmthButton() {
         warmthButton1 = findViewById(R.id.warmthButtom);
         warmthButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +51,8 @@ public class CategoryActivity extends Activity {
             }
         });
     }
-    private void setWaterButton(){
+
+    private void setWaterButton() {
         waterButton2 = findViewById(R.id.waterButton);
         waterButton2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +64,8 @@ public class CategoryActivity extends Activity {
         });
 
     }
-    private void setShelterButton(){
+
+    private void setShelterButton() {
         shelterButton3 = findViewById(R.id.shelterButton);
         shelterButton3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +77,8 @@ public class CategoryActivity extends Activity {
         });
 
     }
-    private void setFoodButton(){
+
+    private void setFoodButton() {
         foodButton4 = findViewById(R.id.foodButton);
         foodButton4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +89,8 @@ public class CategoryActivity extends Activity {
             }
         });
     }
-    private void setHealthButton(){
+
+    private void setHealthButton() {
         healthButton5 = findViewById(R.id.healthButton);
         healthButton5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +102,8 @@ public class CategoryActivity extends Activity {
         });
 
     }
-    private void setSecurityButton(){
+
+    private void setSecurityButton() {
         securityButton6 = findViewById(R.id.securityButton);
         securityButton6.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +115,9 @@ public class CategoryActivity extends Activity {
         });
 
     }
-    private void setStorageButton(){
-         storageButton7 = findViewById(R.id.storageButton);
+
+    private void setStorageButton() {
+        storageButton7 = findViewById(R.id.storageButton);
         storageButton7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +128,8 @@ public class CategoryActivity extends Activity {
         });
 
     }
-    private void setOtherButton(){
+
+    private void setOtherButton() {
         otherButton8 = findViewById(R.id.otherButton);
         otherButton8.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,8 +141,9 @@ public class CategoryActivity extends Activity {
         });
 
     }
-    private void setCreateNewTipButton(){
-        createNewTip=findViewById(R.id.createNewTipButtonn);
+
+    private void setCreateNewTipButton() {
+        createNewTip = findViewById(R.id.createNewTipButtonn);
         createNewTip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

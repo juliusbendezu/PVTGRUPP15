@@ -6,8 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class MainActivity extends Activity
-{
+import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
+import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MainActivity extends Activity {
 
     private ImageButton mapsButton;
     private ImageButton newsButton;
@@ -16,17 +22,14 @@ public class MainActivity extends Activity
     private ImageButton facebookButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mapsButton = findViewById(R.id.mapsButton);
-        mapsButton.setOnClickListener(new View.OnClickListener()
-        {
+        mapsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
                 startActivity(startIntent);
             }
@@ -56,5 +59,26 @@ public class MainActivity extends Activity
             startActivity(startIntent);
         });
 
+        wakeUpServer();
+
+    }
+
+    private void wakeUpServer() {
+        BaseAPIService api = RetrofitClient.getApiService();
+        Call<String> call = api.wakeServer();
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (!response.isSuccessful())
+                    System.out.println("Server did not respond");
+                else
+                    System.out.println(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
     }
 }

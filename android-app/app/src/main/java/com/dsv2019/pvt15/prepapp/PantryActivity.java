@@ -17,10 +17,11 @@ import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
 import com.dsv2019.pvt15.prepapp.customcomponents.PantryCategoryView;
 import com.dsv2019.pvt15.prepapp.models.PantryItem;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,8 +30,11 @@ import retrofit2.Response;
 public class PantryActivity extends Activity {
 
     private final String EMPTY_PANTRY_MSG = "Du har inget i förrådet! Lägg till något?";
+
     LinearLayout layout;
     Button addItemButton;
+
+    List<PantryItem> pantry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,23 +47,12 @@ public class PantryActivity extends Activity {
         addItemButton = findViewById(R.id.addPantryItemButton);
         addItemButton.setOnClickListener(l -> addPantryItem());
 
-//      List<PantryItem> pantry = new ArrayList<>();
-//      pantry.add(new PantryItem("Näskaffe", "Kaffe", "2020-05-04", PantryItem.FOOD_CATEGORY, 500));
-//      pantry.add(new PantryItem("Pastiller", "Tabletter", "2020-05-04", PantryItem.MEDICINE_CATEGORY, 200));
-//      pantry.add(new PantryItem("Såg", "Verktyg", "", PantryItem.OTHER_CATEGORY, 1000));
-//      pantry.add(new PantryItem("Lyxkaffe", "Kaffe", "2022", PantryItem.FOOD_CATEGORY, 450));
-//      showPantry(pantry);
-
         getPantry();
 
     }
 
     private void addPantryItem() {
         startActivity(new Intent(this, PantryAddItemForm.class));
-
-        //Show form for adding pantryitem
-        //Make a post request using retrofit
-        //Refresh to show new item
     }
 
     private void getPantry() {
@@ -82,7 +75,6 @@ public class PantryActivity extends Activity {
                     Toast.makeText(PantryActivity.this, "Could not load pantry, please try again", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
-                List<PantryItem> pantry;
                 pantry = response.body();
                 showPantry(pantry);
             }
@@ -102,19 +94,20 @@ public class PantryActivity extends Activity {
             return;
         }
 
-        Map<String, List<PantryItem>> categories = new TreeMap<>();
+        Map<String, Set<PantryItem>> pantryMap = new TreeMap<>();
+
         for (PantryItem p : pantry) {
             String category = p.getCategory();
-            if (categories.containsKey(category)) {
-                categories.get(category).add(p);
+            if (pantryMap.containsKey(category)) {
+                pantryMap.get(category).add(p);
             } else {
-                List<PantryItem> list = new ArrayList<>();
-                list.add(p);
-                categories.put(category, list);
+                Set<PantryItem> set = new TreeSet<>();
+                set.add(p);
+                pantryMap.put(category, set);
             }
         }
 
-        for (List<PantryItem> category : categories.values())
+        for (Set<PantryItem> category : pantryMap.values())
             layout.addView(new PantryCategoryView(this, category));
     }
 
@@ -124,9 +117,15 @@ public class PantryActivity extends Activity {
         empty.setGravity(Gravity.CENTER);
         empty.setTypeface(empty.getTypeface(), Typeface.BOLD);
 
-        //empty.setBackgroundResource(R.drawable.border); Not working correctly
-
         empty.setPadding(20, 100, 20, 100);
         layout.addView(empty);
+    }
+
+    private void showPantryByType(String type) {
+        for(int i = 0; i < layout.getChildCount(); i++){
+            PantryCategoryView view = (PantryCategoryView) layout.getChildAt(i);
+            if(!(view.getType().equals(type)))
+                layout.removeViewAt(i);
+        }
     }
 }

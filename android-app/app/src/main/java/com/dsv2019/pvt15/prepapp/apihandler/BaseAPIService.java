@@ -2,6 +2,7 @@ package com.dsv2019.pvt15.prepapp.apihandler;
 
 import com.dsv2019.pvt15.prepapp.models.PantryItem;
 import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
+import com.facebook.AccessToken;
 
 import java.util.List;
 
@@ -12,7 +13,20 @@ import retrofit2.http.POST;
 
 public interface BaseAPIService {
 
-    String mockUsername = "Julius";
+    String mockUser = "Julius";
+    String userId = AccessToken.getCurrentAccessToken().toString();
+
+    /*
+     * General
+     */
+
+    @GET("api/wakeup")
+    Call<String> wakeServer();
+
+
+    /*
+     * Tips
+     */
 
     @GET("tips/all")
     Call<List<Tip>> getTips();
@@ -31,8 +45,7 @@ public interface BaseAPIService {
      * PANTRY
      */
 
-
-    @GET("pantry/" + mockUsername)
+    @GET("pantry/" + mockUser)
     Call<List<PantryItem>> getPantry();
 
     @POST("pantry/add")
