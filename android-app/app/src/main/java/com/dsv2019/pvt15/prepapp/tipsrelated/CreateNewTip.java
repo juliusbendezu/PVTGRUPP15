@@ -33,7 +33,7 @@ public class CreateNewTip extends Activity {
     private boolean[] catChecked;
 
     //FACEBOOK ID
-    private String creator = AccessToken.getCurrentAccessToken().toString();
+    //private String creator = AccessToken.getCurrentAccessToken().toString();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class CreateNewTip extends Activity {
             //Defining the method insertuser of our interface
 
             Tip tip = new Tip(title, catChecked[0], catChecked[1], catChecked[2], catChecked[3], catChecked[4],
-                    catChecked[5], catChecked[6], catChecked[7], descritption, 0, creator);
+                    catChecked[5], catChecked[6], catChecked[7], descritption, 0, "Elsa");
             Call<Tip> call = api.addTip(tip);
 
             //Creating an anonymous callback
@@ -109,7 +109,9 @@ public class CreateNewTip extends Activity {
                     Toast.makeText(CreateNewTip.this, "Success", Toast.LENGTH_LONG).show();
 
                     //GÅ TILL CATEGORY
-                    startActivity(new Intent(CreateNewTip.this, CategoryActivity.class));
+                    Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
+                    startIntent.putExtra("TipId", tip.getId());
+                    startActivity(startIntent);
                 }
 
 
@@ -118,7 +120,9 @@ public class CreateNewTip extends Activity {
                     //If any error occured displaying the error as toast
                     dialog.dismiss();
                     Toast.makeText(CreateNewTip.this, "Success", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(CreateNewTip.this, CategoryActivity.class));
+                    Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
+                    startIntent.putExtra("TipId", tip.getId());
+                    startActivity(startIntent);
                 }
 
             });

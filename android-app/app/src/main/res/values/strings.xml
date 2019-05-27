@@ -33,6 +33,14 @@
     <string name="securityCheckBoxText">Säkerhet</string>
     <string name="storageCheckBoxText">Förvaring</string>
     <string name="otherCheckBoxText">Övrigt</string>
+    <string name="categoryTextView">    Tipsets Kategorier: </string>
+    <string name="tipsTitelTextView">Title </string>
+    <string name="tipsEditTextView">Redigera detta tips</string>
+    <string name="tipsLikeTextView">Gilla detta tips</string>
+
+
+
+
 
     <string name="facebook_app_id">2174193092616862</string>
     <string name="fb_login_protocol_scheme">fb2174193092616862</string>
@@ -58,7 +66,7 @@
     <string name="shelterButton">Skydd 3</string>
     <string name="foodButton">Mat 4</string>
     <string name="healthButton">Sjukvård 5</string>
-    <string name="securityButton">Informationssäkerhet 6</string>
+    <string name="securityButton">Säkerhet 6</string>
     <string name="storageButton">Förvaring 7</string>
     <string name="otherButton">Övrigt 8</string>
 
