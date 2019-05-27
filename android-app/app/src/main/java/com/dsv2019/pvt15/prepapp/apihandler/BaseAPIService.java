@@ -44,10 +44,13 @@ public interface BaseAPIService {
     Call<Tip> addTip(@Body Tip tip);
 
     @GET("tips/{id}")
-    Call<Tip> getTip(int id);
+    Call<Tip> getTip(@Path("id") int id);
 
     @DELETE("tips/delete/{id}")
     Call<Tip> deleteTip(@Path("id")int id);
+
+    @PUT("tips/update")
+    Call<Tip> updateTip(@Body Tip tip);
 
 
     /*
