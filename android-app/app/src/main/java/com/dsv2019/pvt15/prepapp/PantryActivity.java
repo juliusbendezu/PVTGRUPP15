@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuInflater;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,23 +32,27 @@ import retrofit2.Response;
 
 public class PantryActivity extends Activity {
 
-    private final String EMPTY_PANTRY_MSG = "Du har inget i förrådet! Lägg till något?";
+    private static final String EMPTY_PANTRY_MSG = "Du har inget i förrådet! Lägg till något?";
+    private static final String ALL = "all";
 
     LinearLayout layout;
     Button addItemButton;
 
-    List<PantryItem> pantry;
+    ImageButton hamburger;
+
+    Map<String, Set<PantryItem>> pantryMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantry);
 
-        findViewById(R.id.homeButton).setOnClickListener(l -> startActivity(new Intent(this, MainActivity.class)));
-
         layout = findViewById(R.id.pantryActivityItemsLayout);
         addItemButton = findViewById(R.id.addPantryItemButton);
         addItemButton.setOnClickListener(l -> addPantryItem());
+
+        hamburger = findViewById(R.id.pantryActivityHamburger);
+        hamburger.setOnClickListener(l -> showMenu());
 
         getPantry();
 
@@ -75,8 +82,8 @@ public class PantryActivity extends Activity {
                     Toast.makeText(PantryActivity.this, "Could not load pantry, please try again", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
-                pantry = response.body();
-                showPantry(pantry);
+                List<PantryItem> pantry = response.body();
+                makePantry(pantry);
             }
 
             @Override
@@ -88,13 +95,13 @@ public class PantryActivity extends Activity {
 
     }
 
-    private void showPantry(List<PantryItem> pantry) {
+    private void makePantry(List<PantryItem> pantry) {
         if (pantry == null || pantry.isEmpty()) {
             showEmptyPantryMsg();
             return;
         }
 
-        Map<String, Set<PantryItem>> pantryMap = new TreeMap<>();
+        pantryMap = new TreeMap<>();
 
         for (PantryItem p : pantry) {
             String category = p.getCategory();
@@ -107,8 +114,19 @@ public class PantryActivity extends Activity {
             }
         }
 
-        for (Set<PantryItem> category : pantryMap.values())
-            layout.addView(new PantryCategoryView(this, category));
+        showPantry(pantryMap, ALL);
+    }
+
+    private void showPantry(Map<String, Set<PantryItem>> pantryMap, String type) {
+        if (type.equals("all"))
+            for (Set<PantryItem> category : pantryMap.values())
+                layout.addView(new PantryCategoryView(this, category));
+        else
+            for (Set<PantryItem> category : pantryMap.values())
+                if (category.iterator().next().getGeneralCategory().equals(type))
+                    layout.addView(new PantryCategoryView(this, category));
+
+
     }
 
     private void showEmptyPantryMsg() {
@@ -121,11 +139,29 @@ public class PantryActivity extends Activity {
         layout.addView(empty);
     }
 
-    private void showPantryByType(String type) {
-        for(int i = 0; i < layout.getChildCount(); i++){
-            PantryCategoryView view = (PantryCategoryView) layout.getChildAt(i);
-            if(!(view.getType().equals(type)))
-                layout.removeViewAt(i);
-        }
+    private void showMenu() {
+        PopupMenu popupMenu = new PopupMenu(this, hamburger);
+        popupMenu.setOnMenuItemClickListener(m -> {
+            String type = "";
+            switch (m.getItemId()) {
+                case R.id.pantryMenuFood:
+                    type = PantryItem.FOOD_CATEGORY;
+                    break;
+                case R.id.pantryMenuMedicine:
+                    type = PantryItem.MEDICINE_CATEGORY;
+                    break;
+                case R.id.pantryMenuOther:
+                    type = PantryItem.OTHER_CATEGORY;
+                    break;
+            }
+            layout.removeAllViews();
+            showPantry(pantryMap, type);
+
+            return false;
+        });
+
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.pantry_popup_menu, popupMenu.getMenu());
+        popupMenu.show();
     }
 }
