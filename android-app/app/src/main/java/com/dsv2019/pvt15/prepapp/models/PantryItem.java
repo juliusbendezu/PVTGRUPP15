@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class PantryItem implements Serializable, Comparable<PantryItem> {
 
+    public static final String KEY = "pantryitem";
+
     public static final String FOOD_CATEGORY = "Food";
     public static final String MEDICINE_CATEGORY = "Medicine";
     public static final String OTHER_CATEGORY = "Other";

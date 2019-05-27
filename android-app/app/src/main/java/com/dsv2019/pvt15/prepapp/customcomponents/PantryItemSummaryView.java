@@ -1,6 +1,7 @@
 package com.dsv2019.pvt15.prepapp.customcomponents;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.dsv2019.pvt15.prepapp.PantryAddItemForm;
 import com.dsv2019.pvt15.prepapp.R;
 import com.dsv2019.pvt15.prepapp.models.PantryItem;
 
@@ -63,7 +65,12 @@ public class PantryItemSummaryView extends LinearLayout {
 
     private void editPantryItem() {
         System.out.println(pantryItem.getId());
+        Context context = getContext();
+
+        Intent intent = new Intent(context, PantryAddItemForm.class);
+        intent.putExtra(PantryItem.KEY, pantryItem);
         //Make PUT request to API
+        context.startActivity(intent);
     }
 
     private void deletePantryItem() {
