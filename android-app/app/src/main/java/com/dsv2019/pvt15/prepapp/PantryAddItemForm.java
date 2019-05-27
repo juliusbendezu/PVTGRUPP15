@@ -1,9 +1,12 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -14,14 +17,13 @@ import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
 import com.dsv2019.pvt15.prepapp.models.PantryItem;
 
+import java.util.Calendar;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PantryAddItemForm extends Activity {
-
-    //TODO FIX DATE INPUT HERE AND IN XML
-
+public class PantryAddItemForm extends Activity implements DatePickerDialog.OnDateSetListener {
 
     TextView header;
     Button saveItemButton;
@@ -29,8 +31,11 @@ public class PantryAddItemForm extends Activity {
     EditText nameInput;
     EditText categoryInput;
     EditText amountInput;
-    EditText dateInput;
+    Button dateInput;
     RadioGroup radioGroup;
+
+    TextView dateTextView;
+    String date = "";
 
     //final String owner = AccessToken.getCurrentAccessToken().toString();
     final String owner = "Julius";
@@ -52,9 +57,22 @@ public class PantryAddItemForm extends Activity {
         nameInput = findViewById(R.id.pantryEditName);
         categoryInput = findViewById(R.id.pantryEditCategory);
         amountInput = findViewById(R.id.pantryEditAmount);
-        dateInput = findViewById(R.id.pantryEditDate);
+        dateInput = findViewById(R.id.datePickerButton);
+        dateInput.setOnClickListener(l -> showDatePickerDialog());
+
+        dateTextView = findViewById(R.id.pantryDateTextView);
 
         radioGroup = findViewById(R.id.addPantryItemRG);
+    }
+
+    private void showDatePickerDialog() {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        Dialog dateDialog = new DatePickerDialog(this, this, year, month, day);
+        dateDialog.show();
     }
 
     private void savePantryItem() {
@@ -62,7 +80,6 @@ public class PantryAddItemForm extends Activity {
         if (item == null)
             return;
         makeRequest(item);
-        startActivity(new Intent(this, PantryActivity.class));
     }
 
     private PantryItem checkFields() {
@@ -108,7 +125,7 @@ public class PantryAddItemForm extends Activity {
             return null;
         }
 
-        expiryDate = dateInput.getText().toString();
+        expiryDate = date;
         if (expiryDate.isEmpty()) {
             expiryDate = "-";
         }
@@ -134,16 +151,25 @@ public class PantryAddItemForm extends Activity {
                 }
 
                 Toast.makeText(PantryAddItemForm.this, "Success", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(PantryAddItemForm.this, PantryActivity.class));
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
                 showErrorMessage("Error: " + t.getMessage());
+                startActivity(new Intent(PantryAddItemForm.this, PantryActivity.class));
             }
         });
     }
 
     private void showErrorMessage(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month++;
+        date = String.format("%d-%s-%d", year, month < 10 ? "0" + month : month, dayOfMonth);
+        dateTextView.setText(date);
     }
 }
