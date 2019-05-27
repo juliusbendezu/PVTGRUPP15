@@ -25,6 +25,9 @@ import retrofit2.Response;
 
 public class PantryAddItemForm extends Activity implements DatePickerDialog.OnDateSetListener {
 
+    PantryItem itemToUpdate = null;
+    boolean makeUpdate = false;
+
     TextView header;
     Button saveItemButton;
 
@@ -46,6 +49,32 @@ public class PantryAddItemForm extends Activity implements DatePickerDialog.OnDa
         setContentView(R.layout.activity_pantry_add_item_form);
 
         initComponents();
+
+        itemToUpdate = (PantryItem) getIntent().getSerializableExtra(PantryItem.KEY);
+        if (itemToUpdate != null) {
+            makeUpdate = true;
+            fillFields();
+        }
+    }
+
+    private void fillFields() {
+        nameInput.setText(itemToUpdate.getName());
+        categoryInput.setText(itemToUpdate.getCategory());
+        amountInput.setText(String.valueOf(itemToUpdate.getAmount()));
+
+        int id = 0;
+        switch (itemToUpdate.getGeneralCategory()) {
+            case PantryItem.FOOD_CATEGORY:
+                id = R.id.foodTypeRadio;
+                break;
+            case PantryItem.MEDICINE_CATEGORY:
+                id = R.id.medicineTypeRadio;
+                break;
+            case PantryItem.OTHER_CATEGORY:
+                id = R.id.otherTypeRadio;
+                break;
+        }
+        radioGroup.check(id);
     }
 
     private void initComponents() {
@@ -79,7 +108,16 @@ public class PantryAddItemForm extends Activity implements DatePickerDialog.OnDa
         PantryItem item = checkFields();
         if (item == null)
             return;
-        makeRequest(item);
+
+        if (!InternetConnection.checkConnection(this)) {
+            showErrorMessage("Ett fel upstod vid anslutning till servern, kontrollera din internetuppkoppling");
+            return;
+        }
+
+        if(makeUpdate)
+            makePutRequest(item);
+        else
+            makePostRequest(item);
     }
 
     private PantryItem checkFields() {
@@ -133,15 +171,35 @@ public class PantryAddItemForm extends Activity implements DatePickerDialog.OnDa
         return new PantryItem(name, category, type, expiryDate, amount, owner);
     }
 
-    private void makeRequest(PantryItem item) {
-        if (!InternetConnection.checkConnection(this)) {
-            showErrorMessage("Ett fel upstod vid anslutning till servern, kontrollera din internetuppkoppling");
-            return;
-        }
+    private void makePostRequest(PantryItem item) {
 
         BaseAPIService apiService = RetrofitClient.getApiService();
         Call<PantryItem> call = apiService.addPantryItem(item);
 
+        call.enqueue(new Callback<PantryItem>() {
+            @Override
+            public void onResponse(Call<PantryItem> call, Response<PantryItem> response) {
+                if (!response.isSuccessful()) {
+                    showErrorMessage("Ett fel uppstod vid anslutning till servern, vänlig försök igen: " + response.message());
+                    return;
+                }
+
+                Toast.makeText(PantryAddItemForm.this, "Success", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(PantryAddItemForm.this, PantryActivity.class));
+            }
+
+            @Override
+            public void onFailure(Call<PantryItem> call, Throwable t) {
+                showErrorMessage("Error: " + t.getMessage());
+                startActivity(new Intent(PantryAddItemForm.this, PantryActivity.class));
+            }
+        });
+    }
+
+    private void makePutRequest(PantryItem item) {
+        item.setId(itemToUpdate.getId());
+        BaseAPIService apiService = RetrofitClient.getApiService();
+        Call<PantryItem> call = apiService.updatePantryItem(item);
         call.enqueue(new Callback<PantryItem>() {
             @Override
             public void onResponse(Call<PantryItem> call, Response<PantryItem> response) {
