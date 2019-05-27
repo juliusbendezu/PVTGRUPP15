@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -110,7 +111,7 @@ public class CreateNewTip extends Activity {
 
                     //GÅ TILL CATEGORY
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
-                    startIntent.putExtra("TipId", tip.getId());
+                    startIntent.putExtra("tip", (Parcelable) tip);
                     startActivity(startIntent);
                 }
 

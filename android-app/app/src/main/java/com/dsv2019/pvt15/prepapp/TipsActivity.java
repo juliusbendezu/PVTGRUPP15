@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
 import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
+import com.dsv2019.pvt15.prepapp.tipsrelated.ManipulateTip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.TipsItemView;
 
@@ -229,10 +231,11 @@ public class TipsActivity extends Activity {
         TipsItemView tipsItemView = new TipsItemView(this, tip);
 
         tipsItemView.setOnClickListener(l -> {
-            if (tipsItemView.getBackground() == null)
-                tipsItemView.setBackgroundColor(Color.CYAN);
-            else
-                tipsItemView.setBackground(null);
+                Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
+                startIntent.putExtra("title", tip.getTitle());
+                startIntent.putExtra("description", tip.getDescription());
+                startActivity(startIntent);
+
         });
 
         layout.addView(tipsItemView);
