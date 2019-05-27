@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface BaseAPIService {
 
@@ -50,4 +51,7 @@ public interface BaseAPIService {
 
     @POST("pantry/add")
     Call<PantryItem> addPantryItem(@Body PantryItem item);
+
+    @PUT("pantry/update")
+    Call<PantryItem> updatePantryItem(@Body PantryItem item);
 }
