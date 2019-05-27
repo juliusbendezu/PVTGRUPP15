@@ -241,12 +241,6 @@ public class TipsActivity extends Activity {
         tipsItemView.setOnClickListener(l -> {
                 Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
                 startIntent.putExtra("tip",tip);
-
-                startIntent.putExtra("title", tip.getTitle());
-                startIntent.putExtra("description", tip.getDescription());
-                startIntent.putExtra("id",tip.getId());
-                startIntent.putExtra("likes", tip.getLikes());
-                startIntent.putStringArrayListExtra("categorys", tip.getCategorys());
                 startActivity(startIntent);
 
         });

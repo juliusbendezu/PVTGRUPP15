@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -14,13 +13,9 @@ import android.widget.Toast;
 
 import com.dsv2019.pvt15.prepapp.CategoryActivity;
 import com.dsv2019.pvt15.prepapp.R;
-import com.dsv2019.pvt15.prepapp.TipsActivity;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
-import com.facebook.AccessToken;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +34,7 @@ public class CreateNewTip extends Activity {
     private TextView deleteTextView;
     private String source;
     private int id;
-    private Tip theFetchedTip;
+    private Tip oldTip;
 
     CheckBox waterCheckBox;
     CheckBox shelterCheckBox;
@@ -65,58 +60,31 @@ public class CreateNewTip extends Activity {
         catChecked = new boolean[8];
 
 
+
+        if(source.equals("MT")){
+            oldTip = (Tip)getIntent().getSerializableExtra("theTip");
+            checkCategoryOnOldTip();
+        }
         createTipTitle();
         createDescription();
         createSaveButton();
         createDeleteButton();
+
     }
 
-    private void initializeTip() {
-        if (InternetConnection.checkConnection(getApplicationContext())) {
-            final ProgressDialog dialog;
-
-            id = (int) getIntent().getExtras().get("id");
-            BaseAPIService api = RetrofitClient.getApiService();
-            Call<Tip> call = api.getTip(id);
-
-            call.enqueue(new Callback<Tip>() {
-                @Override
-                public void onResponse(Call<Tip> call, Response<Tip> response) {
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(CreateNewTip.this, "Kunde inte hämta tip1" + response.code(), Toast.LENGTH_LONG).show();
-                    }
-
-                    Tip tip = response.body();
-                    getTip(tip);
-
-                }
-
-                @Override
-                public void onFailure(Call<Tip> call, Throwable t) {
-                    Toast.makeText(CreateNewTip.this, "Kunde inte hämta tip2", Toast.LENGTH_LONG).show();
-                    //If any error occured displaying the error as toast
-                }
-            });
-        }
-    }
-
-    private void getTip(Tip tip) {
-        theFetchedTip = tip;
-    }
 
     public void createTipTitle() {
         tipTitelEditText = findViewById(R.id.tipTitelEdittext);
-
-        if (source.equals("MT")) {
-            initializeTip();
-            tipTitelEditText.setText(theFetchedTip.getTitle());
+        if(source.equals("MT")){
+            tipTitelEditText.setText(oldTip.getTitle());
         }
+
     }
 
     public void createDescription() {
         tipDescriptionEditText = findViewById(R.id.tipDescriptionEdittext);
-        if (source.equals("MT")) {
-            tipTitelEditText.setText(theFetchedTip.getDescription());
+        if(source.equals("MT")){
+            tipDescriptionEditText.setText(oldTip.getDescription());
         }
     }
 
@@ -141,8 +109,13 @@ public class CreateNewTip extends Activity {
                     }
 
                 }
+
+
             }
+
         });
+
+
     }
 
     public void addATip() {
@@ -150,7 +123,7 @@ public class CreateNewTip extends Activity {
             final ProgressDialog dialog;
 
             dialog = new ProgressDialog(CreateNewTip.this);
-            dialog.setTitle("Saving the tip");
+            dialog.setTitle("Saving the oldTip");
             dialog.setMessage("please wait");
             dialog.show();
 
@@ -177,11 +150,7 @@ public class CreateNewTip extends Activity {
 
                     //GÅ TILL ManipulateTip
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
-                    startIntent.putExtra("title", tip.getTitle());
-                    startIntent.putExtra("description", tip.getDescription());
-                    startIntent.putExtra("id", tip.getId());
-                    startIntent.putExtra("likes", tip.getLikes());
-                    startIntent.putStringArrayListExtra("categorys", tip.getCategorys());
+                    startIntent.putExtra("theTip",tip);
                     startActivity(startIntent);
                 }
 
@@ -189,15 +158,12 @@ public class CreateNewTip extends Activity {
                 @Override
                 public void onFailure(Call<Tip> call, Throwable t) {
                     //If any error occured displaying the error as toast
-                    dialog.dismiss();
                     Toast.makeText(CreateNewTip.this, "Success", Toast.LENGTH_LONG).show();
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
-                    startIntent.putExtra("title", tip.getTitle());
-                    startIntent.putExtra("description", tip.getDescription());
-                    startIntent.putExtra("id", tip.getId());
-                    startIntent.putExtra("likes", tip.getLikes());
-                    startIntent.putStringArrayListExtra("categorys", tip.getCategorys());
+                    startIntent.putExtra("theTip",tip);
                     startActivity(startIntent);
+                    dialog.dismiss();
+
 
                 }
 
@@ -211,7 +177,7 @@ public class CreateNewTip extends Activity {
             final ProgressDialog dialog;
 
             dialog = new ProgressDialog(CreateNewTip.this);
-            dialog.setTitle("Saving the tip");
+            dialog.setTitle("Saving the oldTip");
             dialog.setMessage("please wait");
             dialog.show();
 
@@ -246,11 +212,10 @@ public class CreateNewTip extends Activity {
                 @Override
                 public void onFailure(Call<Tip> call, Throwable t) {
                     //If any error occured displaying the error as toast
-                    dialog.dismiss();
                     Toast.makeText(CreateNewTip.this, "Tipset har inte uppdatterats2", Toast.LENGTH_LONG).show();
                     Intent startIntent = new Intent(getApplicationContext(), CategoryActivity.class);
                     startActivity(startIntent);
-
+                    dialog.dismiss();
                 }
 
             });
@@ -276,7 +241,7 @@ public class CreateNewTip extends Activity {
                         final ProgressDialog dialog;
 
                         dialog = new ProgressDialog(CreateNewTip.this);
-                        dialog.setTitle("Removing the tip");
+                        dialog.setTitle("Removing the oldTip");
                         dialog.setMessage("please wait");
                         dialog.show();
 
@@ -315,12 +280,11 @@ public class CreateNewTip extends Activity {
         }
     }
 
-    private void checkCategoryBoxesFromOldTip() {
-
+    private void checkCategoryOnOldTip(){
         warmthCheckBox = (CheckBox) findViewById(R.id.warmthCheckBox);
         waterCheckBox = (CheckBox) findViewById(R.id.waterCheckBox);
         healthCheckBox = (CheckBox) findViewById(R.id.healthCheckBox);
-        securityCheckBox = (CheckBox) findViewById(R.id.securityCheckBox);
+        shelterCheckBox = (CheckBox) findViewById(R.id.shelterCheckBox);
 
         foodCheckBox = (CheckBox) findViewById(R.id.foodCheckBox);
         securityCheckBox = (CheckBox) findViewById(R.id.securityCheckBox);
@@ -328,49 +292,49 @@ public class CreateNewTip extends Activity {
         otherCheckBox = (CheckBox) findViewById(R.id.otherCheckBox);
 
 
-        if (theFetchedTip.isWarmth()) {
+        if (oldTip.isWarmth()) {
             warmthCheckBox.setChecked(true);
             catChecked[0] = true;
         } else {
             catChecked[0] = false;
         }
-        if (theFetchedTip.isWater()) {
+        if (oldTip.isWater()) {
             waterCheckBox.setChecked(true);
             catChecked[1] = true;
         } else {
             catChecked[1] = false;
         }
-        if (theFetchedTip.isShelter()) {
+        if (oldTip.isShelter()) {
             shelterCheckBox.setChecked(true);
             catChecked[2] = true;
         } else {
             catChecked[2] = false;
         }
-        if (theFetchedTip.isFood()) {
+        if (oldTip.isFood()) {
             foodCheckBox.setChecked(true);
             catChecked[3] = true;
         } else {
             catChecked[3] = false;
         }
-        if (theFetchedTip.isHealth()) {
+        if (oldTip.isHealth()) {
             healthCheckBox.setChecked(true);
             catChecked[4] = true;
         } else {
             catChecked[4] = false;
         }
-        if (theFetchedTip.isSecurity()) {
+        if (oldTip.isSecurity()) {
             securityCheckBox.setChecked(true);
             catChecked[5] = true;
         } else {
             catChecked[5] = false;
         }
-        if (theFetchedTip.isStorage()) {
+        if (oldTip.isStorage()) {
             storageCheckBox.setChecked(true);
             catChecked[6] = true;
         } else {
             catChecked[6] = false;
         }
-        if (theFetchedTip.isOther()) {
+        if (oldTip.isOther()) {
             otherCheckBox.setChecked(true);
             catChecked[7] = true;
         } else {
@@ -379,10 +343,6 @@ public class CreateNewTip extends Activity {
     }
 
     private void checkChosenCategory() {
-
-        if(!(source.equals("MT"))){
-            checkCategoryBoxesFromOldTip();
-        }
 
         if ((boolean) ((CheckBox) findViewById(R.id.warmthCheckBox)).isChecked() == true) {
             catChecked[0] = true;

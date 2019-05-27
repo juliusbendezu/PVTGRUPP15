@@ -22,22 +22,14 @@ public class ManipulateTip extends Activity {
     TextView titleText;
     TextView categoryText;
     TextView descriptionText;
-    String title;
-    String description;
-    ArrayList<String> categoryList;
-    int id;
-    int likes;
+    Tip tip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manipulate_tip);
 
-        title = (String) getIntent().getExtras().get("title");
-        description = (String) getIntent().getExtras().get("description");
-        categoryList = (ArrayList<String>) getIntent().getExtras().get("categorys");
-        id = (int) getIntent().getExtras().get("id");
-        likes = (int) getIntent().getExtras().get("likes");
+         tip = (Tip) getIntent().getSerializableExtra("theTip");
 
         setHomeButton();
         setTipTitle();
@@ -62,25 +54,25 @@ public class ManipulateTip extends Activity {
 
     private void setTipTitle() {
         titleText = findViewById(R.id.tipsTitleTextView);
-        titleText.setText(title);
+        titleText.setText(tip.getTitle());
     }
 
     private void setCategorys() {
-        String allCategorys = "Tipsets Kategorisering: " + categoryList.get(0);
+        String allCategorys = "Tipsets Kategorisering: " + tip.getCategorys().get(0);
         categoryText = findViewById(R.id.categoryTextView);
-        System.out.println(categoryList.size());
-        if (categoryList.size() > 1) {
-            for (int i = 1; i < categoryList.size()-1; i++) {
-                allCategorys += ", " + categoryList.get(i);
+        System.out.println(tip.getCategorys().size());
+        if (tip.getCategorys().size() > 1) {
+            for (int i = 1; i < tip.getCategorys().size()-1; i++) {
+                allCategorys += ", " + tip.getCategorys().get(i);
             }
-            allCategorys += " & " +categoryList.get(categoryList.size()-1);
+            allCategorys += " & " +tip.getCategorys().get(tip.getCategorys().size()-1);
         }
         categoryText.setText(allCategorys + ".");
     }
 
     private void setDescription() {
         descriptionText = findViewById(R.id.tipDescriptionTextView);
-        descriptionText.setText(description);
+        descriptionText.setText(tip.getDescription());
     }
 
     private void setEditButton(){
@@ -90,7 +82,7 @@ public class ManipulateTip extends Activity {
             public void onClick(View v) {
                 Intent startIntent = new Intent(getApplicationContext(),CreateNewTip.class);
                 startIntent.putExtra("source", "MT");
-                startIntent.putExtra("id", id);
+                startIntent.putExtra("theTip",tip);
                 startActivity(startIntent);
             }
         });
