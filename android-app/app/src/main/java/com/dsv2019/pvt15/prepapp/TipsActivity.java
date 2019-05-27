@@ -90,6 +90,7 @@ public class TipsActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent startIntent = new Intent(getApplicationContext(), CreateNewTip.class);
+                startIntent.putExtra("source", "TA");
                 startActivity(startIntent);
             }
         });

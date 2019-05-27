@@ -25,6 +25,7 @@
     <string name="chooseCategoryHint">Välj en eller fler kategorier</string>
     <string name="descriptionHint">Beskriv ditt tips</string>
     <string name="saveText">Spara</string>
+    <string name="deleteText">Radera detta tips</string>
     <string name="warmthCheckBoxText">Värme</string>
     <string name="waterCheckBoxText">Vatten</string>
     <string name="shelterCheckBoxText">Skydd</string>
@@ -37,6 +38,7 @@
     <string name="tipsTitelTextView">Title </string>
     <string name="tipsEditTextView">Redigera detta tips</string>
     <string name="tipsLikeTextView">Gilla detta tips</string>
+
 
 
 

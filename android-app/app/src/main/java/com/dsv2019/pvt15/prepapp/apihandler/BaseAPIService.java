@@ -8,9 +8,11 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface BaseAPIService {
 
@@ -40,6 +42,12 @@ public interface BaseAPIService {
 
     @POST("tips/add")
     Call<Tip> addTip(@Body Tip tip);
+
+    @GET("tips/{id}")
+    Call<Tip> getTip(int id);
+
+    @DELETE("tips/delete/{id}")
+    Call<Tip> deleteTip(@Path("id")int id);
 
 
     /*

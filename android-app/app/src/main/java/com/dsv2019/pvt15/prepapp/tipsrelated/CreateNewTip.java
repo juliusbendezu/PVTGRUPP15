@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dsv2019.pvt15.prepapp.CategoryActivity;
@@ -32,6 +33,10 @@ public class CreateNewTip extends Activity {
     private EditText tipTitelEditText;
     private EditText tipDescriptionEditText;
     private boolean[] catChecked;
+    private ImageButton deleteButton;
+    private TextView deleteTextView;
+    private String source;
+    private int id;
 
     //FACEBOOK ID
     //private String creator = AccessToken.getCurrentAccessToken().toString();
@@ -42,11 +47,12 @@ public class CreateNewTip extends Activity {
         setContentView(R.layout.activity_create_new_tip);
 
         categoryList = getResources().getStringArray(R.array.categoryArray);
-
+        source = (String) getIntent().getExtras().get("source");
         catChecked = new boolean[8];
         createTipTitle();
         createDescription();
         createSaveButton();
+        createDeleteButton();
     }
 
     public void createTipTitle() {
@@ -65,16 +71,19 @@ public class CreateNewTip extends Activity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 boolean checkIsSelected = checkSelectionExists();
                 if (checkIsSelected == false) {
                     Toast.makeText(CreateNewTip.this, "Du måste välja minst en kategori", Toast.LENGTH_SHORT).show();
+                } else {
+                    title = tipTitelEditText.getText().toString();
+                    descritption = tipDescriptionEditText.getText().toString();
+
+
+                    checkChosenCategory();
+                    addATip();
+
                 }
-                title = tipTitelEditText.getText().toString();
-                descritption = tipDescriptionEditText.getText().toString();
-
-                checkChosenCategory();
-                addATip();
-
             }
         });
     }
@@ -113,7 +122,7 @@ public class CreateNewTip extends Activity {
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
                     startIntent.putExtra("title", tip.getTitle());
                     startIntent.putExtra("description", tip.getDescription());
-                    startIntent.putExtra("id",tip.getId());
+                    startIntent.putExtra("id", tip.getId());
                     startIntent.putExtra("likes", tip.getLikes());
                     startIntent.putStringArrayListExtra("categorys", tip.getCategorys());
                     startActivity(startIntent);
@@ -128,7 +137,7 @@ public class CreateNewTip extends Activity {
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
                     startIntent.putExtra("title", tip.getTitle());
                     startIntent.putExtra("description", tip.getDescription());
-                    startIntent.putExtra("id",tip.getId());
+                    startIntent.putExtra("id", tip.getId());
                     startIntent.putExtra("likes", tip.getLikes());
                     startIntent.putStringArrayListExtra("categorys", tip.getCategorys());
                     startActivity(startIntent);
@@ -137,6 +146,62 @@ public class CreateNewTip extends Activity {
 
             });
 
+        }
+    }
+
+    private void createDeleteButton() {
+        deleteButton = findViewById(R.id.deleteTipButton);
+        deleteButton.setVisibility(View.INVISIBLE);
+        deleteTextView = findViewById(R.id.deleteTextView);
+        deleteTextView.setVisibility(View.INVISIBLE);
+
+        if (source.equals("MT")) {
+            deleteTextView.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
+
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (InternetConnection.checkConnection(getApplicationContext())) {
+                        final ProgressDialog dialog;
+
+                        dialog = new ProgressDialog(CreateNewTip.this);
+                        dialog.setTitle("Removing the tip");
+                        dialog.setMessage("please wait");
+                        dialog.show();
+
+                        id = (int) getIntent().getExtras().get("id");
+                        BaseAPIService api = RetrofitClient.getApiService();
+                        Call<Tip> call = api.deleteTip(id);
+
+                        call.enqueue(new Callback<Tip>() {
+                            @Override
+                            public void onResponse(Call<Tip> call, Response<Tip> response) {
+                                dialog.dismiss();
+                                if (!response.isSuccessful()) {
+                                    Toast.makeText(CreateNewTip.this, "Tipset har inte raderats1" + response.code(), Toast.LENGTH_LONG).show();
+                                }
+                                //Displaying the output as a toast
+                                Toast.makeText(CreateNewTip.this, "Tipset har raderats1", Toast.LENGTH_LONG).show();
+
+                                //GÅ TILL CATEGORY
+                                Intent startIntent = new Intent(getApplicationContext(), CategoryActivity.class);
+                                startActivity(startIntent);
+                            }
+                            @Override
+                            public void onFailure(Call<Tip> call, Throwable t) {
+                                //If any error occured displaying the error as toast
+                                dialog.dismiss();
+                                Toast.makeText(CreateNewTip.this, "Tipset inte raderats 2", Toast.LENGTH_LONG).show();
+                                Intent startIntent = new Intent(getApplicationContext(), CategoryActivity.class);
+                                startActivity(startIntent);
+
+                            }
+                        });
+                    }
+                }
+            });
         }
     }
 

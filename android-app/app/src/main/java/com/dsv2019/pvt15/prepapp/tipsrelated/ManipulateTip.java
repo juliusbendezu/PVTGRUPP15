@@ -89,6 +89,8 @@ public class ManipulateTip extends Activity {
             @Override
             public void onClick(View v) {
                 Intent startIntent = new Intent(getApplicationContext(),CreateNewTip.class);
+                startIntent.putExtra("source", "MT");
+                startIntent.putExtra("id", id);
                 startActivity(startIntent);
             }
         });

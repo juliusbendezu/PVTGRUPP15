@@ -117,18 +117,15 @@
 
     <ImageButton
         android:id="@+id/saveButton"
-        android:layout_width="35dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="40dp"
+        android:layout_width="36dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="164dp"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveText"
-        app:layout_constraintVertical_bias="0.086"
+        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext"
+        app:layout_constraintVertical_bias="0.969"
         app:srcCompat="@android:drawable/checkbox_on_background"
         tools:ignore="ContentDescription" />
 
@@ -136,13 +133,17 @@
         android:id="@+id/saveText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/saveText"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toStartOf="@+id/saveButton"
+        app:layout_constraintHorizontal_bias="0.565"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext" />
+        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext"
+        app:layout_constraintVertical_bias="0.006" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -250,5 +251,34 @@
         </LinearLayout>
 
     </RadioGroup>
+
+    <ImageButton
+        android:id="@+id/deleteTipButton"
+        android:layout_width="35dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginBottom="8dp"
+        android:src="@android:drawable/ic_menu_delete"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/deleteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/deleteText"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toEndOf="@+id/deleteTipButton"
+        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext"
+        app:layout_constraintVertical_bias="0.006" />
 
 </android.support.constraint.ConstraintLayout>
