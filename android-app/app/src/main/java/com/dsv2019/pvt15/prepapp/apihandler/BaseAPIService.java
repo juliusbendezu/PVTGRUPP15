@@ -65,4 +65,7 @@ public interface BaseAPIService {
 
     @PUT("pantry/update")
     Call<PantryItem> updatePantryItem(@Body PantryItem item);
+
+    @DELETE("pantry/delete/{id}")
+    Call<PantryItem> deletePantryItem(@Path("id") int id);
 }

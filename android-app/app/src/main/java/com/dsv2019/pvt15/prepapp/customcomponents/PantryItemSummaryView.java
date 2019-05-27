@@ -10,10 +10,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.dsv2019.pvt15.prepapp.PantryActivity;
 import com.dsv2019.pvt15.prepapp.PantryAddItemForm;
 import com.dsv2019.pvt15.prepapp.R;
+import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
+import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
+import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
 import com.dsv2019.pvt15.prepapp.models.PantryItem;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PantryItemSummaryView extends LinearLayout {
 
@@ -22,7 +31,7 @@ public class PantryItemSummaryView extends LinearLayout {
 
     private PantryItem pantryItem;
 
-    public PantryItemSummaryView(Context context){
+    public PantryItemSummaryView(Context context) {
         super(context);
     }
 
@@ -64,17 +73,39 @@ public class PantryItemSummaryView extends LinearLayout {
     }
 
     private void editPantryItem() {
-        System.out.println(pantryItem.getId());
         Context context = getContext();
 
         Intent intent = new Intent(context, PantryAddItemForm.class);
         intent.putExtra(PantryItem.KEY, pantryItem);
-        //Make PUT request to API
         context.startActivity(intent);
     }
 
     private void deletePantryItem() {
-        System.out.println(pantryItem.getId());
-        //Make DELETE request to API
+        Context context = getContext();
+        if (!InternetConnection.checkConnection(context)) {
+            Toast.makeText(context, "Ingen internetuppkoppling, pröva igen senare..", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        BaseAPIService api = RetrofitClient.getApiService();
+        Call<PantryItem> call = api.deletePantryItem(pantryItem.getId());
+        call.enqueue(new Callback<PantryItem>() {
+            @Override
+            public void onResponse(Call<PantryItem> call, Response<PantryItem> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context, "Kunde inte ta bort tips, pröva igen senare..", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show();
+                context.startActivity(new Intent(context, PantryCategoryView.class));
+            }
+
+            @Override
+            public void onFailure(Call<PantryItem> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                context.startActivity(new Intent(context, PantryActivity.class));
+            }
+        });
     }
 }
