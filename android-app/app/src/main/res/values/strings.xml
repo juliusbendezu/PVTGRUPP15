@@ -20,7 +20,7 @@
     <string name="HomeButton">HemSymbolen</string>
     <string name="account_name">Account name</string>
     <string name="mail_mail_com">mail@mail.com</string>
-    <string name="newTipText">Skapa ett nytt tips!</string>
+    <string name="newTipText">Fixa ditt tips!</string>
     <string name="titelHint">Skriv en rubrik på ditt tips</string>
     <string name="chooseCategoryHint">Välj en eller fler kategorier</string>
     <string name="descriptionHint">Beskriv ditt tips</string>

@@ -141,7 +141,6 @@ public class TipsActivity extends Activity {
 
 
                     for (int i = 0; i < newListToSort.length; i++) {
-                        System.out.println(newListToSort[i].getTitle() + " i loopen");
                         addTips(newListToSort[i]);
                     }
 
@@ -240,7 +239,7 @@ public class TipsActivity extends Activity {
 
         tipsItemView.setOnClickListener(l -> {
                 Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
-                startIntent.putExtra("tip",tip);
+                startIntent.putExtra("theTip",tip);
                 startActivity(startIntent);
 
         });

@@ -3,9 +3,12 @@ package com.dsv2019.pvt15.prepapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 
 import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
 
@@ -20,6 +23,8 @@ public class CategoryActivity extends Activity {
     private Button storageButton7;
     private Button otherButton8;
     private ImageButton createNewTip;
+    private ImageButton hamburger;
+
 
 
     @Override
@@ -27,6 +32,7 @@ public class CategoryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
+        setHamburgerButton();
         setWarmthButton();
         setWaterButton();
         setShelterButton();
@@ -153,6 +159,28 @@ public class CategoryActivity extends Activity {
             }
         });
 
+    }
+
+    private void setHamburgerButton(){
+        hamburger = findViewById(R.id.tipsActivityHamburger);
+        hamburger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu menu = new PopupMenu(CategoryActivity.this,v);
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int id = item.getItemId();
+
+                        return false;
+                    }
+                });
+
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.tips_popup_menu, menu.getMenu());
+                menu.show();
+            }
+        });
     }
 
 

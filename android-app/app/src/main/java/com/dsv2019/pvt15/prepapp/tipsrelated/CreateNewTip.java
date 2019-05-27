@@ -245,7 +245,8 @@ public class CreateNewTip extends Activity {
                         dialog.setMessage("please wait");
                         dialog.show();
 
-                        id = (int) getIntent().getExtras().get("id");
+                        //oldTip = (Tip) getIntent().getSerializableExtra("theTip");
+                        id = (int)oldTip.getId();
                         BaseAPIService api = RetrofitClient.getApiService();
                         Call<Tip> call = api.deleteTip(id);
 
@@ -393,6 +394,8 @@ public class CreateNewTip extends Activity {
                 (boolean) ((CheckBox) findViewById(R.id.foodCheckBox)).isChecked() ? true : false ||
                 (boolean) ((CheckBox) findViewById(R.id.healthCheckBox)).isChecked() ? true : false ||
                 (boolean) ((CheckBox) findViewById(R.id.securityCheckBox)).isChecked() ? true : false ||
+                (boolean) ((CheckBox) findViewById(R.id.storageCheckBox)).isChecked() ? true : false ||
+                (boolean) ((CheckBox) findViewById(R.id.otherCheckBox)).isChecked() ? true : false ||
                 (boolean) ((CheckBox) findViewById(R.id.shelterCheckBox)).isChecked() ? true : false;
         return selectionExists;
     }
