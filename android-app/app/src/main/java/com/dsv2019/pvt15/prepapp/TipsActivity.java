@@ -37,6 +37,7 @@ public class TipsActivity extends Activity {
     private TextView categoryText;
     private ImageButton backButton;
     private ImageButton createNewTipButton;
+    private ArrayList<String> categoryList = new ArrayList<>();
 
 
     @Override
@@ -50,31 +51,37 @@ public class TipsActivity extends Activity {
         createNewTipButton();
         loadTheTips();
         setCategoryView();
-
-
     }
 
     private void setCategoryView() {
+
         if (categoryNR == 1) {
             categoryName = "Värme";
+
         } else if (categoryNR == 2) {
             categoryName = "Vatten";
+
         } else if (categoryNR == 3) {
             categoryName = "Skydd";
+
         } else if (categoryNR == 4) {
             categoryName = "Mat";
+
         } else if (categoryNR == 5) {
             categoryName = "Sjukvård";
+
         } else if (categoryNR == 6) {
-            categoryName = "Informationssäkerhet";
+            categoryName = "Säkerhet";
+
         } else if (categoryNR == 7) {
             categoryName = "Förvaring";
+
         } else {
             categoryName = "Övrigt";
+
         }
         categoryText = findViewById(R.id.categoryTextView);
         categoryText.setText(categoryName);
-
     }
 
     public void createNewTipButton() {
@@ -234,6 +241,9 @@ public class TipsActivity extends Activity {
                 Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
                 startIntent.putExtra("title", tip.getTitle());
                 startIntent.putExtra("description", tip.getDescription());
+                startIntent.putExtra("id",tip.getId());
+                startIntent.putExtra("likes", tip.getLikes());
+                startIntent.putStringArrayListExtra("categorys", tip.getCategorys());
                 startActivity(startIntent);
 
         });

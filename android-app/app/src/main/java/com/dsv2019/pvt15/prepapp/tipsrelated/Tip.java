@@ -2,6 +2,8 @@ package com.dsv2019.pvt15.prepapp.tipsrelated;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Tip {
 
     private int id;
@@ -142,6 +144,28 @@ public class Tip {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public ArrayList<String> getCategorys(){
+        ArrayList<String> categoryList = new ArrayList<>();
+        if(warmth==true){
+            categoryList.add("Värme");
+        } if(water==true){
+            categoryList.add("Vatten");
+        } if(shelter==true){
+            categoryList.add("Skydd");
+        } if(food==true){
+            categoryList.add("Mat");
+        } if(health==true){
+            categoryList.add("Sjukvård");
+        } if(security==true){
+            categoryList.add("Säkerhet");
+        } if(storage==true){
+            categoryList.add("Förvaring");
+        } if(other==true){
+            categoryList.add("Övrigt");
+        }
+        return categoryList;
     }
 
     public Tip(String name, String description, boolean[] categoryCheck, String creator) {

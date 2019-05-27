@@ -111,7 +111,11 @@ public class CreateNewTip extends Activity {
 
                     //GÅ TILL CATEGORY
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
-                    startIntent.putExtra("tip", (Parcelable) tip);
+                    startIntent.putExtra("title", tip.getTitle());
+                    startIntent.putExtra("description", tip.getDescription());
+                    startIntent.putExtra("id",tip.getId());
+                    startIntent.putExtra("likes", tip.getLikes());
+                    startIntent.putStringArrayListExtra("categorys", tip.getCategorys());
                     startActivity(startIntent);
                 }
 
@@ -122,8 +126,13 @@ public class CreateNewTip extends Activity {
                     dialog.dismiss();
                     Toast.makeText(CreateNewTip.this, "Success", Toast.LENGTH_LONG).show();
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
-                    startIntent.putExtra("TipId", tip.getId());
+                    startIntent.putExtra("title", tip.getTitle());
+                    startIntent.putExtra("description", tip.getDescription());
+                    startIntent.putExtra("id",tip.getId());
+                    startIntent.putExtra("likes", tip.getLikes());
+                    startIntent.putStringArrayListExtra("categorys", tip.getCategorys());
                     startActivity(startIntent);
+
                 }
 
             });
