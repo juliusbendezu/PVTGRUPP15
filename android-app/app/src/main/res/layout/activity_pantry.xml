@@ -7,16 +7,15 @@
     tools:context=".PantryActivity">
 
     <ImageButton
-        android:id="@+id/homeButton"
-        android:layout_width="37dp"
-        android:layout_height="34dp"
+        android:id="@+id/pantryActivityHamburger"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@null"
-        android:contentDescription="@string/HomeButton"
-        android:src="@drawable/home"
+        android:src="@drawable/hamburger_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.022"
@@ -67,7 +66,8 @@
             android:id="@+id/pantryActivityItemsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            />
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

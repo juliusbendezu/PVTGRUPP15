@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -57,6 +58,23 @@ public class PantryAddItemForm extends Activity implements DatePickerDialog.OnDa
         }
     }
 
+    private void initComponents() {
+
+        header = findViewById(R.id.addPantryItemHeader);
+        saveItemButton = findViewById(R.id.savePantryItemButton);
+        saveItemButton.setOnClickListener(l -> savePantryItem());
+
+        nameInput = findViewById(R.id.pantryEditName);
+        categoryInput = findViewById(R.id.pantryEditCategory);
+        amountInput = findViewById(R.id.pantryEditAmount);
+        dateInput = findViewById(R.id.datePickerButton);
+        dateInput.setOnClickListener(l -> showDatePickerDialog());
+
+        dateTextView = findViewById(R.id.pantryDateTextView);
+
+        radioGroup = findViewById(R.id.addPantryItemRG);
+    }
+
     private void fillFields() {
         nameInput.setText(itemToUpdate.getName());
         categoryInput.setText(itemToUpdate.getCategory());
@@ -74,24 +92,8 @@ public class PantryAddItemForm extends Activity implements DatePickerDialog.OnDa
                 id = R.id.otherTypeRadio;
                 break;
         }
+
         radioGroup.check(id);
-    }
-
-    private void initComponents() {
-
-        header = findViewById(R.id.addPantryItemHeader);
-        saveItemButton = findViewById(R.id.savePantryItemButton);
-        saveItemButton.setOnClickListener(l -> savePantryItem());
-
-        nameInput = findViewById(R.id.pantryEditName);
-        categoryInput = findViewById(R.id.pantryEditCategory);
-        amountInput = findViewById(R.id.pantryEditAmount);
-        dateInput = findViewById(R.id.datePickerButton);
-        dateInput.setOnClickListener(l -> showDatePickerDialog());
-
-        dateTextView = findViewById(R.id.pantryDateTextView);
-
-        radioGroup = findViewById(R.id.addPantryItemRG);
     }
 
     private void showDatePickerDialog() {
