@@ -12,7 +12,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dsv2019.pvt15.prepapp.PantryActivity;
+import com.dsv2019.pvt15.prepapp.PantryFragment;
 import com.dsv2019.pvt15.prepapp.PantryAddItemForm;
 import com.dsv2019.pvt15.prepapp.R;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
@@ -104,7 +104,7 @@ public class PantryItemSummaryView extends LinearLayout {
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, PantryActivity.class));
+                context.startActivity(new Intent(context, PantryFragment.class));
             }
         });
     }
