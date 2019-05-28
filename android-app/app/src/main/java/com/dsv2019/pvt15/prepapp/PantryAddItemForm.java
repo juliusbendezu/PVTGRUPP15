@@ -193,17 +193,13 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
                 }
 
                 Toast.makeText(PantryAddItemForm.this, "Skapat!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(PantryAddItemForm.this, MainActivity.class);
-                intent.putExtra(MainActivity.SOURCE, MainActivity.FROM_PANTRY);
-                startActivity(intent);
+                startActivity(PantryFragment.createIntent(PantryAddItemForm.this));
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
                 showErrorMessage("Skapat!");
-                Intent intent = new Intent(PantryAddItemForm.this, MainActivity.class);
-                intent.putExtra(MainActivity.SOURCE, MainActivity.FROM_PANTRY);
-                startActivity(intent);
+                startActivity(PantryFragment.createIntent(PantryAddItemForm.this));
             }
         });
     }
@@ -221,17 +217,13 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
                 }
 
                 Toast.makeText(PantryAddItemForm.this, "Sparat!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(PantryAddItemForm.this, MainActivity.class);
-                intent.putExtra(MainActivity.SOURCE, MainActivity.FROM_PANTRY);
-                startActivity(intent);
+                startActivity(PantryFragment.createIntent(PantryAddItemForm.this));
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
                 showErrorMessage("Sparat!");
-                Intent intent = new Intent(PantryAddItemForm.this, MainActivity.class);
-                intent.putExtra(MainActivity.SOURCE, MainActivity.FROM_PANTRY);
-                startActivity(intent);
+                startActivity(PantryFragment.createIntent(PantryAddItemForm.this));
             }
         });
     }
@@ -246,4 +238,5 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
         date = String.format("%d-%s-%d", year, month < 10 ? "0" + month : month, dayOfMonth);
         dateTextView.setText(date);
     }
+
 }

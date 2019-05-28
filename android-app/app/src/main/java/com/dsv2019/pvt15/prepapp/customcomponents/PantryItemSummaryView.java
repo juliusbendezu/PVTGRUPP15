@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dsv2019.pvt15.prepapp.PantryAddItemForm;
+import com.dsv2019.pvt15.prepapp.PantryFragment;
 import com.dsv2019.pvt15.prepapp.R;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
@@ -77,8 +78,6 @@ public class PantryItemSummaryView extends LinearLayout {
 
         Intent intent = new Intent(context, PantryAddItemForm.class);
         intent.putExtra(PantryItem.KEY, pantryItem);
-        itemSettingsPopup.dismiss();
-        ((PantryCategoryView) getParent().getParent().getParent()).changeOpenState();
         context.startActivity(intent);
     }
 
@@ -99,16 +98,14 @@ public class PantryItemSummaryView extends LinearLayout {
                     return;
                 }
 
-                Toast.makeText(context, "Borttaget! Svep ned för att ladda om", Toast.LENGTH_SHORT).show();
-                itemSettingsPopup.dismiss();
-                ((PantryCategoryView) getParent().getParent().getParent()).changeOpenState();
+                Toast.makeText(context, "Borttaget!", Toast.LENGTH_SHORT).show();
+                context.startActivity(PantryFragment.createIntent(context));
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
-                Toast.makeText(context, "Borttaget! Svep ned för att ladda om", Toast.LENGTH_SHORT).show();
-                itemSettingsPopup.dismiss();
-                ((PantryCategoryView) getParent().getParent().getParent()).changeOpenState();
+                Toast.makeText(context, "Borttaget!", Toast.LENGTH_SHORT).show();
+                context.startActivity(PantryFragment.createIntent(context));
             }
         });
     }
