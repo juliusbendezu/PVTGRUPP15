@@ -8,12 +8,11 @@ import android.widget.TextView;
 import com.dsv2019.pvt15.prepapp.R;
 import com.dsv2019.pvt15.prepapp.models.PantryItem;
 
-import java.util.List;
 import java.util.Set;
 
 public class PantryCategoryView extends LinearLayout {
 
-    private boolean open = false;
+    private boolean isOpen = false;
     ImageView pantryItemsArrow;
 
     String type;
@@ -53,26 +52,25 @@ public class PantryCategoryView extends LinearLayout {
 
         pantryItemsArrow = findViewById(R.id.showPantryItemsArrow);
         pantryItemsArrow.setOnClickListener(l -> showPantryItems(items));
-
-
     }
 
     private void showPantryItems(Set<PantryItem> items) {
         LinearLayout itemsLayout = findViewById(R.id.pantryCategoryLayout);
-        if (!open) {
+        if (!isOpen) {
             pantryItemsArrow.setRotation(90);
             for (PantryItem item : items) {
                 itemsLayout.addView(new PantryItemSummaryView(getContext(), item));
             }
-            open = true;
+            isOpen = true;
         } else {
             pantryItemsArrow.setRotation(0);
             itemsLayout.removeViews(1, itemsLayout.getChildCount() - 1);
-            open = false;
+            isOpen = false;
         }
     }
 
-    public String getType(){
-        return type;
+    public void changeOpenState() {
+        pantryItemsArrow.performClick();
     }
+
 }

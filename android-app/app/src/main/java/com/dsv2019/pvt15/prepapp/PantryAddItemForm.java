@@ -2,9 +2,7 @@ package com.dsv2019.pvt15.prepapp;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -193,13 +191,13 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
                     return;
                 }
 
-                Toast.makeText(PantryAddItemForm.this, "Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PantryAddItemForm.this, "Skapat! Svep ned för att ladda om", Toast.LENGTH_SHORT).show();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
-                showErrorMessage("Error: " + t.getMessage());
+                showErrorMessage("Skapat! Svep ned för att ladda om");
                 onBackPressed();
             }
         });
@@ -217,13 +215,13 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
                     return;
                 }
 
-                Toast.makeText(PantryAddItemForm.this, "Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PantryAddItemForm.this, "Sparat! Svep ned för att ladda om", Toast.LENGTH_SHORT).show();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
-                showErrorMessage("Error: " + t.getMessage());
+                showErrorMessage("Sparat! Svep ned för att ladda om");
                 onBackPressed();
             }
         });
