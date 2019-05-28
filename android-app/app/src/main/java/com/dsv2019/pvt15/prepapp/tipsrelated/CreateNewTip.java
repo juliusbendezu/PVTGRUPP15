@@ -1,9 +1,9 @@
 package com.dsv2019.pvt15.prepapp.tipsrelated;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateNewTip extends Activity {
+public class CreateNewTip extends AppCompatActivity {
 
     private String title;
     private String descritption;
@@ -60,9 +60,8 @@ public class CreateNewTip extends Activity {
         catChecked = new boolean[8];
 
 
-
-        if(source.equals("MT")){
-            oldTip = (Tip)getIntent().getSerializableExtra("theTip");
+        if (source.equals("MT")) {
+            oldTip = (Tip) getIntent().getSerializableExtra("theTip");
             checkCategoryOnOldTip();
         }
         createTipTitle();
@@ -75,7 +74,7 @@ public class CreateNewTip extends Activity {
 
     public void createTipTitle() {
         tipTitelEditText = findViewById(R.id.tipTitelEdittext);
-        if(source.equals("MT")){
+        if (source.equals("MT")) {
             tipTitelEditText.setText(oldTip.getTitle());
         }
 
@@ -83,7 +82,7 @@ public class CreateNewTip extends Activity {
 
     public void createDescription() {
         tipDescriptionEditText = findViewById(R.id.tipDescriptionEdittext);
-        if(source.equals("MT")){
+        if (source.equals("MT")) {
             tipDescriptionEditText.setText(oldTip.getDescription());
         }
     }
@@ -150,7 +149,7 @@ public class CreateNewTip extends Activity {
 
                     //GÅ TILL ManipulateTip
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
-                    startIntent.putExtra("theTip",tip);
+                    startIntent.putExtra("theTip", tip);
                     startActivity(startIntent);
                 }
 
@@ -160,7 +159,7 @@ public class CreateNewTip extends Activity {
                     //If any error occured displaying the error as toast
                     Toast.makeText(CreateNewTip.this, "Success", Toast.LENGTH_LONG).show();
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
-                    startIntent.putExtra("theTip",tip);
+                    startIntent.putExtra("theTip", tip);
                     startActivity(startIntent);
                     dialog.dismiss();
 
@@ -246,7 +245,7 @@ public class CreateNewTip extends Activity {
                         dialog.show();
 
                         //oldTip = (Tip) getIntent().getSerializableExtra("theTip");
-                        id = (int)oldTip.getId();
+                        id = (int) oldTip.getId();
                         BaseAPIService api = RetrofitClient.getApiService();
                         Call<Tip> call = api.deleteTip(id);
 
@@ -281,7 +280,7 @@ public class CreateNewTip extends Activity {
         }
     }
 
-    private void checkCategoryOnOldTip(){
+    private void checkCategoryOnOldTip() {
         warmthCheckBox = (CheckBox) findViewById(R.id.warmthCheckBox);
         waterCheckBox = (CheckBox) findViewById(R.id.waterCheckBox);
         healthCheckBox = (CheckBox) findViewById(R.id.healthCheckBox);

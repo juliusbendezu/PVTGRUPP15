@@ -1,11 +1,11 @@
 package com.dsv2019.pvt15.prepapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -15,12 +15,13 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.Arrays;
 
-public class LoginActivity extends Activity
-{
+public class LoginActivity extends AppCompatActivity {
     private LoginButton mLoginButton;
     private CallbackManager mCallbackManager;
     private static final String EMAIL = "email";
@@ -28,8 +29,7 @@ public class LoginActivity extends Activity
     private TextView emailTv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -40,55 +40,43 @@ public class LoginActivity extends Activity
         mLoginButton.setReadPermissions(Arrays.asList(EMAIL));
         checkLoginStatus();
 
-        mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>()
-        {
+        mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onSuccess(LoginResult loginResult)
-            {
+            public void onSuccess(LoginResult loginResult) {
 
             }
 
             @Override
-            public void onCancel()
-            {
+            public void onCancel() {
 
             }
 
             @Override
-            public void onError(FacebookException error)
-            {
+            public void onError(FacebookException error) {
 
             }
         });
     }
 
-    AccessTokenTracker tokenTracker = new AccessTokenTracker()
-    {
+    AccessTokenTracker tokenTracker = new AccessTokenTracker() {
         @Override
-        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken)
-        {
+        protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
 
-            if (currentAccessToken == null)
-            {
+            if (currentAccessToken == null) {
                 idTv.setText(null);
                 emailTv.setText(null);
                 Toast.makeText(LoginActivity.this, "User logged out", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
+            } else {
                 loadUserProfile(currentAccessToken);
             }
 
         }
     };
 
-    private void loadUserProfile(AccessToken newAccessToken)
-    {
-        GraphRequest graphRequest = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback()
-        {
+    private void loadUserProfile(AccessToken newAccessToken) {
+        GraphRequest graphRequest = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
-            public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse)
-            {
+            public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
                 DisplayData(jsonObject);
 
             }
@@ -99,10 +87,8 @@ public class LoginActivity extends Activity
         graphRequest.executeAsync();
     }
 
-    private void DisplayData(JSONObject object)
-    {
-        try
-        {
+    private void DisplayData(JSONObject object) {
+        try {
             String stringID = object.getString("id");
             String email = object.getString("email");
 
@@ -113,28 +99,23 @@ public class LoginActivity extends Activity
             emailTv = findViewById(R.id.email_login_text);
             emailTv.setText(email);
 
-        } catch (JSONException e)
-        {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
     }
 
-    private void checkLoginStatus()
-    {
-        if (AccessToken.getCurrentAccessToken() != null)
-        {
+    private void checkLoginStatus() {
+        if (AccessToken.getCurrentAccessToken() != null) {
             loadUserProfile(AccessToken.getCurrentAccessToken());
-
 
 
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }

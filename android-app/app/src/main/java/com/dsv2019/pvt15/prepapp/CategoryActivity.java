@@ -1,12 +1,12 @@
 package com.dsv2019.pvt15.prepapp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
 import android.view.Menu;
@@ -19,7 +19,7 @@ import android.widget.PopupMenu;
 
 import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
 
-public class CategoryActivity extends Activity {
+public class CategoryActivity extends AppCompatActivity {
 
     private Button warmthButton1;
     private Button waterButton2;

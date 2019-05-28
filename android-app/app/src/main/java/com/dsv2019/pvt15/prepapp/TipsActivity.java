@@ -1,11 +1,9 @@
 package com.dsv2019.pvt15.prepapp;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -28,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class TipsActivity extends Activity {
+public class TipsActivity extends AppCompatActivity {
 
     ArrayList<Tip> tipsList = new ArrayList<>();
     Tip[] newListToSort;
@@ -238,9 +236,9 @@ public class TipsActivity extends Activity {
         TipsItemView tipsItemView = new TipsItemView(this, tip);
 
         tipsItemView.setOnClickListener(l -> {
-                Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
-                startIntent.putExtra("theTip",tip);
-                startActivity(startIntent);
+            Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
+            startIntent.putExtra("theTip", tip);
+            startActivity(startIntent);
 
         });
 

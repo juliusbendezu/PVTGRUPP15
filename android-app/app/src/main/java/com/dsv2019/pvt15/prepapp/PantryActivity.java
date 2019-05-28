@@ -1,10 +1,10 @@
 package com.dsv2019.pvt15.prepapp;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.widget.Button;
@@ -30,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PantryActivity extends Activity {
+public class PantryActivity extends AppCompatActivity {
 
     private static final String EMPTY_PANTRY_MSG = "Du har inget i förrådet! Lägg till något?";
     private static final String ALL = "all";

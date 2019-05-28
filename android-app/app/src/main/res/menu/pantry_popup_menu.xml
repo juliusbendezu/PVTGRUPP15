@@ -5,13 +5,16 @@
     <item
         android:id="@+id/pantryMenuFood"
         android:icon="@drawable/pantry_fooditem_icon"
-        android:title="Mat" />
+        android:title="Mat"
+        android:visible="true" />
     <item
         android:id="@+id/pantryMenuMedicine"
         android:icon="@drawable/pantry_medicine_icon"
-        android:title="Medicin" />
+        android:title="Medicin"
+        android:visible="true" />
     <item
         android:id="@+id/pantryMenuOther"
         android:icon="@drawable/pantry_other_icon"
-        android:title="Övrigt" />
+        android:title="Övrigt"
+        android:visible="true" />
 </menu>

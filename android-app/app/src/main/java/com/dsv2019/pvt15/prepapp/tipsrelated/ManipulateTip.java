@@ -1,20 +1,16 @@
 package com.dsv2019.pvt15.prepapp.tipsrelated;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.dsv2019.pvt15.prepapp.CategoryActivity;
 import com.dsv2019.pvt15.prepapp.MainActivity;
 import com.dsv2019.pvt15.prepapp.R;
 
-import java.util.ArrayList;
-
-public class ManipulateTip extends Activity {
+public class ManipulateTip extends AppCompatActivity {
 
     ImageButton homeButton;
     ImageButton editButton;
@@ -29,7 +25,7 @@ public class ManipulateTip extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manipulate_tip);
 
-        oldTip = (Tip)getIntent().getSerializableExtra("theTip");
+        oldTip = (Tip) getIntent().getSerializableExtra("theTip");
         System.out.println(oldTip.getTitle());
 
         setHomeButton();
@@ -64,10 +60,10 @@ public class ManipulateTip extends Activity {
         categoryText = findViewById(R.id.categoryTextView);
         System.out.println(oldTip.getCategorys().size());
         if (oldTip.getCategorys().size() > 1) {
-            for (int i = 1; i < oldTip.getCategorys().size()-1; i++) {
+            for (int i = 1; i < oldTip.getCategorys().size() - 1; i++) {
                 allCategorys += ", " + oldTip.getCategorys().get(i);
             }
-            allCategorys += " & " +oldTip.getCategorys().get(oldTip.getCategorys().size()-1);
+            allCategorys += " & " + oldTip.getCategorys().get(oldTip.getCategorys().size() - 1);
         }
         categoryText.setText(allCategorys + ".");
     }
@@ -77,20 +73,21 @@ public class ManipulateTip extends Activity {
         descriptionText.setText(oldTip.getDescription());
     }
 
-    private void setEditButton(){
+    private void setEditButton() {
         editButton = findViewById(R.id.editImageButton);
-        editButton.setOnClickListener( new View.OnClickListener(){
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(),CreateNewTip.class);
+                Intent startIntent = new Intent(getApplicationContext(), CreateNewTip.class);
                 startIntent.putExtra("source", "MT");
-                startIntent.putExtra("theTip",oldTip);
+                startIntent.putExtra("theTip", oldTip);
                 startActivity(startIntent);
             }
         });
 
     }
-    private void setLikeButton(){
+
+    private void setLikeButton() {
 
     }
 }

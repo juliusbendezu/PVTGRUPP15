@@ -1,8 +1,8 @@
 package com.dsv2019.pvt15.prepapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -13,7 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private ImageButton mapsButton;
     private ImageButton newsButton;

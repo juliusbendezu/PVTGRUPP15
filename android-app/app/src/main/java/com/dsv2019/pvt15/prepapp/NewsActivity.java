@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class NewsActivity extends Activity {
+public class NewsActivity extends AppCompatActivity {
 
     private static final String NEWS_FEED_SERVICE = "http://api.krisinformation.se/v1/capmessage/?format=json";
 

@@ -1,12 +1,11 @@
 package com.dsv2019.pvt15.prepapp;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -24,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PantryAddItemForm extends Activity implements DatePickerDialog.OnDateSetListener {
+public class PantryAddItemForm extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     PantryItem itemToUpdate = null;
     boolean makeUpdate = false;
@@ -116,7 +115,7 @@ public class PantryAddItemForm extends Activity implements DatePickerDialog.OnDa
             return;
         }
 
-        if(makeUpdate)
+        if (makeUpdate)
             makePutRequest(item);
         else
             makePostRequest(item);
