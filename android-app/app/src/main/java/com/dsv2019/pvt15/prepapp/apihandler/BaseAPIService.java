@@ -47,7 +47,7 @@ public interface BaseAPIService {
     Call<Tip> getTip(@Path("id") int id);
 
     @GET("tips/by/{userid}")
-    Call<Tip> getTipsByUser(@Path("userid") String userId);
+    Call<List<Tip>> getTipsByUser(@Path("userid") String userId);
 
     @DELETE("tips/delete/{id}")
     Call<Tip> deleteTip(@Path("id")int id);
