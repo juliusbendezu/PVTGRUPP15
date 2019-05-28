@@ -2,15 +2,15 @@ package com.dsv2019.pvt15.prepapp.tipsrelated;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.dsv2019.pvt15.prepapp.BaseActivity;
 import com.dsv2019.pvt15.prepapp.MainActivity;
 import com.dsv2019.pvt15.prepapp.R;
 
-public class ManipulateTip extends AppCompatActivity {
+public class ManipulateTip extends BaseActivity {
 
     ImageButton homeButton;
     ImageButton editButton;
