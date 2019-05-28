@@ -4,16 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class MainActivity extends BaseActivity
 {
@@ -25,8 +21,11 @@ public class MainActivity extends BaseActivity
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(navListener);
+        navigation.setItemIconTintList(null);
 
+        //The default fragment that should be loaded when the application starts
         loadFragment(new NewsFragment());
+
         wakeUpServer();
     }
 
