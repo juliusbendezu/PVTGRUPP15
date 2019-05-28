@@ -98,13 +98,11 @@ public class PantryItemSummaryView extends LinearLayout {
                 }
 
                 Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, PantryCategoryView.class));
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, PantryFragment.class));
             }
         });
     }
