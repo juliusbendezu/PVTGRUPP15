@@ -32,11 +32,11 @@ public class NewsFragment extends Fragment
 
     private static final String NEWS_FEED_SERVICE = "http://api.krisinformation.se/v1/capmessage/?format=json";
 
-    ApiHandler apiHandler;
-    RequestQueue requestQueue;
-    ArrayList<NewsItem> newsFeed;
-    ProgressBar progressSpinner;
-    View view;
+    private ApiHandler apiHandler;
+    private RequestQueue requestQueue;
+    private ArrayList<NewsItem> newsFeed;
+    private ProgressBar progressSpinner;
+    private View view;
 
     @Nullable
     @Override

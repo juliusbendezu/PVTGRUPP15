@@ -1,74 +1,86 @@
 package com.dsv2019.pvt15.prepapp;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ImageButton;
-
+import android.view.MenuItem;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends BaseActivity {
 
-    private ImageButton mapsButton;
-    private ImageButton newsButton;
-    private ImageButton tipsButton;
-    private ImageButton pantryButton;
-    private ImageButton facebookButton;
-
+public class MainActivity extends AppCompatActivity
+{
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.toolbar_test_activity_main);
 
-        mapsButton = findViewById(R.id.mapsButton);
-        mapsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
-                startActivity(startIntent);
-            }
-        });
+        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
+        navigation.setOnNavigationItemSelectedListener(navListener);
 
-        newsButton = findViewById(R.id.newsButton);
-        newsButton.setOnClickListener(l ->
-        {
-            Intent intent = new Intent(getApplicationContext(), NewsActivity.class);
-            startActivity(intent);
-        });
-
-        tipsButton = findViewById(R.id.tipsButton);
-        tipsButton.setOnClickListener(l ->
-        {
-            Intent intent = new Intent(getApplicationContext(), TipsActivity.class);
-            startActivity(intent);
-        });
-
-        pantryButton = findViewById(R.id.pantryButton);
-        pantryButton.setOnClickListener(l -> startActivity(new Intent(this, PantryActivity.class)));
-
-        facebookButton = findViewById(R.id.facebook_test_button);
-        facebookButton.setOnClickListener(v ->
-        {
-            Intent startIntent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(startIntent);
-        });
-
+        loadFragment(new NewsFragment());
         wakeUpServer();
-
     }
 
-    private void wakeUpServer() {
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener()
+            {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
+                {
+                    Fragment fragment = null;
+
+                    switch (menuItem.getItemId())
+                    {
+                        case R.id.menu_news:
+                            fragment = new NewsFragment();
+                            break;
+
+                        case R.id.menu_tips:
+                            fragment = new TipsFragment();
+                            break;
+
+                        case R.id.menu_pantry:
+                            break;
+
+                        case R.id.menu_download:
+                            break;
+
+                        case R.id.menu_map:
+                            break;
+                    }
+                    return loadFragment(fragment);
+                }
+            };
+
+    private boolean loadFragment(Fragment fragment)
+    {
+        if (fragment != null)
+        {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
+
+    private void wakeUpServer()
+    {
         BaseAPIService api = RetrofitClient.getApiService();
         Call<String> call = api.wakeServer();
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<String>()
+        {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<String> call, Response<String> response)
+            {
                 if (!response.isSuccessful())
                     System.out.println("Server did not respond");
                 else
@@ -76,7 +88,8 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t)
+            {
                 System.out.println(t.getMessage());
             }
         });

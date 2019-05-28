@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
@@ -22,14 +20,11 @@ import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.ManipulateTip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.TipsItemView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class TipsFragment extends Fragment
 {
@@ -42,7 +37,7 @@ public class TipsFragment extends Fragment
     private ImageButton backButton;
     private ImageButton createNewTipButton;
     private ArrayList<String> categoryList = new ArrayList<>();
-    View view;
+    private View view;
 
 
     @Nullable
