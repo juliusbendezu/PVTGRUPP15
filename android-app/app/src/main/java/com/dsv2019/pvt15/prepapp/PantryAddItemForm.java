@@ -2,6 +2,7 @@ package com.dsv2019.pvt15.prepapp;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -191,14 +192,18 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
                     return;
                 }
 
-                Toast.makeText(PantryAddItemForm.this, "Skapat! Svep ned för att ladda om", Toast.LENGTH_SHORT).show();
-                onBackPressed();
+                Toast.makeText(PantryAddItemForm.this, "Skapat!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PantryAddItemForm.this, MainActivity.class);
+                intent.putExtra(MainActivity.SOURCE, MainActivity.FROM_PANTRY);
+                startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
-                showErrorMessage("Skapat! Svep ned för att ladda om");
-                onBackPressed();
+                showErrorMessage("Skapat!");
+                Intent intent = new Intent(PantryAddItemForm.this, MainActivity.class);
+                intent.putExtra(MainActivity.SOURCE, MainActivity.FROM_PANTRY);
+                startActivity(intent);
             }
         });
     }
@@ -215,14 +220,18 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
                     return;
                 }
 
-                Toast.makeText(PantryAddItemForm.this, "Sparat! Svep ned för att ladda om", Toast.LENGTH_SHORT).show();
-                onBackPressed();
+                Toast.makeText(PantryAddItemForm.this, "Sparat!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PantryAddItemForm.this, MainActivity.class);
+                intent.putExtra(MainActivity.SOURCE, MainActivity.FROM_PANTRY);
+                startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
-                showErrorMessage("Sparat! Svep ned för att ladda om");
-                onBackPressed();
+                showErrorMessage("Sparat!");
+                Intent intent = new Intent(PantryAddItemForm.this, MainActivity.class);
+                intent.putExtra(MainActivity.SOURCE, MainActivity.FROM_PANTRY);
+                startActivity(intent);
             }
         });
     }
