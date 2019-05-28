@@ -25,6 +25,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.toolbar_test_activity_main);
 
@@ -32,6 +33,7 @@ public class MainActivity extends BaseActivity {
         navigation.setOnNavigationItemSelectedListener(navListener);
         navigation.setItemIconTintList(null);
 
+        wakeUpServer();
         //The default fragment that should be loaded when the application starts
         defaultFragment = new NewsFragment();
 
@@ -47,9 +49,6 @@ public class MainActivity extends BaseActivity {
                     loadFragment(new PantryFragment());
                     break;
             }
-
-
-        wakeUpServer();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
