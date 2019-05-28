@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <dimen android:name="menu_item_icon_size">24dp</dimen>
-
     <item
         android:id="@+id/tipsMenuMy"
-        android:icon="@drawable/pantry_other_icon"
+        android:icon="@drawable/my"
         android:title="@string/myButton"
     />
     <item
         android:id="@+id/tipsMenuAll"
-        android:icon="@drawable/pantry_other_icon"
+        android:icon="@drawable/all_icon"
         android:title="@string/allButton" />
     <item
         android:id="@+id/tipsMenuWarmth"
@@ -23,7 +21,7 @@
         android:title="@string/waterButton" />
     <item
         android:id="@+id/tipsMenuShelter"
-        android:icon="@drawable/shelter"
+        android:icon="@drawable/skydd"
         android:title="@string/shelterButton" />
     <item
         android:id="@+id/tipsMenuFood"
@@ -33,6 +31,10 @@
         android:id="@+id/tipsMenuHealth"
         android:icon="@drawable/health"
         android:title="@string/healthButton" />
+    <item
+        android:id="@+id/tipsMenuSecurity"
+        android:icon="@drawable/security_icon"
+        android:title="@string/securityButton" />
     <item
         android:id="@+id/tipsMenuStorage"
         android:icon="@drawable/storage"

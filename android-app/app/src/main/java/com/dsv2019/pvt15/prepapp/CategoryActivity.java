@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
 import android.text.style.ImageSpan;
 import android.view.Menu;
@@ -19,7 +18,7 @@ import android.widget.PopupMenu;
 
 import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends BaseActivity {
 
     private Button warmthButton1;
     private Button waterButton2;
@@ -154,6 +153,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     }
 
+
     private void setCreateNewTipButton() {
         createNewTip = findViewById(R.id.createNewTipButtonn);
         createNewTip.setOnClickListener(new View.OnClickListener() {
@@ -184,6 +184,7 @@ public class CategoryActivity extends AppCompatActivity {
 
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.tips_popup_menu, menu.getMenu());
+                insertMenuItemIcons(CategoryActivity.this, menu);
                 menu.show();
             }
         });

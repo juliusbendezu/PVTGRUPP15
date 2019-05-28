@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dsv2019.pvt15.prepapp.BaseActivity;
 import com.dsv2019.pvt15.prepapp.CategoryActivity;
 import com.dsv2019.pvt15.prepapp.R;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
@@ -21,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateNewTip extends AppCompatActivity {
+public class CreateNewTip extends BaseActivity {
 
     private String title;
     private String descritption;

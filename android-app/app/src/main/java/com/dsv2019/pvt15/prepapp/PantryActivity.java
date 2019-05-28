@@ -1,12 +1,18 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -30,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PantryActivity extends AppCompatActivity {
+public class PantryActivity extends BaseActivity {
 
     private static final String EMPTY_PANTRY_MSG = "Du har inget i förrådet! Lägg till något?";
     private static final String ALL = "all";
@@ -162,6 +168,44 @@ public class PantryActivity extends AppCompatActivity {
 
         MenuInflater inflater = popupMenu.getMenuInflater();
         inflater.inflate(R.menu.pantry_popup_menu, popupMenu.getMenu());
+        insertMenuItemIcons(this, popupMenu);
         popupMenu.show();
     }
+
+    /**
+     * Moves icons from the PopupMenu's MenuItems' icon fields into the menu title as a Spannable with the icon and title text.
+     */
+    public static void insertMenuItemIcons(Context context, PopupMenu popupMenu) {
+        Menu menu = popupMenu.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            insertMenuItemIcon(context, menu.getItem(i));
+        }
+
+    }
+
+    /**
+     * Converts the given MenuItem's title into a Spannable containing both its icon and title.
+     */
+    private static void insertMenuItemIcon(Context context, MenuItem item) {
+
+
+        Drawable icon = item.getIcon();
+
+        int iconSize = context.getResources().getDimensionPixelSize(R.dimen.pantry_menu_item_icon_size);
+        icon.setBounds(0, 0, iconSize, iconSize);
+        ImageSpan imageSpan = new ImageSpan(icon);
+
+        // Add a space placeholder for the icon, before the title.
+        SpannableStringBuilder ssb = new SpannableStringBuilder("       " + item.getTitle());
+
+        // Replace the space placeholder with the icon.
+        ssb.setSpan(imageSpan, 1, 2, 0);
+        item.setTitle(ssb);
+        // Set the icon to null just in case, on some weird devices, they've customized Android to display
+        // the icon in the menu... we don't want two icons to appear.
+        item.setIcon(null);
+
+    }
+
+
 }

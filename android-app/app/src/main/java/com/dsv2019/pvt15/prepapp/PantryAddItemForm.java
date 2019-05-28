@@ -23,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PantryAddItemForm extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
     PantryItem itemToUpdate = null;
     boolean makeUpdate = false;
