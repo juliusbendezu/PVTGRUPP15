@@ -68,9 +68,4 @@ public class PantryCategoryView extends LinearLayout {
             isOpen = false;
         }
     }
-
-    public void changeOpenState() {
-        pantryItemsArrow.performClick();
-    }
-
 }

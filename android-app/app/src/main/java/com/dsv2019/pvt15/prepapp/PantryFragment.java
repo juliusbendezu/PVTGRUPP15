@@ -226,10 +226,10 @@ public class PantryFragment extends Fragment {
 
     }
 
-    public static Intent createIntent(Context context){
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.putExtra(MainActivity.SOURCE, MainActivity.FROM_PANTRY);
-            return intent;
+    public static Intent createIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(MainActivity.SOURCE, MainActivity.FROM_PANTRY);
+        return intent;
     }
 
 

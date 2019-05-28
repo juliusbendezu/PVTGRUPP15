@@ -2,7 +2,6 @@ package com.dsv2019.pvt15.prepapp;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.DatePicker;
