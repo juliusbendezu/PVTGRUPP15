@@ -168,7 +168,7 @@ public class TipsFragment extends Fragment
                         Tip tipToCheck = allTips.get(i);
                         checkTheTipsCategoryandAdd(tipToCheck);
                     }
-                    sort(tipsList);
+                    sort(allTips);
 
 
                     for (int i = 0; i < newListToSort.length; i++)
