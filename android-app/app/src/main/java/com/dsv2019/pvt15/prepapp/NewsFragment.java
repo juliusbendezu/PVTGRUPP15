@@ -1,14 +1,15 @@
 package com.dsv2019.pvt15.prepapp;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
@@ -26,42 +27,39 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class NewsActivity extends AppCompatActivity {
+public class NewsFragment extends Fragment
+{
 
     private static final String NEWS_FEED_SERVICE = "http://api.krisinformation.se/v1/capmessage/?format=json";
 
     ApiHandler apiHandler;
-
     RequestQueue requestQueue;
     ArrayList<NewsItem> newsFeed;
-
     ProgressBar progressSpinner;
+    View view;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
-
-        //apiHandler = new ApiHandler();
-        //apiHandler.setRequestQueue(this);
-        //newsFeed = new ArrayList<>();
-        //apiHandler.requestNewsFeed(newsFeed);
-
-        findViewById(R.id.homeButton).setOnClickListener(l -> startActivity(new Intent(this, MainActivity.class)));
-
-        requestQueue = Volley.newRequestQueue(this);
-        newsFeed = new ArrayList<>();
-        progressSpinner = findViewById(R.id.progressSpinner);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
+        view = inflater.inflate(R.layout.activity_news, container, false);
+        requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         requestNewsFeed();
+        newsFeed = new ArrayList<>();
+        progressSpinner = view.findViewById(R.id.progressSpinner);
+        return view;
     }
 
-    public void requestNewsFeed() {
+    public void requestNewsFeed()
+    {
 
         JsonArrayRequest request = new JsonArrayRequest(NEWS_FEED_SERVICE,
-                response -> {
-                    for (int i = 0; i < 20; i++) {
-                        try {
+                response ->
+                {
+                    for (int i = 0; i < 20; i++)
+                    {
+                        try
+                        {
                             JSONObject bigObject = (JSONObject) response.get(i);
                             JSONObject innerObject = bigObject.getJSONArray("InfoData").getJSONObject(0);
                             NewsItem newsItem = new NewsItem(
@@ -78,7 +76,8 @@ public class NewsActivity extends AppCompatActivity {
                             newsFeed.add(newsItem);
                             addNews(newsItem);
                             Log.d("GetNewsFeed", "newsFeed size: " + newsFeed.size());
-                        } catch (JSONException e) {
+                        } catch (JSONException e)
+                        {
                             e.printStackTrace();
                         }
                     }
@@ -91,14 +90,16 @@ public class NewsActivity extends AppCompatActivity {
 
     }
 
-    private void addNews(NewsItem newsItem) {
-        LinearLayout layout = findViewById(R.id.newsLinearLayout);
+    private void addNews(NewsItem newsItem)
+    {
+        LinearLayout layout = view.findViewById(R.id.newsLinearLayout);
 
-        NewsItemView newsItemView = new NewsItemView(this, newsItem);
+        NewsItemView newsItemView = new NewsItemView(getActivity().getApplicationContext(), newsItem);
 
-        newsItemView.setOnClickListener(l -> {
+        newsItemView.setOnClickListener(l ->
+        {
 
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View popupView = inflater.inflate(R.layout.popup_news, null);
             PopupWindow pw = new PopupWindow(popupView,
                     (int) (newsItemView.getWidth() * .8),
@@ -113,7 +114,8 @@ public class NewsActivity extends AppCompatActivity {
         layout.addView(newsItemView);
     }
 
-    private void setPopupValues(View popup, NewsItem newsItem) {
+    private void setPopupValues(View popup, NewsItem newsItem)
+    {
         TextView title, date, desc, web;
 
         title = popup.findViewById(R.id.titleTextView);

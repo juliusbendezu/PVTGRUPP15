@@ -57,7 +57,7 @@ public class CategoryActivity extends AppCompatActivity {
         warmthButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), TipsActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), TipsFragment.class);
                 startIntent.putExtra("category", 1);
                 startActivity(startIntent);
             }
@@ -69,7 +69,7 @@ public class CategoryActivity extends AppCompatActivity {
         waterButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), TipsActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), TipsFragment.class);
                 startIntent.putExtra("category", 2);
                 startActivity(startIntent);
             }
@@ -82,7 +82,7 @@ public class CategoryActivity extends AppCompatActivity {
         shelterButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), TipsActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), TipsFragment.class);
                 startIntent.putExtra("category", 3);
                 startActivity(startIntent);
             }
@@ -95,7 +95,7 @@ public class CategoryActivity extends AppCompatActivity {
         foodButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), TipsActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), TipsFragment.class);
                 startIntent.putExtra("category", 4);
                 startActivity(startIntent);
             }
@@ -107,7 +107,7 @@ public class CategoryActivity extends AppCompatActivity {
         healthButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), TipsActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), TipsFragment.class);
                 startIntent.putExtra("category", 5);
                 startActivity(startIntent);
             }
@@ -120,7 +120,7 @@ public class CategoryActivity extends AppCompatActivity {
         securityButton6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), TipsActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), TipsFragment.class);
                 startIntent.putExtra("category", 6);
                 startActivity(startIntent);
             }
@@ -133,7 +133,7 @@ public class CategoryActivity extends AppCompatActivity {
         storageButton7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), TipsActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), TipsFragment.class);
                 startIntent.putExtra("category", 7);
                 startActivity(startIntent);
             }
@@ -146,7 +146,7 @@ public class CategoryActivity extends AppCompatActivity {
         otherButton8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), TipsActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), TipsFragment.class);
                 startIntent.putExtra("category", 8);
                 startActivity(startIntent);
             }

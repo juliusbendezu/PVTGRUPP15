@@ -24,7 +24,7 @@
         <activity android:name=".PantryActivity" />
         <activity android:name=".tipsrelated.CreateNewTip" />
         <activity android:name=".CategoryActivity" />
-        <activity android:name=".TipsActivity" />
+        <activity android:name=".TipsFragment" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -72,7 +72,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".NewsActivity" />
+        <activity android:name=".NewsFragment" />
     </application>
 
 </manifest>
