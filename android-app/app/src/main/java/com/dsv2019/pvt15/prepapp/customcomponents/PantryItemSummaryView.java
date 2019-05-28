@@ -12,7 +12,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dsv2019.pvt15.prepapp.PantryFragment;
 import com.dsv2019.pvt15.prepapp.PantryAddItemForm;
 import com.dsv2019.pvt15.prepapp.R;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
@@ -25,6 +24,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PantryItemSummaryView extends LinearLayout {
+
+    PopupWindow itemSettingsPopup;
 
     TextView summary;
     ImageView settingsButton;
@@ -52,13 +53,12 @@ public class PantryItemSummaryView extends LinearLayout {
     private void showItemSettings() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.popup_edit_pantry_item, null);
-        PopupWindow popup = new PopupWindow(popupView,
+        itemSettingsPopup = new PopupWindow(popupView,
                 (int) (getWidth() * .8),
                 LayoutParams.WRAP_CONTENT,
                 true);
-        setupPopup(popup);
-        popup.showAtLocation(this, Gravity.CENTER, (int) settingsButton.getX(), (int) settingsButton.getY());
-
+        setupPopup(itemSettingsPopup);
+        itemSettingsPopup.showAtLocation(this, Gravity.CENTER, (int) settingsButton.getX(), (int) settingsButton.getY());
     }
 
     private void setupPopup(PopupWindow popup) {
@@ -77,6 +77,8 @@ public class PantryItemSummaryView extends LinearLayout {
 
         Intent intent = new Intent(context, PantryAddItemForm.class);
         intent.putExtra(PantryItem.KEY, pantryItem);
+        itemSettingsPopup.dismiss();
+        ((PantryCategoryView) getParent().getParent().getParent()).changeOpenState();
         context.startActivity(intent);
     }
 
@@ -97,14 +99,16 @@ public class PantryItemSummaryView extends LinearLayout {
                     return;
                 }
 
-                Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, PantryCategoryView.class));
+                Toast.makeText(context, "Borttaget! Svep ned för att ladda om", Toast.LENGTH_SHORT).show();
+                itemSettingsPopup.dismiss();
+                ((PantryCategoryView) getParent().getParent().getParent()).changeOpenState();
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, PantryFragment.class));
+                Toast.makeText(context, "Borttaget! Svep ned för att ladda om", Toast.LENGTH_SHORT).show();
+                itemSettingsPopup.dismiss();
+                ((PantryCategoryView) getParent().getParent().getParent()).changeOpenState();
             }
         });
     }
