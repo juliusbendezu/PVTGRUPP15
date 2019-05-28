@@ -1,11 +1,21 @@
 package com.dsv2019.pvt15.prepapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +44,7 @@ public class TipsActivity extends BaseActivity {
     private TextView categoryText;
     private ImageButton backButton;
     private ImageButton createNewTipButton;
+    private ImageButton hamburger;
     private ArrayList<String> categoryList = new ArrayList<>();
 
 
@@ -42,8 +53,9 @@ public class TipsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tips);
 
-        categoryNR = (int) getIntent().getExtras().get("category");
+        //categoryNR = (int) getIntent().getExtras().get("category");
 
+        setHamburgerButton();
         createBackBtn();
         createNewTipButton();
         loadTheTips();
@@ -134,7 +146,7 @@ public class TipsActivity extends BaseActivity {
                         Tip tipToCheck = allTips.get(i);
                         checkTheTipsCategoryandAdd(tipToCheck);
                     }
-                    sort(tipsList);
+                    sort(allTips);
 
 
                     for (int i = 0; i < newListToSort.length; i++) {
@@ -172,8 +184,6 @@ public class TipsActivity extends BaseActivity {
                     }
                 }
             }
-
-
             // Swap the found minimum element with the first
             // element
 
@@ -243,5 +253,78 @@ public class TipsActivity extends BaseActivity {
 
         layout.addView(tipsItemView);
     }
+
+    private void setHamburgerButton() {
+        hamburger = findViewById(R.id.tipsActivityHamburger);
+        hamburger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu menu = new PopupMenu(TipsActivity.this, v);
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int id = item.getItemId();
+
+                        return false;
+                    }
+                });
+
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.tips_popup_menu, menu.getMenu());
+                insertMenuItemIcons(TipsActivity.this, menu);
+                menu.show();
+            }
+        });
+    }
+
+    /**
+     * Moves icons from the PopupMenu's MenuItems' icon fields into the menu title as a Spannable with the icon and title text.
+     */
+    public static void insertMenuItemIcons(Context context, PopupMenu popupMenu) {
+        Menu menu = popupMenu.getMenu();
+        if (hasIcon(menu)) {
+            for (int i = 0; i < menu.size(); i++) {
+                insertMenuItemIcon(context, menu.getItem(i));
+            }
+        }
+    }
+
+    /**
+     * @return true if the menu has at least one MenuItem with an icon.
+     */
+    private static boolean hasIcon(Menu menu) {
+        for (int i = 0; i < menu.size(); i++) {
+            if (menu.getItem(i).getIcon() != null) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Converts the given MenuItem's title into a Spannable containing both its icon and title.
+     */
+    private static void insertMenuItemIcon(Context context, MenuItem menuItem) {
+        Drawable icon = menuItem.getIcon();
+
+        // If there's no icon, we insert a transparent one to keep the title aligned with the items
+        // which do have icons.
+        if (icon == null) icon = new ColorDrawable(Color.TRANSPARENT);
+
+        int iconSize = context.getResources().getDimensionPixelSize(R.dimen.menu_item_icon_size);
+        icon.setBounds(0, 0, iconSize, iconSize);
+        ImageSpan imageSpan = new ImageSpan(icon);
+
+        // Add a space placeholder for the icon, before the title.
+        SpannableStringBuilder ssb = new SpannableStringBuilder("       " + menuItem.getTitle());
+
+        // Replace the space placeholder with the icon.
+        ssb.setSpan(imageSpan, 1, 2, 0);
+        menuItem.setTitle(ssb);
+        // Set the icon to null just in case, on some weird devices, they've customized Android to display
+        // the icon in the menu... we don't want two icons to appear.
+        menuItem.setIcon(null);
+
+
+    }
 }
+
 

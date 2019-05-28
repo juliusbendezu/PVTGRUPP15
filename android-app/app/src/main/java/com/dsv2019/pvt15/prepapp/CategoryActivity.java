@@ -153,6 +153,7 @@ public class CategoryActivity extends BaseActivity {
 
     }
 
+
     private void setCreateNewTipButton() {
         createNewTip = findViewById(R.id.createNewTipButtonn);
         createNewTip.setOnClickListener(new View.OnClickListener() {

@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/tipsMenuMy"
-        android:icon="@drawable/pantry_other_icon"
+        android:icon="@drawable/my"
         android:title="@string/myButton"
     />
     <item
         android:id="@+id/tipsMenuAll"
-        android:icon="@drawable/pantry_other_icon"
+        android:icon="@drawable/all_icon"
         android:title="@string/allButton" />
     <item
         android:id="@+id/tipsMenuWarmth"
@@ -33,7 +33,7 @@
         android:title="@string/healthButton" />
     <item
         android:id="@+id/tipsMenuSecurity"
-        android:icon="@drawable/other"
+        android:icon="@drawable/security_icon"
         android:title="@string/securityButton" />
     <item
         android:id="@+id/tipsMenuStorage"
