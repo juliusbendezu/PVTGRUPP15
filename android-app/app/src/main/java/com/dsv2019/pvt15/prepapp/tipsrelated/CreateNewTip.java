@@ -13,7 +13,9 @@ import android.widget.Toast;
 
 import com.dsv2019.pvt15.prepapp.BaseActivity;
 import com.dsv2019.pvt15.prepapp.CategoryActivity;
+import com.dsv2019.pvt15.prepapp.MainActivity;
 import com.dsv2019.pvt15.prepapp.R;
+import com.dsv2019.pvt15.prepapp.TipsFragment;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
@@ -204,7 +206,7 @@ public class CreateNewTip extends BaseActivity {
                     Toast.makeText(CreateNewTip.this, "Tipset har laddats", Toast.LENGTH_LONG).show();
 
                     //GÅ TILL CATEGORY
-                    Intent startIntent = new Intent(getApplicationContext(), CategoryActivity.class);
+                    Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
                     startActivity(startIntent);
                 }
 
@@ -213,7 +215,7 @@ public class CreateNewTip extends BaseActivity {
                 public void onFailure(Call<Tip> call, Throwable t) {
                     //If any error occured displaying the error as toast
                     Toast.makeText(CreateNewTip.this, "Tipset har inte uppdatterats2", Toast.LENGTH_LONG).show();
-                    Intent startIntent = new Intent(getApplicationContext(), CategoryActivity.class);
+                    Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
                     startActivity(startIntent);
                     dialog.dismiss();
                 }
@@ -261,7 +263,8 @@ public class CreateNewTip extends BaseActivity {
                                 Toast.makeText(CreateNewTip.this, "Tipset har raderats1", Toast.LENGTH_LONG).show();
 
                                 //GÅ TILL CATEGORY
-                                Intent startIntent = new Intent(getApplicationContext(), CategoryActivity.class);
+                                Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                startIntent.putExtra("source", "fromTip");
                                 startActivity(startIntent);
                             }
 
@@ -270,9 +273,9 @@ public class CreateNewTip extends BaseActivity {
                                 //If any error occured displaying the error as toast
                                 dialog.dismiss();
                                 Toast.makeText(CreateNewTip.this, "Tipset inte raderats 2", Toast.LENGTH_LONG).show();
-                                Intent startIntent = new Intent(getApplicationContext(), CategoryActivity.class);
+                                Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                startIntent.putExtra("source", "fromTip");
                                 startActivity(startIntent);
-
                             }
                         });
                     }
