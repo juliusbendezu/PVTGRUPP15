@@ -94,7 +94,7 @@ public class NewsFragment extends Fragment
     {
         LinearLayout layout = view.findViewById(R.id.newsLinearLayout);
 
-        NewsItemView newsItemView = new NewsItemView(getActivity().getApplicationContext(), newsItem);
+        NewsItemView newsItemView = new NewsItemView(getContext(), newsItem);
 
         newsItemView.setOnClickListener(l ->
         {
