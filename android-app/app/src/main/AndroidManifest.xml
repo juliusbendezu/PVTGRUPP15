@@ -22,7 +22,7 @@
         <activity android:name=".BaseActivity"></activity>
         <activity android:name=".tipsrelated.ManipulateTip" />
         <activity android:name=".PantryAddItemForm" />
-        <activity android:name=".PantryActivity" />
+        <activity android:name=".PantryFragment" />
         <activity android:name=".tipsrelated.CreateNewTip" />
         <activity android:name=".CategoryActivity" />
         <activity android:name=".TipsFragment" />
