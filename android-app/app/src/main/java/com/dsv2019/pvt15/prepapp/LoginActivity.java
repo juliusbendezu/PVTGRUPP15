@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private LoginButton mLoginButton;
     private CallbackManager mCallbackManager;
     private static final String EMAIL = "email";
