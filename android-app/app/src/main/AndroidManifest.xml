@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".tipsrelated.ManipulateTip"></activity>
+        <activity android:name=".BaseActivity"></activity>
+        <activity android:name=".tipsrelated.ManipulateTip" />
         <activity android:name=".PantryAddItemForm" />
         <activity android:name=".PantryActivity" />
         <activity android:name=".tipsrelated.CreateNewTip" />
