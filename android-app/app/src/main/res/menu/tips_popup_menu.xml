@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    <dimen android:name="menu_item_icon_size">24dp
 
     <item
-        android:id="@+id/pantryMenuFood"
-        android:icon="@drawable/pantry_fooditem_icon"
-        android:title="Mat" />
-    <item
-        android:id="@+id/pantryMenuMedicine"
-        android:icon="@drawable/pantry_medicine_icon"
-        android:title="Medicin" />
-    <item
-        android:id="@+id/pantryMenuOther"
+        android:id="@+id/tipsMenuMy"
         android:icon="@drawable/pantry_other_icon"
-        android:title="Övrigt" />
+        android:title="@string/myButton"
+    />
+    <item
+        android:id="@+id/tipsMenuAll"
+        android:icon="@drawable/pantry_other_icon"
+        android:title="@string/allButton" />
+    <item
+        android:id="@+id/tipsMenuWarmth"
+        android:icon="@drawable/warmth"
+        android:title="@string/warmthButton"
+        />
+    <item
+        android:id="@+id/tipsMenuWater"
+        android:icon="@drawable/water"
+        android:title="@string/waterButton" />
+    <item
+        android:id="@+id/tipsMenuShelter"
+        android:icon="@drawable/shelter"
+        android:title="@string/shelterButton" />
+    <item
+        android:id="@+id/tipsMenuFood"
+        android:icon="@drawable/food"
+        android:title="@string/foodButton" />
+    <item
+        android:id="@+id/tipsMenuHealth"
+        android:icon="@drawable/health"
+        android:title="@string/healthButton" />
+    <item
+        android:id="@+id/tipsMenuStorage"
+        android:icon="@drawable/storage"
+        android:title="@string/storageButton"
+        />
+    <item
+        android:id="@+id/tipsMenuOther"
+        android:icon="@drawable/other"
+        android:title="@string/otherButton"
+        />
+
+
+
 </menu>

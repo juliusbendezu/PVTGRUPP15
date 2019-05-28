@@ -23,9 +23,11 @@
     <string name="newTipText">Fixa ditt tips!</string>
     <string name="titelHint">Skriv en rubrik på ditt tips</string>
     <string name="chooseCategoryHint">Välj en eller fler kategorier</string>
+
     <string name="descriptionHint">Beskriv ditt tips</string>
     <string name="saveText">Spara</string>
     <string name="deleteText">Radera detta tips</string>
+
     <string name="warmthCheckBoxText">Värme</string>
     <string name="waterCheckBoxText">Vatten</string>
     <string name="shelterCheckBoxText">Skydd</string>
@@ -34,6 +36,7 @@
     <string name="securityCheckBoxText">Säkerhet</string>
     <string name="storageCheckBoxText">Förvaring</string>
     <string name="otherCheckBoxText">Övrigt</string>
+
     <string name="categoryTextView">    Tipsets Kategorier: </string>
     <string name="tipsTitelTextView">Title </string>
     <string name="tipsEditTextView">Redigera detta tips</string>
@@ -63,6 +66,9 @@
 
     <!-->activity_category<-->
     <string name="category_section_header">Kategorier</string>
+    <string name="myButton">Mina Skapade Tips</string>
+    <string name="allButton">Alla</string>
+
     <string name="warmthButton">Värme 1</string>
     <string name="waterButton">Vatten 2</string>
     <string name="shelterButton">Skydd 3</string>
