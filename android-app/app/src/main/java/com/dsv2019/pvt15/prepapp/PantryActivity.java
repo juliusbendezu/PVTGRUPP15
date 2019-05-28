@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.widget.Button;
@@ -30,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PantryActivity extends AppCompatActivity {
+public class PantryActivity extends BaseActivity {
 
     private static final String EMPTY_PANTRY_MSG = "Du har inget i förrådet! Lägg till något?";
     private static final String ALL = "all";
@@ -164,4 +163,6 @@ public class PantryActivity extends AppCompatActivity {
         inflater.inflate(R.menu.pantry_popup_menu, popupMenu.getMenu());
         popupMenu.show();
     }
+
+
 }
