@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <dimen android:name="menu_item_icon_size">24dp</dimen>
-
     <item
         android:id="@+id/tipsMenuMy"
         android:icon="@drawable/pantry_other_icon"
@@ -33,6 +31,10 @@
         android:id="@+id/tipsMenuHealth"
         android:icon="@drawable/health"
         android:title="@string/healthButton" />
+    <item
+        android:id="@+id/tipsMenuSecurity"
+        android:icon="@drawable/other"
+        android:title="@string/securityButton" />
     <item
         android:id="@+id/tipsMenuStorage"
         android:icon="@drawable/storage"

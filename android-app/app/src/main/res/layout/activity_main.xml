@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/activity_base" />
+    android:background="@drawable/background1"
+    tools:context=".MainActivity"
+    >
 
     <ImageButton
         android:id="@+id/newsButton"
@@ -16,27 +14,25 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="88dp"
         android:background="@null"
         android:clickable="true"
         android:src="@drawable/bigrednewsbutton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/mapsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="40dp"
         android:background="@null"
         android:src="@drawable/bigredmapbutton"
         app:layout_constraintEnd_toStartOf="@+id/newsButton"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toEndOf="@+id/include"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/tipsButton"
@@ -50,7 +46,7 @@
         android:src="@drawable/bigredtipsbutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/pantryButton"
-        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintHorizontal_bias="0.663"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mapsButton"
         app:layout_constraintVertical_bias="0.0" />
@@ -60,42 +56,41 @@
         android:layout_width="96dp"
         android:layout_height="99dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="76dp"
+        android:layout_marginEnd="84dp"
         android:layout_marginBottom="8dp"
         android:background="@null"
         android:src="@drawable/bigredpantrybutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newsButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.00999999" />
 
     <ImageButton
         android:id="@+id/facebook_test_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="184dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/com_facebook_button_icon_blue"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/downloadButton" />
 
     <ImageButton
         android:id="@+id/downloadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@null"
         android:src="@drawable/bigreddownloadbutton"
-        app:layout_constraintBottom_toTopOf="@+id/facebook_test_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pantryButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tipsButton" />
 
 </android.support.constraint.ConstraintLayout>
