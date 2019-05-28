@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
 
     TextView header;
     Button saveItemButton;
+    Button cancelButton;
 
     EditText nameInput;
     EditText categoryInput;
@@ -61,6 +63,8 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
         header = findViewById(R.id.addPantryItemHeader);
         saveItemButton = findViewById(R.id.savePantryItemButton);
         saveItemButton.setOnClickListener(l -> savePantryItem());
+        cancelButton = findViewById(R.id.addPantryCancelButton);
+        cancelButton.setOnClickListener(l -> cancel());
 
         nameInput = findViewById(R.id.pantryEditName);
         categoryInput = findViewById(R.id.pantryEditCategory);
@@ -71,6 +75,11 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
         dateTextView = findViewById(R.id.pantryDateTextView);
 
         radioGroup = findViewById(R.id.addPantryItemRG);
+    }
+
+    private void cancel() {
+        //startActivity(new Intent(this, MainActivity.class));
+        onBackPressed();
     }
 
     private void fillFields() {
@@ -185,13 +194,13 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
                 }
 
                 Toast.makeText(PantryAddItemForm.this, "Success", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(PantryAddItemForm.this, PantryFragment.class));
+                onBackPressed();
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
                 showErrorMessage("Error: " + t.getMessage());
-                startActivity(new Intent(PantryAddItemForm.this, PantryFragment.class));
+                onBackPressed();
             }
         });
     }
@@ -209,13 +218,13 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
                 }
 
                 Toast.makeText(PantryAddItemForm.this, "Success", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(PantryAddItemForm.this, PantryFragment.class));
+                onBackPressed();
             }
 
             @Override
             public void onFailure(Call<PantryItem> call, Throwable t) {
                 showErrorMessage("Error: " + t.getMessage());
-                startActivity(new Intent(PantryAddItemForm.this, PantryFragment.class));
+                onBackPressed();
             }
         });
     }

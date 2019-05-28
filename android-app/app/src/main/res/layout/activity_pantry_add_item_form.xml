@@ -12,8 +12,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/savePantryItemButton"
+        app:layout_constraintBottom_toTopOf="@id/addPantryButtonsLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -114,7 +113,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
                     android:gravity="center"
-                    android:paddingLeft="30dp"
+                    android:paddingLeft="25dp"
                     android:text="Namn:"
                     android:textStyle="bold" />
 
@@ -142,7 +141,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
                     android:gravity="center"
-                    android:paddingLeft="30dp"
+                    android:paddingLeft="25dp"
                     android:text="Kategori:"
                     android:textStyle="bold" />
 
@@ -170,7 +169,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
                     android:gravity="center"
-                    android:paddingLeft="30dp"
+                    android:paddingLeft="25dp"
                     android:text="Vikt:"
                     android:textStyle="bold" />
 
@@ -226,13 +225,36 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/savePantryItemButton"
+    <LinearLayout
+        android:id="@+id/addPantryButtonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Spara"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="20dp"
+        android:weightSum="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/addPantryCancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Avbryt" />
+
+        <Button
+            android:id="@+id/savePantryItemButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Spara" />
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
