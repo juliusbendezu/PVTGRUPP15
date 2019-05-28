@@ -23,7 +23,7 @@
         android:title="@string/waterButton" />
     <item
         android:id="@+id/tipsMenuShelter"
-        android:icon="@drawable/shelter"
+        android:icon="@drawable/skydd"
         android:title="@string/shelterButton" />
     <item
         android:id="@+id/tipsMenuFood"

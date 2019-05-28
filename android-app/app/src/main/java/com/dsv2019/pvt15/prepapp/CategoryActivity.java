@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
 
@@ -184,6 +185,7 @@ public class CategoryActivity extends AppCompatActivity {
 
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.tips_popup_menu, menu.getMenu());
+                insertMenuItemIcons(CategoryActivity.this, menu);
                 menu.show();
             }
         });
