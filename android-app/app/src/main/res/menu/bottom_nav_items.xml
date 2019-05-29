@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/menu_map"
-        android:icon="@drawable/bigredmapbutton"
+        android:icon="@drawable/menu_map_icon_selector"
         android:title="Karta" />
     <item
         android:id="@+id/menu_tips"
