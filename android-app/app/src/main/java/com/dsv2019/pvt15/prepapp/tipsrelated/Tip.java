@@ -149,24 +149,25 @@ public class Tip implements Serializable {
 
     public ArrayList<String> getCategorys(){
         ArrayList<String> categoryList = new ArrayList<>();
-        if(warmth==true){
+        if(warmth){
             categoryList.add("Värme");
-        } if(water==true){
+        } if(water){
             categoryList.add("Vatten");
-        } if(shelter==true){
+        } if(shelter){
             categoryList.add("Skydd");
-        } if(food==true){
+        } if(food){
             categoryList.add("Mat");
-        } if(health==true){
+        } if(health){
             categoryList.add("Sjukvård");
-        } if(security==true){
+        } if(security){
             categoryList.add("Säkerhet");
-        } if(storage==true){
+        } if(storage){
             categoryList.add("Förvaring");
-        } if(other==true){
+        } if(other){
             categoryList.add("Övrigt");
         }
         return categoryList;
+
     }
 
     public Tip(String name, String description, boolean[] categoryCheck, String creator) {
@@ -175,8 +176,8 @@ public class Tip implements Serializable {
         this.creator = creator;
     }
 
-    public void setLikes(int opinion) {
-        if (opinion > 0) {
+    public void setLikes(boolean opinion) {
+        if (opinion==true) {
             likes++;
         } else {
             likes--;

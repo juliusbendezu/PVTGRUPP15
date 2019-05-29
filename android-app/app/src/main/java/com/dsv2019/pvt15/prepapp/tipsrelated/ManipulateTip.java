@@ -1,24 +1,37 @@
 package com.dsv2019.pvt15.prepapp.tipsrelated;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dsv2019.pvt15.prepapp.BaseActivity;
 import com.dsv2019.pvt15.prepapp.MainActivity;
 import com.dsv2019.pvt15.prepapp.R;
+import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
+import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
+import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ManipulateTip extends BaseActivity {
 
     ImageButton homeButton;
+    TextView editTextView;
     ImageButton editButton;
     ImageButton likeButton;
     TextView titleText;
     TextView categoryText;
     TextView descriptionText;
     Tip oldTip;
+    boolean isLiked;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +39,7 @@ public class ManipulateTip extends BaseActivity {
         setContentView(R.layout.activity_manipulate_tip);
 
         oldTip = (Tip) getIntent().getSerializableExtra("theTip");
-        System.out.println(oldTip.getTitle());
+        System.out.println(oldTip.getTitle() + "hej");
 
         setHomeButton();
         setTipTitle();
@@ -34,7 +47,14 @@ public class ManipulateTip extends BaseActivity {
         setDescription();
         setEditButton();
         setLikeButton();
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startIntent.putExtra(MainActivity.SOURCE, MainActivity.FROM_TIP);
+        startActivity(startIntent);
     }
 
     private void setHomeButton() {
@@ -75,6 +95,13 @@ public class ManipulateTip extends BaseActivity {
 
     private void setEditButton() {
         editButton = findViewById(R.id.editImageButton);
+        editTextView = findViewById(R.id.tipEditTextView);
+        editTextView.setVisibility(View.INVISIBLE);
+        editButton.setVisibility(View.INVISIBLE);
+        if (oldTip.getCreator().equals(MainActivity.CREATOR_NAME)) {
+            editButton.setVisibility(View.VISIBLE);
+            editTextView.setVisibility(View.VISIBLE);
+        }
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,10 +111,71 @@ public class ManipulateTip extends BaseActivity {
                 startActivity(startIntent);
             }
         });
+    }
 
+    private boolean getIsLiked() {
+        return isLiked;
+    }
+
+    private void changeisLiked(boolean opinion) {
+        isLiked = opinion;
+        updateTip(isLiked);
     }
 
     private void setLikeButton() {
+        likeButton = findViewById(R.id.likeImageButton);
+        if (isLiked==true) {
+            likeButton.setImageResource(R.drawable.liked);}
+            likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isLiked==false) {
+                    likeButton.setImageResource(R.drawable.liked);
+                    changeisLiked(true);
+                } else {
+                    likeButton.setImageResource(R.drawable.like);
+                    changeisLiked(false);
+                }
+            }
+        });
 
+    }
+
+    private void updateTip(boolean isLiked){
+        if (InternetConnection.checkConnection(getApplicationContext())) {
+            final ProgressDialog dialog;
+
+            dialog = new ProgressDialog(ManipulateTip.this);
+            dialog.setTitle("Saving the oldTip");
+            dialog.setMessage("please wait");
+            dialog.show();
+
+            //Creating object for our interface
+            BaseAPIService api = RetrofitClient.getApiService();
+
+            //Defining the method insertuser of our interface
+           oldTip.setLikes(isLiked);
+            Call<Tip> call = api.updateTip(oldTip);
+
+            //Creating an anonymous callback
+            call.enqueue(new Callback<Tip>() {
+                @Override
+                public void onResponse(Call<Tip> call, Response<Tip> response) {
+                    dialog.dismiss();
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(ManipulateTip.this, "Tipset har inte uppdatterats1" + response.code(), Toast.LENGTH_LONG).show();
+                    }
+
+                    //Displaying the output as a toast
+                    Toast.makeText(ManipulateTip.this, "Tipset har laddats", Toast.LENGTH_LONG).show();
+                }
+                @Override
+                public void onFailure(Call<Tip> call, Throwable t) {
+                    //If any error occured displaying the error as toast
+                    Toast.makeText(ManipulateTip.this, "Tipset har inte uppdatterats2", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+            });
+        }
     }
 }

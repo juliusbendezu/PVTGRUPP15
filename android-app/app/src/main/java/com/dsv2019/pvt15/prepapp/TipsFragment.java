@@ -45,7 +45,7 @@ public class TipsFragment extends Fragment {
     ArrayList<Tip> tipsList = new ArrayList<>();
     Tip[] newListToSort;
     private int categoryNR;
-    private String categoryName;
+    private String categoryName = "Alla tipsen";
     private TextView categoryText;
     private ImageButton backButton;
     private ImageButton createNewTipButton;
@@ -56,6 +56,8 @@ public class TipsFragment extends Fragment {
     private LinearLayout layout;
     private int categoryType;
 
+    public static final int ALL_CATEGORY = 9;
+    public static final int MY_CATEGORY = 10;
     public static final int WARMTH_CATEGORY = 1;
     public static final int WATER_CATEGORY = 2;
     public static final int SHELTER_CATEGORY = 3;
@@ -70,12 +72,12 @@ public class TipsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_tips, container, false);
-
+        categoryText = view.findViewById(R.id.categoryTextView);
+        categoryText.setText(categoryName);
         //categoryNR = (int) getActivity().getIntent().getExtras().get("category");
         createBackBtn();
         createNewTipButton();
         loadTheTips();
-        setCategoryView();
         setHamburgerButton();
 
 
@@ -84,32 +86,37 @@ public class TipsFragment extends Fragment {
 
     private void setCategoryView() {
 
-        if (categoryType == 1) {
-            categoryName = "Värme";
+        if (categoryType == WARMTH_CATEGORY) {
+            categoryName = "Värmetips";
 
-        } else if (categoryType == 2) {
-            categoryName = "Vatten";
+        } else if (categoryType == WATER_CATEGORY) {
+            categoryName = "Vattentips";
 
-        } else if (categoryType == 3) {
-            categoryName = "Skydd";
+        } else if (categoryType == SHELTER_CATEGORY) {
+            categoryName = "Skyddtips";
 
-        } else if (categoryType == 4) {
-            categoryName = "Mat";
+        } else if (categoryType == FOOD_CATEGORY) {
+            categoryName = "Mattips";
 
-        } else if (categoryType == 5) {
-            categoryName = "Sjukvård";
+        } else if (categoryType == HEALTH_CATEGORY) {
+            categoryName = "Sjukvårdstips";
 
-        } else if (categoryType == 6) {
-            categoryName = "Säkerhet";
+        } else if (categoryType == SECURITY_CATEGORY) {
+            categoryName = "Säkerhetstips";
 
-        } else if (categoryType == 7) {
-            categoryName = "Förvaring";
+        } else if (categoryType == STORAGE_CATEGORY) {
+            categoryName = "Förvaringstips";
+
+        } else if (categoryType == OTHER_CATEGORY) {
+            categoryName = "Övriga tips";
+
+        } else if (categoryType == ALL_CATEGORY) {
+            categoryName = "Alla tips";
 
         } else {
-            categoryName = "Övrigt";
-
+            categoryName = "Mina skapade tips";
         }
-        categoryText = view.findViewById(R.id.categoryTextView);
+
         categoryText.setText(categoryName);
     }
 
@@ -289,7 +296,12 @@ public class TipsFragment extends Fragment {
                         int id = item.getItemId();
 
                         switch (id) {
-
+                            case R.id.tipsMenuMy:
+                                categoryType = TipsFragment.MY_CATEGORY;
+                                break;
+                            case R.id.tipsMenuAll:
+                                categoryType = TipsFragment.ALL_CATEGORY;
+                                break;
                             case R.id.tipsMenuWarmth:
                                 categoryType = TipsFragment.WARMTH_CATEGORY;
                                 break;
@@ -318,6 +330,7 @@ public class TipsFragment extends Fragment {
                         }
 
                         showTipsInLayout();
+                        setCategoryView();
 
                         return false;
                     }
@@ -332,17 +345,30 @@ public class TipsFragment extends Fragment {
         });
     }
 
-    public void showTipsInLayout(){
+    public void showTipsInLayout() {
         tipsList.clear();
-        for (int i = 0; i < allTips.size(); i++) {
-            Tip tipToCheck = allTips.get(i);
-            checkTheTipsCategoryandAdd(tipToCheck);
+
+        if (categoryType == MY_CATEGORY) {
+            for (int i = 0; i < allTips.size(); i++) {
+                if (allTips.get(i).getCreator().equals(MainActivity.CREATOR_NAME)) {
+                    tipsList.add(allTips.get(i));
+                }
+            }
+        } else if (categoryType == ALL_CATEGORY) {
+            for (int i = 0; i < allTips.size(); i++) {
+                tipsList.add(allTips.get(i));
+            }
+        } else {
+            for (int i = 0; i < allTips.size(); i++) {
+                Tip tipToCheck = allTips.get(i);
+                checkTheTipsCategoryandAdd(tipToCheck);
+            }
         }
         sort(tipsList);
 
         for (int i = 0; i < newListToSort.length; i++) {
             addTips(newListToSort[i]);
-            System.out.println(newListToSort[i].getTitle()+"hehheh");
+            System.out.println(newListToSort[i].getTitle() + "hehheh");
 
         }
     }

@@ -109,15 +109,9 @@ public class CreateNewTip extends BaseActivity {
                     } else {
                         updateTip();
                     }
-
                 }
-
-
             }
-
         });
-
-
     }
 
     public void addATip() {
@@ -187,9 +181,8 @@ public class CreateNewTip extends BaseActivity {
             BaseAPIService api = RetrofitClient.getApiService();
 
             //Defining the method insertuser of our interface
-
             Tip tip = new Tip(title, catChecked[0], catChecked[1], catChecked[2], catChecked[3], catChecked[4],
-                    catChecked[5], catChecked[6], catChecked[7], descritption, 0, "Elsa");
+                    catChecked[5], catChecked[6], catChecked[7], descritption, 0, MainActivity.CREATOR_NAME);
             tip.setId(id);
             Call<Tip> call = api.updateTip(tip);
 
@@ -207,21 +200,19 @@ public class CreateNewTip extends BaseActivity {
 
                     //GÅ TILL CATEGORY
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
+                    startIntent.putExtra("theTip", tip);
                     startActivity(startIntent);
                 }
-
-
                 @Override
                 public void onFailure(Call<Tip> call, Throwable t) {
                     //If any error occured displaying the error as toast
                     Toast.makeText(CreateNewTip.this, "Tipset har inte uppdatterats2", Toast.LENGTH_LONG).show();
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
+                    startIntent.putExtra("theTip", tip);
                     startActivity(startIntent);
                     dialog.dismiss();
                 }
-
             });
-
         }
     }
 

@@ -20,13 +20,17 @@
     <string name="HomeButton">HemSymbolen</string>
     <string name="account_name">Account name</string>
     <string name="mail_mail_com">mail@mail.com</string>
-    <string name="newTipText">Fixa ditt tips!</string>
+    <string name="yourNewTipText">Fixa ditt tips!</string>
+    <string name="newTipText">Skapa ett tips!</string>
+
     <string name="titelHint">Skriv en rubrik på ditt tips</string>
     <string name="chooseCategoryHint">Välj en eller fler kategorier</string>
 
-    <string name="descriptionHint">Beskriv ditt tips</string>
+    <string name="descriptionHint">\n\n \nBeskriv ditt tips</string>
     <string name="saveText">Spara</string>
     <string name="deleteText">Radera detta tips</string>
+    <string name="cancelText">Avbryt</string>
+
 
     <string name="warmthCheckBoxText">Värme</string>
     <string name="waterCheckBoxText">Vatten</string>
@@ -37,7 +41,7 @@
     <string name="storageCheckBoxText">Förvaring</string>
     <string name="otherCheckBoxText">Övrigt</string>
 
-    <string name="categoryTextView">    Tipsets Kategorier: </string>
+    <string name="categoryTextView">Tipsets Kategorier: </string>
     <string name="tipsTitelTextView">Title </string>
     <string name="tipsEditTextView">Redigera detta tips</string>
     <string name="tipsLikeTextView">Gilla detta tips</string>
@@ -62,10 +66,10 @@
 
     <!-->activity_category<-->
     <string name="category_section_header">Kategorier</string>
-    <string name="myButton">Mina Skapade Tips</string>
+    <string name="myButton">Mina skapade</string>
     <string name="allButton">Alla</string>
 
-    <string name="warmthButton">Värme 1</string>
+    <string name="warmthButton">Värme</string>
     <string name="waterButton">Vatten 2</string>
     <string name="shelterButton">Skydd 3</string>
     <string name="foodButton">Mat 4</string>
