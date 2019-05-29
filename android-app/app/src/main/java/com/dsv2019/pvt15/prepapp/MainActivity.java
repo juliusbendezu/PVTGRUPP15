@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity {
                             break;
 
                         case R.id.menu_map:
+                            fragment = new MapFragment();
                             break;
                     }
                     return loadFragment(fragment);

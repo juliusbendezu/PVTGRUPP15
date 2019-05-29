@@ -6,12 +6,14 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -42,15 +44,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapActivity extends FragmentActivity implements
+public class MapFragment extends Fragment implements
         OnMapReadyCallback
 {
-    private static final String TAG = "MapActivity";
+    private static final String TAG = "MapFragment";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
@@ -63,18 +64,19 @@ public class MapActivity extends FragmentActivity implements
     private List<HealthClinic> clinicList;
     private ClusterManager<Shelter> shelterClusterManager;
     private ClusterManager<HealthClinic> healthClinicClusterManager;
+    private View view;
 
     //These two are used in connection with the customized info windows, to get a reference to the ClusterItem clicked
     private Shelter clickedShelter;
     private HealthClinic clickedHealthClinic;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        view = inflater.inflate(R.layout.activity_map, container, false);
 
-        toggleButton = findViewById(R.id.map_toggle_button);
+        toggleButton = view.findViewById(R.id.map_toggle_button);
         toggleButton.setOnCheckedChangeListener((buttonView, isChecked) ->
         {
             if (isChecked)
@@ -97,6 +99,10 @@ public class MapActivity extends FragmentActivity implements
             }
         });
         getLocationPermission();
+
+
+        return view;
+
     }
 
     @Override
@@ -108,8 +114,8 @@ public class MapActivity extends FragmentActivity implements
         {
             getDeviceLocation();
 
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(),
                     Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             {
                 return;
@@ -120,7 +126,7 @@ public class MapActivity extends FragmentActivity implements
 
 
             //This is here because of the temporary bug fix with Volley and loading in of Health Clinic objects.
-            healthClinicClusterManager = new ClusterManager<>(this, googleMap);
+            healthClinicClusterManager = new ClusterManager<>(getActivity(), googleMap);
 
             shelterList = generateShelterObjects();
             clinicList = generateHealthClinicObjects();
@@ -132,7 +138,7 @@ public class MapActivity extends FragmentActivity implements
     {
         Log.d(TAG, "getDeviceLocation: getting the devices current location");
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         try
         {
@@ -155,7 +161,7 @@ public class MapActivity extends FragmentActivity implements
                         }
                         else
                         {
-                            Toast.makeText(MapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -175,9 +181,9 @@ public class MapActivity extends FragmentActivity implements
     private void initMap()
     {
         Log.d(TAG, "initMap: initializing map");
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragment_map);
 
-        mapFragment.getMapAsync(MapActivity.this);
+        mapFragment.getMapAsync(MapFragment.this);
     }
 
     private void getLocationPermission()
@@ -186,10 +192,10 @@ public class MapActivity extends FragmentActivity implements
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(this.getActivity().getApplicationContext(),
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
-            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+            if (ContextCompat.checkSelfPermission(this.getActivity().getApplicationContext(),
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             {
                 mLocationPermissionsGranted = true;
@@ -197,14 +203,14 @@ public class MapActivity extends FragmentActivity implements
             }
             else
             {
-                ActivityCompat.requestPermissions(this,
+                ActivityCompat.requestPermissions(getActivity(),
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
         }
         else
         {
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(getActivity(),
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
@@ -279,7 +285,7 @@ public class MapActivity extends FragmentActivity implements
     {
         List<HealthClinic> clinicList = new ArrayList<>();
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         String url = "https://api.eniro.com/cs/search/basic?profile=PVT15&key=2588305061743139325&country=se&version=1.1.3&search_word=akutmottagning&geo_area=Stockholm&from_list=1&to_list=100";
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -340,8 +346,8 @@ public class MapActivity extends FragmentActivity implements
 
     private void setupShelterClustering()
     {
-        shelterClusterManager = new ClusterManager<>(this, mMap);
-        ShelterClusterRenderer<Shelter> clusterRenderer = new ShelterClusterRenderer<>(this, mMap, shelterClusterManager);
+        shelterClusterManager = new ClusterManager<>(getActivity(), mMap);
+        ShelterClusterRenderer<Shelter> clusterRenderer = new ShelterClusterRenderer<>(getActivity(), mMap, shelterClusterManager);
         shelterClusterManager.setRenderer(clusterRenderer);
         mMap.setOnCameraIdleListener(shelterClusterManager);
         mMap.setOnMarkerClickListener(shelterClusterManager);
@@ -367,7 +373,7 @@ public class MapActivity extends FragmentActivity implements
             @Override
             public View getInfoWindow(Marker marker)
             {
-                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 final View view = inflater.inflate(R.layout.custom_info_window_shelter, null);
 
@@ -398,8 +404,8 @@ public class MapActivity extends FragmentActivity implements
 
     private void setupHealthClinicClustering()
     {
-        healthClinicClusterManager = new ClusterManager<>(this, mMap);
-        HealthClinicClusterRenderer<HealthClinic> clusterRenderer = new HealthClinicClusterRenderer(this, mMap, healthClinicClusterManager);
+        healthClinicClusterManager = new ClusterManager<>(getActivity(), mMap);
+        HealthClinicClusterRenderer<HealthClinic> clusterRenderer = new HealthClinicClusterRenderer(getActivity(), mMap, healthClinicClusterManager);
         healthClinicClusterManager.setRenderer(clusterRenderer);
         mMap.setOnCameraIdleListener(healthClinicClusterManager);
         mMap.setOnMarkerClickListener(healthClinicClusterManager);
@@ -424,7 +430,7 @@ public class MapActivity extends FragmentActivity implements
             @Override
             public View getInfoWindow(Marker marker)
             {
-                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 final View view = inflater.inflate(R.layout.custom_info_window_healthclinic, null);
 
