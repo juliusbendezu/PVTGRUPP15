@@ -40,6 +40,9 @@ public class NewsItemView extends LinearLayout {
         ImageView buttonImage = new ImageView(context);
         styleImageView(buttonImage);
         addView(buttonImage);
+
+        setPadding(10, 10, 10, 10);
+
     }
 
     private void styleTextView(TextView tv) {
@@ -50,7 +53,7 @@ public class NewsItemView extends LinearLayout {
 
     private void styleImageView(ImageView iv) {
         iv.setImageResource(R.drawable.arrow_icon);
-        iv.setPadding(0, 0, 20, 0);
+        iv.setPadding(50, 0, 70, 0);
         iv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT, (float) 0.2));
     }
 
