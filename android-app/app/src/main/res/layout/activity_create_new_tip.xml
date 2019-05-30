@@ -39,7 +39,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="@string/yourNewTipText"
-        android:textColor="@color/mainblue"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +46,7 @@
         app:layout_constraintTop_toTopOf="@+id/include" />
 
     <ImageView
-        android:id="@+id/lightBulb"
+        android:id="@+id/downloadIcon"
         android:layout_width="64dp"
         android:layout_height="61dp"
         android:layout_marginStart="8dp"
@@ -76,7 +75,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lightBulb"
+        app:layout_constraintTop_toBottomOf="@+id/downloadIcon"
         app:layout_constraintVertical_bias="0.005"
         tools:targetApi="o" />
 
@@ -260,15 +259,15 @@
 
     <Button
         android:id="@+id/deleteTipButton"
-        android:layout_width="153dp"
+        android:layout_width="wrap_content"
         android:layout_height="41dp"
         android:layout_marginStart="136dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#9F1519"
         android:shadowColor="#9F1519"
-        android:textColor="#EBE7E7"
+        android:text="@string/deleteText"
+        android:textColor="#9F1519"
         android:textColorHighlight="#E9E1E1"
         android:textColorHint="#00E2DCDC"
         android:textColorLink="#00E7E1E1"
@@ -276,8 +275,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext"
-        app:layout_constraintVertical_bias="0.665"
+        app:layout_constraintTop_toBottomOf="@+id/saveAndCancelView"
+        app:layout_constraintVertical_bias="0.538"
         tools:text="@string/deleteText" />
 
 </android.support.constraint.ConstraintLayout>

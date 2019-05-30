@@ -21,6 +21,6 @@
         android:title="Förråd" />
     <item
         android:id="@+id/menu_download"
-        android:icon="@drawable/bigreddownloadbutton"
+        android:icon="@drawable/menu_download_icon_selector"
         android:title="Nedladdningar" />
 </menu>

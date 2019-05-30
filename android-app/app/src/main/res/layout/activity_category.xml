@@ -49,7 +49,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/lightBulb"
+        android:id="@+id/downloadIcon"
         android:layout_width="68dp"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
@@ -71,7 +71,7 @@
         android:text="@string/warmthButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lightBulb" />
+        app:layout_constraintTop_toBottomOf="@+id/downloadIcon" />
 
     <Button
         android:id="@+id/waterButton"

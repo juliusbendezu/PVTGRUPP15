@@ -68,15 +68,21 @@
     <string name="category_section_header">Kategorier</string>
     <string name="myButton">Mina skapade</string>
     <string name="allButton">Alla</string>
+    <string name="documentButton">Dokument</string>
+    <string name="tipsButton">Dina sparade tips</string>
+
 
     <string name="warmthButton">Värme</string>
-    <string name="waterButton">Vatten 2</string>
-    <string name="shelterButton">Skydd 3</string>
-    <string name="foodButton">Mat 4</string>
-    <string name="healthButton">Sjukvård 5</string>
-    <string name="securityButton">Säkerhet 6</string>
-    <string name="storageButton">Förvaring 7</string>
-    <string name="otherButton">Övrigt 8</string>
+    <string name="waterButton">Vatten</string>
+    <string name="shelterButton">Skydd</string>
+    <string name="foodButton">Mat</string>
+    <string name="healthButton">Sjukvård</string>
+    <string name="securityButton">Säkerhet</string>
+    <string name="storageButton">Förvaring</string>
+    <string name="otherButton">Övrigt</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

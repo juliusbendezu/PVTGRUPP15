@@ -45,6 +45,7 @@ public class TipsItemView extends LinearLayout {
 
 
     private void styleTextView(TextView tv, Tip st) {
+        // Denna gör Början av Tipset till fetstilt
         String boldString = "<b>" + st.getTitle() + "</b> ";
         tv.setText(Html.fromHtml(boldString));
 

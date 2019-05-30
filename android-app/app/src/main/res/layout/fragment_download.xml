@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TipsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".DownloadFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
 
     <include
-        android:id="@+id/likeTipEditText"
+        android:id="@+id/downloadbackground"
         layout="@layout/activity_base"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +23,10 @@
     <LinearLayout
         android:id="@+id/topLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="78dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
@@ -27,7 +36,7 @@
         android:weightSum="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/likeTipEditText">
+        app:layout_constraintTop_toTopOf="@+id/downloadbackground">
 
         <LinearLayout
             android:id="@+id/insideTopLinewarLayout"
@@ -66,7 +75,7 @@
             android:fontFamily="sans-serif"
             android:gravity="center|center_horizontal"
             android:includeFontPadding="true"
-            android:text="@string/tips_section_header"
+            android:text="Offlinelagring"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -75,70 +84,43 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.6"
-            android:contentDescription="@string/lightBulb"
-            android:src="@drawable/fortipspage" />
+            android:src="@drawable/downloadicon"
+            tools:srcCompat="@drawable/downloadicon" />
     </LinearLayout>
 
-
-    <ScrollView
-        android:id="@+id/downloadedTipsScrollView"
-        android:layout_width="402dp"
-        android:layout_height="329dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryTextView">
-
-        <LinearLayout
-            android:id="@+id/newsLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
 
     <TextView
         android:id="@+id/categoryTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topLinearLayout" />
 
-    <ImageButton
-        android:id="@+id/createNewTipButton"
-        android:layout_width="62dp"
-        android:layout_height="60dp"
+    <ScrollView
+        android:id="@+id/downloadedTipsScrollView"
+        android:layout_width="406dp"
+        android:layout_height="530dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@null"
-        android:src="@drawable/new_button_green"
-        app:layout_constraintBottom_toBottomOf="@+id/likeTipEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/downloadbackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newTipText"
-        app:layout_constraintVertical_bias="0.064"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryTextView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/newTipText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/newTipText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/downloadedTipsScrollView" />
+        <LinearLayout
+            android:id="@+id/downloadedLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

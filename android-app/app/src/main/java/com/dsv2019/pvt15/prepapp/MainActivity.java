@@ -76,6 +76,8 @@ public class MainActivity extends BaseActivity {
                             break;
 
                         case R.id.menu_download:
+                            menuItem.setChecked(true);
+                            fragment = new DownloadFragment();
                             break;
 
                         case R.id.menu_map:

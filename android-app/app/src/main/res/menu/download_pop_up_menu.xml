@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/downMenuDocuments"
+        android:icon="@drawable/documentsmenu"
+        android:title="@string/documentButton"
+        />
+    <item
+        android:id="@+id/downMenuTips"
+        android:icon="@drawable/tipsmenu"
+        android:title="@string/tipsButton" />
+
+</menu>
