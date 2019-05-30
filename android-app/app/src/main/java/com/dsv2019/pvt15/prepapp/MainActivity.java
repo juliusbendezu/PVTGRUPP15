@@ -20,6 +20,10 @@ public class MainActivity extends BaseActivity {
     public static final String FROM_PANTRY = "fromPantry";
     public static final String CREATOR_NAME = "hejhej";
 
+
+    public static final int TIP_INDEX = 2;
+    public static final int PANTRY_INDEX = 3;
+
     private Fragment defaultFragment;
 
 
@@ -45,9 +49,11 @@ public class MainActivity extends BaseActivity {
         else
             switch (getIntent().getStringExtra(SOURCE)) {
                 case FROM_TIP:
+                    navigation.getMenu().getItem(TIP_INDEX).setChecked(true);
                     loadFragment(new TipsFragment());
                     break;
                 case FROM_PANTRY:
+                    navigation.getMenu().getItem(PANTRY_INDEX).setChecked(true);
                     loadFragment(new PantryFragment());
                     break;
             }
