@@ -50,7 +50,7 @@ public class TipsFragment extends Fragment {
     private ArrayList<String> categoryList = new ArrayList<>();
     private View view;
     private List<Tip> allTips;
-    private ImageButton hamburger;
+    private LinearLayout hamburger;
     private LinearLayout layout;
     private int categoryType;
 
@@ -267,7 +267,7 @@ public class TipsFragment extends Fragment {
     }
 
     private void setHamburgerButton() {
-        hamburger = view.findViewById(R.id.tipsActivityHamburger);
+        hamburger = view.findViewById(R.id.insideTopLinewarLayout);
         hamburger.setOnClickListener(new View.OnClickListener() {
 
             @Override
