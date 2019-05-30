@@ -47,7 +47,6 @@ public class TipsFragment extends Fragment {
     private int categoryNR;
     private String categoryName = "Alla tipsen";
     private TextView categoryText;
-    private ImageButton backButton;
     private ImageButton createNewTipButton;
     private ArrayList<String> categoryList = new ArrayList<>();
     private View view;
@@ -75,11 +74,9 @@ public class TipsFragment extends Fragment {
         categoryText = view.findViewById(R.id.categoryTextView);
         categoryText.setText(categoryName);
         //categoryNR = (int) getActivity().getIntent().getExtras().get("category");
-        createBackBtn();
         createNewTipButton();
         loadTheTips();
         setHamburgerButton();
-
 
         return view;
     }
@@ -127,17 +124,6 @@ public class TipsFragment extends Fragment {
             public void onClick(View v) {
                 Intent startIntent = new Intent(getActivity().getApplicationContext(), CreateNewTip.class);
                 startIntent.putExtra("source", "TA");
-                startActivity(startIntent);
-            }
-        });
-    }
-
-    public void createBackBtn() {
-        backButton = view.findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(getActivity().getApplicationContext(), CategoryActivity.class);
                 startActivity(startIntent);
             }
         });
