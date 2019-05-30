@@ -167,9 +167,11 @@ public class TipsFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<Tip>> call, Throwable t) {
-                    dialog.dismiss();
-                    Toast.makeText(getActivity(), "Tipsen har inte laddats2", Toast.LENGTH_LONG).show();
-                    call.clone().enqueue(this);
+                    if (view.isAttachedToWindow()) {
+                        dialog.dismiss();
+                        Toast.makeText(getActivity(), "Tipsen har inte laddats2", Toast.LENGTH_LONG).show();
+                        call.clone().enqueue(this);
+                    }
                 }
             });
         }
