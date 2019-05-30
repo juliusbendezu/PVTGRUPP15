@@ -93,14 +93,14 @@
 
     <ImageButton
         android:id="@+id/createNewTipButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="62dp"
+        android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#DA0F3C11"
-        android:src="@android:drawable/ic_input_add"
+        android:background="null"
+        android:src="@drawable/new_button_green"
         app:layout_constraintBottom_toBottomOf="@+id/likeTipEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
