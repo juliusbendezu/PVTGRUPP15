@@ -48,7 +48,7 @@ public class PantryFragment extends Fragment {
     private static final String ALL = "all";
 
     LinearLayout layout;
-    Button addItemButton;
+    ImageButton addItemButton;
     ImageButton hamburger;
     Map<String, Set<PantryItem>> pantryMap;
     View view;
