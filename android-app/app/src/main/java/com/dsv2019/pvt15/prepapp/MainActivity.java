@@ -16,7 +16,6 @@ import retrofit2.Response;
 public class MainActivity extends BaseActivity {
 
     public static final String SOURCE = "source";
-
     public static final String FROM_TIP = "fromTip";
     public static final String FROM_PANTRY = "fromPantry";
     public static final String CREATOR_NAME = "hejhej";
