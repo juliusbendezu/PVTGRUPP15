@@ -66,7 +66,7 @@ public class MapFragment extends Fragment implements
     private ClusterManager<HealthClinic> healthClinicClusterManager;
     private View view;
 
-    //These two are used in connection with the customized info windows, to get a reference to the ClusterItem clicked
+    //clickedShelter and clickedHealthClinic are used in connection with the customized info windows, to get a reference to the ClusterItem clicked
     private Shelter clickedShelter;
     private HealthClinic clickedHealthClinic;
 
@@ -456,7 +456,5 @@ public class MapFragment extends Fragment implements
         });
 
         healthClinicClusterManager.cluster();
-
-
     }
 }
