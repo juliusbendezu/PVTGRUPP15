@@ -34,8 +34,7 @@ public class CreateNewTip extends BaseActivity {
     private EditText tipTitelEditText;
     private EditText tipDescriptionEditText;
     private boolean[] catChecked;
-    private ImageButton deleteButton;
-    private TextView deleteTextView;
+    private Button deleteButton;
     private String source;
     private int id;
     private Tip oldTip;
@@ -220,11 +219,8 @@ public class CreateNewTip extends BaseActivity {
     private void createDeleteButton() {
         deleteButton = findViewById(R.id.deleteTipButton);
         deleteButton.setVisibility(View.INVISIBLE);
-        deleteTextView = findViewById(R.id.deleteTextView);
-        deleteTextView.setVisibility(View.INVISIBLE);
 
         if (source.equals("MT")) {
-            deleteTextView.setVisibility(View.VISIBLE);
             deleteButton.setVisibility(View.VISIBLE);
 
             deleteButton.setOnClickListener(new View.OnClickListener() {
