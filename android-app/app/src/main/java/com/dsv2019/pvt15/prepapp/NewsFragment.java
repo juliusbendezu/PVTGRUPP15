@@ -74,7 +74,8 @@ public class NewsFragment extends Fragment
                                 progressSpinner.setVisibility(View.GONE);
 
                             newsFeed.add(newsItem);
-                            addNews(newsItem);
+                            if(view.isAttachedToWindow())
+                                addNews(newsItem);
                             Log.d("GetNewsFeed", "newsFeed size: " + newsFeed.size());
                         } catch (JSONException e)
                         {

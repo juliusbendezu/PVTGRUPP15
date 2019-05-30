@@ -27,7 +27,6 @@ import android.widget.Toast;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
-import com.dsv2019.pvt15.prepapp.models.PantryItem;
 import com.dsv2019.pvt15.prepapp.tipsrelated.CreateNewTip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.ManipulateTip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
@@ -160,7 +159,8 @@ public class TipsFragment extends Fragment {
 
 
                     for (int i = 0; i < newListToSort.length; i++) {
-                        addTips(newListToSort[i]);
+                        if (view.isAttachedToWindow())
+                            addTips(newListToSort[i]);
                     }
 
                 }

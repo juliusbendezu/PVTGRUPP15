@@ -32,6 +32,8 @@ public class MainActivity extends BaseActivity {
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(navListener);
         navigation.setItemIconTintList(null);
+        navigation.getMenu().findItem(R.id.menu_news).setChecked(true);
+
 
         wakeUpServer();
         //The default fragment that should be loaded when the application starts
@@ -59,14 +61,17 @@ public class MainActivity extends BaseActivity {
 
                     switch (menuItem.getItemId()) {
                         case R.id.menu_news:
+                            menuItem.setChecked(true);
                             fragment = new NewsFragment();
                             break;
 
                         case R.id.menu_tips:
+                            menuItem.setChecked(true);
                             fragment = new TipsFragment();
                             break;
 
                         case R.id.menu_pantry:
+                            menuItem.setChecked(true);
                             fragment = new PantryFragment();
                             break;
 
@@ -74,6 +79,7 @@ public class MainActivity extends BaseActivity {
                             break;
 
                         case R.id.menu_map:
+                            menuItem.setChecked(true);
                             fragment = new MapFragment();
                             break;
                     }
