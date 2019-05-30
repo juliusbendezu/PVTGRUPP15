@@ -98,7 +98,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="#DA0F3C11"
@@ -107,6 +107,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newTipText"
+        app:layout_constraintVertical_bias="0.062"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -114,31 +115,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/newTipText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
-
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="37dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#1B292828"
-        android:contentDescription="@string/backButton"
-        android:focusableInTouchMode="true"
-        android:src="@android:drawable/ic_menu_revert"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tipsHeader"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/newTipText"
-        tools:src="@android:drawable/ic_menu_revert" />
 
 
 </android.support.constraint.ConstraintLayout>
