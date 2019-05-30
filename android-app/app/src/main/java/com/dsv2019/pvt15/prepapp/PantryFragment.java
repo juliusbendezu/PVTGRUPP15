@@ -19,7 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -143,13 +142,16 @@ public class PantryFragment extends Fragment {
 
     private void showPantry(Map<String, Set<PantryItem>> pantryMap, String type) {
         if (type.equals("all"))
-            for (Set<PantryItem> category : pantryMap.values())
-                layout.addView(new PantryCategoryView(getActivity(), category));
-        else
-            for (Set<PantryItem> category : pantryMap.values())
-                if (category.iterator().next().getGeneralCategory().equals(type))
+            for (Set<PantryItem> category : pantryMap.values()) {
+                if (view.isAttachedToWindow())
                     layout.addView(new PantryCategoryView(getActivity(), category));
-
+            }
+        else
+            for (Set<PantryItem> category : pantryMap.values()) {
+                if (view.isAttachedToWindow())
+                    if (category.iterator().next().getGeneralCategory().equals(type))
+                        layout.addView(new PantryCategoryView(getActivity(), category));
+            }
 
     }
 
