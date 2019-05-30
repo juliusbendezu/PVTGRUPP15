@@ -116,35 +116,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tipTitelEdittext" />
 
-    <ImageButton
-        android:id="@+id/saveButton"
-        android:layout_width="36dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="164dp"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/checkbox_on_background"
-        tools:ignore="ContentDescription" />
-
-    <TextView
-        android:id="@+id/saveText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/saveAndCancelView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="256dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/saveText"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:weightSum="1"
         app:layout_constraintBottom_toBottomOf="@+id/include"
-        app:layout_constraintEnd_toStartOf="@+id/saveButton"
-        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="@string/cancelText" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="@string/saveText"
+            tools:ignore="ContentDescription"
+            tools:text="@string/saveText" />
+    </LinearLayout>
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -255,7 +260,7 @@
 
     <ImageButton
         android:id="@+id/deleteTipButton"
-        android:layout_width="35dp"
+        android:layout_width="30dp"
         android:layout_height="36dp"
         android:layout_marginStart="136dp"
         android:layout_marginTop="8dp"
@@ -281,34 +286,5 @@
         app:layout_constraintStart_toEndOf="@+id/deleteTipButton"
         app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext"
         app:layout_constraintVertical_bias="0.618" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="36dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="64dp"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/cancelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/cancelText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionEdittext"
-        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

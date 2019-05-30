@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -28,7 +29,7 @@ public class CreateNewTip extends BaseActivity {
 
     private String title;
     private String descritption;
-    private ImageButton saveButton;
+    private Button saveButton;
     private String[] categoryList;
     private EditText tipTitelEditText;
     private EditText tipDescriptionEditText;
