@@ -47,8 +47,9 @@ public class PantryFragment extends Fragment {
     private static final String ALL = "all";
 
     LinearLayout layout;
+    TextView selectedTypeTV;
     ImageButton addItemButton;
-    ImageButton hamburger;
+    LinearLayout hamburger;
     Map<String, Set<PantryItem>> pantryMap;
     View view;
 
@@ -60,6 +61,7 @@ public class PantryFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_pantry, container, false);
 
         layout = view.findViewById(R.id.pantryActivityItemsLayout);
+        selectedTypeTV = view.findViewById(R.id.pantrySelectedTypeTextview);
         addItemButton = view.findViewById(R.id.addPantryItemButton);
         addItemButton.setOnClickListener(l -> addPantryItem());
 
@@ -148,9 +150,9 @@ public class PantryFragment extends Fragment {
             }
         else
             for (Set<PantryItem> category : pantryMap.values()) {
-                if (view.isAttachedToWindow())
-                    if (category.iterator().next().getGeneralCategory().equals(type))
-                        layout.addView(new PantryCategoryView(getActivity(), category));
+                if (view.isAttachedToWindow() &&
+                        category.iterator().next().getGeneralCategory().equals(type))
+                    layout.addView(new PantryCategoryView(getActivity(), category));
             }
 
     }
@@ -184,6 +186,7 @@ public class PantryFragment extends Fragment {
                     type = PantryItem.OTHER_CATEGORY;
                     break;
             }
+            selectedTypeTV.setText(m.getTitle().toString());
             layout.removeAllViews();
             showPantry(pantryMap, type);
 
