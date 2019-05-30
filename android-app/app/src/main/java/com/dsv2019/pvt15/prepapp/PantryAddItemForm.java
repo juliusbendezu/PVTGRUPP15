@@ -99,6 +99,8 @@ public class PantryAddItemForm extends BaseActivity implements DatePickerDialog.
         }
 
         radioGroup.check(id);
+        date = itemToUpdate.getExpiryDate();
+        dateTextView.setText(date);
     }
 
     private void showDatePickerDialog() {

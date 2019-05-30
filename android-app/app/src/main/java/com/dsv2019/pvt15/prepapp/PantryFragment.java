@@ -169,6 +169,9 @@ public class PantryFragment extends Fragment {
         {
             String type = "";
             switch (m.getItemId()) {
+                case R.id.pantryMenuAll:
+                    type = ALL;
+                    break;
                 case R.id.pantryMenuFood:
                     type = PantryItem.FOOD_CATEGORY;
                     break;
