@@ -20,23 +20,27 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingLeft="20dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="20dp"
+        android:paddingRight="10dp"
         android:paddingBottom="20dp"
-        android:weightSum="4">
+        android:weightSum="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/likeTipEditText">
 
         <LinearLayout
             android:id="@+id/insideTopLinewarLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:gravity="bottom|center"
+            android:layout_weight="1.6"
             android:orientation="vertical"
             android:weightSum="1">
 
             <ImageButton
                 android:id="@+id/tipsActivityHamburger"
-                android:layout_width="42dp"
-                android:layout_height="31dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@null"
                 android:contentDescription="TODO"
@@ -46,9 +50,8 @@
                 android:id="@+id/chooseCategoryTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:fontFamily="@font/roboto_thin"
-                android:gravity="bottom"
                 android:text="kategorier"
                 android:textSize="13sp"
                 tools:layout_editor_absoluteX="28dp"
@@ -57,30 +60,22 @@
 
         <TextView
             android:id="@+id/tipsHeader"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
             android:fontFamily="sans-serif"
             android:gravity="center|center_horizontal"
             android:includeFontPadding="true"
-            android:paddingLeft="20dp"
             android:text="@string/tips_section_header"
             android:textSize="30sp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/lightBulb"
-            android:layout_width="60dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
-            android:layout_weight="1.5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.6"
             android:contentDescription="@string/lightBulb"
-            android:paddingTop="15dp"
             android:src="@drawable/fortipspage" />
     </LinearLayout>
 
@@ -109,11 +104,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/topLinearLayout" />
 
     <ImageButton
         android:id="@+id/createNewTipButton"
