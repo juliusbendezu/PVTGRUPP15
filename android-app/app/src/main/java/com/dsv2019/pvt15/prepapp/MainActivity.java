@@ -67,27 +67,27 @@ public class MainActivity extends BaseActivity {
 
                     switch (menuItem.getItemId()) {
                         case R.id.menu_news:
-                            menuItem.setChecked(true);
+                            //menuItem.setChecked(true);
                             fragment = new NewsFragment();
                             break;
 
                         case R.id.menu_tips:
-                            menuItem.setChecked(true);
+                           // menuItem.setChecked(true);
                             fragment = new TipsFragment();
                             break;
 
                         case R.id.menu_pantry:
-                            menuItem.setChecked(true);
+                            //menuItem.setChecked(true);
                             fragment = new PantryFragment();
                             break;
 
                         case R.id.menu_download:
-                            menuItem.setChecked(true);
+                            //menuItem.setChecked(true);
                             fragment = new DownloadFragment();
                             break;
 
                         case R.id.menu_map:
-                            menuItem.setChecked(true);
+                            //menuItem.setChecked(true);
                             fragment = new MapFragment();
                             break;
                     }
