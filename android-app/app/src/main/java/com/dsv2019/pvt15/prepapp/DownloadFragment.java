@@ -2,16 +2,15 @@ package com.dsv2019.pvt15.prepapp;
 
 
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -39,6 +38,9 @@ import com.dsv2019.pvt15.prepapp.tipsrelated.Tip;
 import com.dsv2019.pvt15.prepapp.tipsrelated.TipsItemView;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,6 +48,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class DownloadFragment extends Fragment
@@ -295,20 +299,28 @@ public class DownloadFragment extends Fragment
             view.setOnClickListener(l ->
             {
 
-                try {
-                    File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/raw/",s);
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    if (Build.VERSION.SDK_INT >= 24)
-                        intent.setDataAndType(FileProvider.getUriForFile(getActivity(),
-                                BuildConfig.APPLICATION_ID + ".provider", file), "application/pdf");
-                    else intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    Intent intent1 = Intent.createChooser(intent, "Open With");
-                    startActivity(intent1);
-                } catch (ActivityNotFoundException e) {
-                    e.printStackTrace();
+                File file = new File(getContext().getFilesDir(), s);
+
+                if (!file.exists())
+                {
+                    AssetManager assets = getActivity().getAssets();
+
+                    try
+                    {
+                        copy(assets.open(s), file);
+                    } catch (IOException e)
+                    {
+                        Log.e("FileProvider", "Exception copying from assets", e);
+                    }
                 }
+
+                Intent i =
+                        new Intent(Intent.ACTION_VIEW,
+                                FileProvider.getUriForFile(getContext(), getApplicationContext().getPackageName() + ".fileprovider", file));
+
+                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                startActivity(i);
 
             });
 
@@ -361,5 +373,20 @@ public class DownloadFragment extends Fragment
         menuItem.setIcon(null);
 
 
+    }
+
+    private void copy(InputStream in, File dst) throws IOException
+    {
+        FileOutputStream out = new FileOutputStream(dst);
+        byte[] buf = new byte[1024];
+        int len;
+
+        while ((len = in.read(buf)) > 0)
+        {
+            out.write(buf, 0, len);
+        }
+
+        in.close();
+        out.close();
     }
 }

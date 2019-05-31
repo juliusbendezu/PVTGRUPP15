@@ -78,7 +78,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.dsv2019.pvt15.prepapp.provider"
+            android:authorities="com.dsv2019.pvt15.prepapp.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
