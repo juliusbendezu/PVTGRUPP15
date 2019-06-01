@@ -225,12 +225,11 @@ public class CreateNewTip extends BaseActivity {
         if (source.equals("MT")) {
             deleteButton.setVisibility(View.VISIBLE);
 
-            deleteButton.setOnClickListener(this::showPopup);
+            deleteButton.setOnClickListener(this::showWarningPopup);
         }
     }
 
-    private void showPopup(View v) {
-        System.out.println("Are you even trying?");
+    private void showWarningPopup(View v) {
         LayoutInflater inflater = getLayoutInflater();
         View popup = inflater.inflate(R.layout.popup_warning, null);
         PopupWindow warning = new PopupWindow(popup, (int) (getWindowManager().getDefaultDisplay().getWidth() * .8),
