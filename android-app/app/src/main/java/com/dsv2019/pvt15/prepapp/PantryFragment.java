@@ -114,7 +114,8 @@ public class PantryFragment extends Fragment {
             @Override
             public void onFailure(Call<List<PantryItem>> call, Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(getActivity(), "Could not load pantry, please try again", Toast.LENGTH_SHORT).show();
+                if (view.isAttachedToWindow())
+                    Toast.makeText(getActivity(), "Could not load pantry, please try again", Toast.LENGTH_SHORT).show();
             }
         });
 

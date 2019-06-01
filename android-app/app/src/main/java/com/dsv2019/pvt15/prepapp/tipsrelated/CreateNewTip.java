@@ -3,20 +3,20 @@ package com.dsv2019.pvt15.prepapp.tipsrelated;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dsv2019.pvt15.prepapp.BaseActivity;
-import com.dsv2019.pvt15.prepapp.CategoryActivity;
 import com.dsv2019.pvt15.prepapp.MainActivity;
 import com.dsv2019.pvt15.prepapp.R;
-import com.dsv2019.pvt15.prepapp.TipsFragment;
 import com.dsv2019.pvt15.prepapp.apihandler.BaseAPIService;
 import com.dsv2019.pvt15.prepapp.apihandler.InternetConnection;
 import com.dsv2019.pvt15.prepapp.apihandler.RetrofitClient;
@@ -52,6 +52,7 @@ public class CreateNewTip extends BaseActivity {
 
     //FACEBOOK ID
     //private String creator = AccessToken.getCurrentAccessToken().toString();
+    private String creator = "Elsa";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +130,7 @@ public class CreateNewTip extends BaseActivity {
             //Defining the method insertuser of our interface
 
             Tip tip = new Tip(title, catChecked[0], catChecked[1], catChecked[2], catChecked[3], catChecked[4],
-                    catChecked[5], catChecked[6], catChecked[7], descritption, 0, "Elsa");
+                    catChecked[5], catChecked[6], catChecked[7], descritption, 0, creator);
             Call<Tip> call = api.addTip(tip);
 
             //Creating an anonymous callback
@@ -203,6 +204,7 @@ public class CreateNewTip extends BaseActivity {
                     startIntent.putExtra("theTip", tip);
                     startActivity(startIntent);
                 }
+
                 @Override
                 public void onFailure(Call<Tip> call, Throwable t) {
                     //If any error occured displaying the error as toast
@@ -223,50 +225,65 @@ public class CreateNewTip extends BaseActivity {
         if (source.equals("MT")) {
             deleteButton.setVisibility(View.VISIBLE);
 
-            deleteButton.setOnClickListener(new View.OnClickListener() {
+            deleteButton.setOnClickListener(this::showPopup);
+        }
+    }
+
+    private void showPopup(View v) {
+        System.out.println("Are you even trying?");
+        LayoutInflater inflater = getLayoutInflater();
+        View popup = inflater.inflate(R.layout.popup_warning, null);
+        PopupWindow warning = new PopupWindow(popup, (int) (getWindowManager().getDefaultDisplay().getWidth() * .8),
+                LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        TextView message = popup.findViewById(R.id.popupWarningMessageTV);
+        message.setText("Är du säker på att du vill radera detta tips?\n(Detta går inte att ångra)");
+        Button cancel = popup.findViewById(R.id.popupWarningCancelButton);
+        cancel.setText("Avbryt");
+        cancel.setOnClickListener(l -> warning.dismiss());
+        Button ok = popup.findViewById(R.id.popupWarningOkButton);
+        ok.setText("Ta bort");
+        ok.setOnClickListener(l -> makeDeleteRequest());
+        warning.showAtLocation(v, Gravity.CENTER, 0, 0);
+    }
+
+    private void makeDeleteRequest() {
+        if (InternetConnection.checkConnection(getApplicationContext())) {
+            final ProgressDialog dialog;
+
+            dialog = new ProgressDialog(CreateNewTip.this);
+            dialog.setTitle("Removing the oldTip");
+            dialog.setMessage("please wait");
+            dialog.show();
+
+            //oldTip = (Tip) getIntent().getSerializableExtra("theTip");
+            id = (int) oldTip.getId();
+            BaseAPIService api = RetrofitClient.getApiService();
+            Call<Tip> call = api.deleteTip(id);
+
+            call.enqueue(new Callback<Tip>() {
                 @Override
-                public void onClick(View v) {
-
-                    if (InternetConnection.checkConnection(getApplicationContext())) {
-                        final ProgressDialog dialog;
-
-                        dialog = new ProgressDialog(CreateNewTip.this);
-                        dialog.setTitle("Removing the oldTip");
-                        dialog.setMessage("please wait");
-                        dialog.show();
-
-                        //oldTip = (Tip) getIntent().getSerializableExtra("theTip");
-                        id = (int) oldTip.getId();
-                        BaseAPIService api = RetrofitClient.getApiService();
-                        Call<Tip> call = api.deleteTip(id);
-
-                        call.enqueue(new Callback<Tip>() {
-                            @Override
-                            public void onResponse(Call<Tip> call, Response<Tip> response) {
-                                dialog.dismiss();
-                                if (!response.isSuccessful()) {
-                                    Toast.makeText(CreateNewTip.this, "Tipset har inte raderats1" + response.code(), Toast.LENGTH_LONG).show();
-                                }
-                                //Displaying the output as a toast
-                                Toast.makeText(CreateNewTip.this, "Tipset har raderats1", Toast.LENGTH_LONG).show();
-
-                                //GÅ TILL CATEGORY
-                                Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
-                                startIntent.putExtra("source", "fromTip");
-                                startActivity(startIntent);
-                            }
-
-                            @Override
-                            public void onFailure(Call<Tip> call, Throwable t) {
-                                //If any error occured displaying the error as toast
-                                dialog.dismiss();
-                                Toast.makeText(CreateNewTip.this, "Tipset inte raderats 2", Toast.LENGTH_LONG).show();
-                                Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
-                                startIntent.putExtra("source", "fromTip");
-                                startActivity(startIntent);
-                            }
-                        });
+                public void onResponse(Call<Tip> call, Response<Tip> response) {
+                    dialog.dismiss();
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(CreateNewTip.this, "Tipset har inte raderats, försök igen" + response.code(), Toast.LENGTH_LONG).show();
                     }
+                    //Displaying the output as a toast
+                    Toast.makeText(CreateNewTip.this, "Tipset har raderats", Toast.LENGTH_LONG).show();
+
+                    //GÅ TILL CATEGORY
+                    Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startIntent.putExtra("source", "fromTip");
+                    startActivity(startIntent);
+                }
+
+                @Override
+                public void onFailure(Call<Tip> call, Throwable t) {
+                    //If any error occured displaying the error as toast
+                    dialog.dismiss();
+                    Toast.makeText(CreateNewTip.this, "Tipset har raderats", Toast.LENGTH_LONG).show();
+                    Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startIntent.putExtra("source", "fromTip");
+                    startActivity(startIntent);
                 }
             });
         }
