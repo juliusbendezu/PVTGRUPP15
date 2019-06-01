@@ -23,6 +23,7 @@
             android:paddingRight="10dp"
             android:paddingBottom="15dp"
             android:text="Message"
+            android:textColor="@color/warningRed"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -46,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.5"
+                android:textColor="@color/warningRed" />
 
         </LinearLayout>
 

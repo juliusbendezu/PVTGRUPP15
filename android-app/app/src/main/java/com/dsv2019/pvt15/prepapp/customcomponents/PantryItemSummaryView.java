@@ -3,6 +3,8 @@ package com.dsv2019.pvt15.prepapp.customcomponents;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.transition.Transition;
+import android.transition.TransitionValues;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,8 +76,8 @@ public class PantryItemSummaryView extends LinearLayout {
     }
 
     private void editPantryItem() {
+        itemSettingsPopup.dismiss();
         Context context = getContext();
-
         Intent intent = new Intent(context, PantryAddItemForm.class);
         intent.putExtra(PantryItem.KEY, pantryItem);
         context.startActivity(intent);

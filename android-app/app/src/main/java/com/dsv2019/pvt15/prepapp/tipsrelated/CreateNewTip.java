@@ -30,6 +30,7 @@ public class CreateNewTip extends BaseActivity {
     private String title;
     private String descritption;
     private Button saveButton;
+    private Button cancelButton;
     private String[] categoryList;
     private EditText tipTitelEditText;
     private EditText tipDescriptionEditText;
@@ -72,9 +73,9 @@ public class CreateNewTip extends BaseActivity {
         createDescription();
         createSaveButton();
         createDeleteButton();
+        createCancelButton();
 
     }
-
 
     public void createTipTitle() {
         tipTitelEditText = findViewById(R.id.tipTitelEdittext);
@@ -90,6 +91,12 @@ public class CreateNewTip extends BaseActivity {
             tipDescriptionEditText.setText(oldTip.getDescription());
         }
     }
+
+    private void createCancelButton() {
+        cancelButton = findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(v -> onBackPressed());
+    }
+
 
     public void createSaveButton() {
         saveButton = findViewById(R.id.saveButton);
@@ -174,7 +181,7 @@ public class CreateNewTip extends BaseActivity {
             final ProgressDialog dialog;
 
             dialog = new ProgressDialog(CreateNewTip.this);
-            dialog.setTitle("Saving the oldTip");
+            dialog.setTitle("Saving the tip");
             dialog.setMessage("please wait");
             dialog.show();
 
@@ -193,11 +200,11 @@ public class CreateNewTip extends BaseActivity {
                 public void onResponse(Call<Tip> call, Response<Tip> response) {
                     dialog.dismiss();
                     if (!response.isSuccessful()) {
-                        Toast.makeText(CreateNewTip.this, "Tipset har inte uppdatterats1" + response.code(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(CreateNewTip.this, "Tipset har inte uppdaterats, pröva igen" + response.code(), Toast.LENGTH_LONG).show();
                     }
 
                     //Displaying the output as a toast
-                    Toast.makeText(CreateNewTip.this, "Tipset har laddats", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateNewTip.this, "Tipset har uppdaterats!", Toast.LENGTH_LONG).show();
 
                     //GÅ TILL CATEGORY
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
@@ -208,7 +215,7 @@ public class CreateNewTip extends BaseActivity {
                 @Override
                 public void onFailure(Call<Tip> call, Throwable t) {
                     //If any error occured displaying the error as toast
-                    Toast.makeText(CreateNewTip.this, "Tipset har inte uppdatterats2", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateNewTip.this, "Tipset har uppdaterats!", Toast.LENGTH_LONG).show();
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
                     startIntent.putExtra("theTip", tip);
                     startActivity(startIntent);
@@ -250,7 +257,7 @@ public class CreateNewTip extends BaseActivity {
             final ProgressDialog dialog;
 
             dialog = new ProgressDialog(CreateNewTip.this);
-            dialog.setTitle("Removing the oldTip");
+            dialog.setTitle("Removing the tip");
             dialog.setMessage("please wait");
             dialog.show();
 
