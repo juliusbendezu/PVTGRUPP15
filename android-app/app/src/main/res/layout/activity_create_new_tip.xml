@@ -21,6 +21,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="@string/yourNewTipText"
         android:textSize="20sp"
@@ -51,6 +52,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:fontFamily="@font/montserrat"
         android:hint="@string/titelHint"
         android:importantForAutofill="no"
         android:inputType=""
@@ -72,6 +74,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="100dp"
         android:ems="10"
+        android:fontFamily="@font/montserrat"
         android:hint="@string/descriptionHint"
         android:importantForAutofill="no"
         android:inputType=""
@@ -93,6 +96,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/chooseCategoryHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.192"
@@ -122,6 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:fontFamily="@font/montserrat"
             android:text="@string/cancelText" />
 
         <Button
@@ -129,6 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:fontFamily="@font/montserrat"
             android:text="@string/saveText"
             tools:ignore="ContentDescription"
             tools:text="@string/saveText" />
@@ -155,6 +161,7 @@
                 android:id="@+id/waterCheckBox"
                 android:layout_width="90dp"
                 android:layout_height="30dp"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/waterCheckBoxText"
                 android:textSize="12sp" />
 
@@ -164,6 +171,7 @@
                 android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:layout_gravity="top"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/warmthCheckBoxText"
                 android:textSize="12sp" />
 
@@ -182,6 +190,7 @@
                 android:id="@+id/shelterCheckBox"
                 android:layout_width="90dp"
                 android:layout_height="30dp"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/shelterCheckBoxText"
                 android:textSize="12sp" />
 
@@ -189,6 +198,7 @@
                 android:id="@+id/foodCheckBox"
                 android:layout_width="90dp"
                 android:layout_height="30dp"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/foodCheckBoxText"
                 android:textSize="12sp" />
 
@@ -204,6 +214,7 @@
                 android:id="@+id/healthCheckBox"
                 android:layout_width="90dp"
                 android:layout_height="30dp"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/healthCheckBoxText"
                 android:textSize="12sp" />
 
@@ -211,6 +222,7 @@
                 android:id="@+id/securityCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/securityCheckBoxText"
                 android:textSize="12sp" />
 
@@ -227,6 +239,7 @@
                 android:id="@+id/storageCheckBox"
                 android:layout_width="90dp"
                 android:layout_height="30dp"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/storageCheckBoxText"
                 android:textSize="12sp" />
 
@@ -234,6 +247,7 @@
                 android:id="@+id/otherCheckBox"
                 android:layout_width="90dp"
                 android:layout_height="30dp"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/otherCheckBoxText"
                 android:textSize="12sp" />
 
@@ -249,6 +263,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/montserrat"
         android:shadowColor="@color/warningRed"
         android:text="@string/deleteText"
         android:textColor="@color/warningRed"

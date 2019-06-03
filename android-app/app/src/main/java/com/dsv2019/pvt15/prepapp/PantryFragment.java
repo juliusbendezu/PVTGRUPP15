@@ -90,12 +90,12 @@ public class PantryFragment extends Fragment {
     private void getPantry() {
         final ProgressDialog dialog;
         dialog = new ProgressDialog(getActivity());
-        dialog.setTitle("Loading pantry..");
-        dialog.setMessage("please wait");
+        dialog.setTitle("Laddar förrådet..");
+        dialog.setMessage("var god vänta");
         dialog.show();
 
         if (!InternetConnection.checkConnection(getActivity())) {
-            Toast.makeText(getActivity(), "Could not load pantry, please try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Kunde tyvärr inte ladda förrådet, var god försök igen", Toast.LENGTH_SHORT).show();
         }
 
         BaseAPIService apiService = RetrofitClient.getApiService();
@@ -104,7 +104,7 @@ public class PantryFragment extends Fragment {
             @Override
             public void onResponse(Call<List<PantryItem>> call, Response<List<PantryItem>> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Could not load pantry, please try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Kunde inte ladda förrådet, vänligen försök igen", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
                 List<PantryItem> pantry = response.body();
@@ -115,7 +115,7 @@ public class PantryFragment extends Fragment {
             public void onFailure(Call<List<PantryItem>> call, Throwable t) {
                 dialog.dismiss();
                 if (view.isAttachedToWindow())
-                    Toast.makeText(getActivity(), "Could not load pantry, please try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Kunde inte ladda förrådet, vänligen försök igen", Toast.LENGTH_SHORT).show();
             }
         });
 

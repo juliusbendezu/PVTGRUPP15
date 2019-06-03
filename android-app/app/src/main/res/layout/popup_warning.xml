@@ -17,6 +17,7 @@
             android:id="@+id/popupWarningMessageTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
@@ -39,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.5"
+                android:fontFamily="@font/montserrat" />
 
             <Button
                 android:id="@+id/popupWarningOkButton"
@@ -48,6 +50,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="0.5"
+                android:fontFamily="@font/montserrat"
                 android:textColor="@color/warningRed" />
 
         </LinearLayout>

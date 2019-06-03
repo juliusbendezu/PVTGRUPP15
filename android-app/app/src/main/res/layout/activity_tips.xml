@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/roboto_thin"
+                android:fontFamily="@font/montserrat"
                 android:text="kategorier"
                 android:textSize="13sp"
                 tools:layout_editor_absoluteX="28dp"
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.8"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/montserrat"
             android:gravity="center|center_horizontal"
             android:includeFontPadding="true"
             android:text="@string/tips_section_header"
@@ -82,15 +82,18 @@
 
     <ScrollView
         android:id="@+id/downloadedTipsScrollView"
-        android:layout_width="402dp"
-        android:layout_height="329dp"
+        android:layout_width="407dp"
+        android:layout_height="400dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/newTipText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryTextView">
+        app:layout_constraintTop_toBottomOf="@+id/categoryTextView"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/newsLinearLayout"
@@ -105,6 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,17 +119,14 @@
         android:layout_width="62dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="50dp"
         android:background="@null"
         android:src="@drawable/new_button_green"
         app:layout_constraintBottom_toBottomOf="@+id/likeTipEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newTipText"
-        app:layout_constraintVertical_bias="0.064"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -133,12 +134,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/newTipText"
+        app:layout_constraintBottom_toTopOf="@+id/createNewTipButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/downloadedTipsScrollView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

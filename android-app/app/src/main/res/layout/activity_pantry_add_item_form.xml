@@ -26,6 +26,7 @@
                 android:id="@+id/addPantryItemHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
@@ -51,6 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat"
                     android:gravity="center"
                     android:text="Typ:"
                     android:textSize="14sp"
@@ -112,6 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
+                    android:fontFamily="@font/montserrat"
                     android:gravity="center"
                     android:paddingLeft="25dp"
                     android:text="Namn:"
@@ -140,6 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
+                    android:fontFamily="@font/montserrat"
                     android:gravity="center"
                     android:paddingLeft="25dp"
                     android:text="Kategori:"
@@ -168,6 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
+                    android:fontFamily="@font/montserrat"
                     android:gravity="center"
                     android:paddingLeft="25dp"
                     android:text="Vikt:"
@@ -196,6 +201,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
+                    android:fontFamily="@font/montserrat"
                     android:gravity="center_vertical"
                     android:lines="1"
                     android:paddingLeft="10dp"
@@ -217,6 +223,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.4"
+                    android:fontFamily="@font/montserrat"
                     android:text="Välj" />
 
 
@@ -246,6 +253,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:fontFamily="@font/montserrat"
             android:text="Avbryt" />
 
         <Button
@@ -253,6 +261,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:fontFamily="@font/montserrat"
             android:text="Spara" />
     </LinearLayout>
 

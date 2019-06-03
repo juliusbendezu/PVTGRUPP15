@@ -9,18 +9,23 @@
     <item
         android:id="@+id/menu_news"
         android:icon="@drawable/menu_news_icon_selector"
-        android:title="Nyheter" />
+        android:title="Nyheter"
+        android:fontFamily="@font/montserrat"
+        />
 
     <item
         android:id="@+id/menu_tips"
         android:icon="@drawable/menu_tips_icon_selector"
-        android:title="Tips" />
+        android:title="Tips"
+        android:fontFamily="@font/montserrat"/>
     <item
         android:id="@+id/menu_pantry"
         android:icon="@drawable/menu_pantry_icon_selector"
-        android:title="Förråd" />
+        android:title="Förråd"
+        android:fontFamily="@font/montserrat"/>
     <item
         android:id="@+id/menu_download"
         android:icon="@drawable/menu_download_icon_selector"
-        android:title="Nedladdningar" />
+        android:title="Nedladdningar"
+        android:fontFamily="@font/montserrat"/>
 </menu>

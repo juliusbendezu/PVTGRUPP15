@@ -5,10 +5,12 @@
         android:id="@+id/downMenuDocuments"
         android:icon="@drawable/documentsmenu"
         android:title="@string/documentButton"
+        android:fontFamily="@font/montserrat"
         />
     <item
         android:id="@+id/downMenuTips"
         android:icon="@drawable/tipsmenu"
-        android:title="@string/tipsButton" />
+        android:title="@string/tipsButton"
+        android:fontFamily="@font/montserrat"/>
 
 </menu>

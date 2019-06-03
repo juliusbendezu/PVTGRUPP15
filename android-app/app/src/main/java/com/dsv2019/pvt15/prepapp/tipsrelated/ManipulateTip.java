@@ -4,9 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +36,8 @@ public class ManipulateTip extends BaseActivity {
     Tip oldTip;
     boolean isLiked;
     int likes;
+    int id;
+    Button deleteButton;
 
 
     @Override
@@ -41,12 +47,14 @@ public class ManipulateTip extends BaseActivity {
 
         oldTip = (Tip) getIntent().getSerializableExtra("theTip");
         likes = oldTip.getLikes();
+        id = oldTip.getId();
 
         setTipTitle();
         setCategorys();
         setDescription();
         setEditButton();
         setLikeButton();
+        createDeleteButton();
     }
 
     @Override
@@ -75,6 +83,7 @@ public class ManipulateTip extends BaseActivity {
         }
 
         allCategorys += System.getProperty("line.separator") + "Likes: "+likes;
+        allCategorys += System.getProperty("line.separator") + "Creator: " + oldTip.getCreator();
         categoryText.setText(allCategorys);
     }
 
@@ -146,6 +155,8 @@ public class ManipulateTip extends BaseActivity {
 
             //Defining the method insertuser of our interface
            oldTip.setLikes(isLiked);
+          id = oldTip.getId();
+          oldTip.setId(id);
             Call<Tip> call = api.updateTip(oldTip);
 
             //Creating an anonymous callback
@@ -162,4 +173,74 @@ public class ManipulateTip extends BaseActivity {
             });
         }
     }
+    private void createDeleteButton() {
+        deleteButton = findViewById(R.id.deleteTipButton);
+        deleteButton.setVisibility(View.INVISIBLE);
+
+        if (oldTip.getCreator().equals(MainActivity.CREATOR_NAME)) {
+                deleteButton.setVisibility(View.VISIBLE);
+
+                deleteButton.setOnClickListener(this::showWarningPopup);
+            }
+    }
+
+    private void showWarningPopup(View v) {
+        LayoutInflater inflater = getLayoutInflater();
+        View popup = inflater.inflate(R.layout.popup_warning, null);
+        PopupWindow warning = new PopupWindow(popup, (int) (getWindowManager().getDefaultDisplay().getWidth() * .8),
+                LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        TextView message = popup.findViewById(R.id.popupWarningMessageTV);
+        message.setText("Är du säker på att du vill radera detta tips?\n(Detta går inte att ångra)");
+        Button cancel = popup.findViewById(R.id.popupWarningCancelButton);
+        cancel.setText("Avbryt");
+        cancel.setOnClickListener(l -> warning.dismiss());
+        Button ok = popup.findViewById(R.id.popupWarningOkButton);
+        ok.setText("Ta bort");
+        ok.setOnClickListener(l -> makeDeleteRequest());
+        warning.showAtLocation(v, Gravity.CENTER, 0, 0);
+    }
+
+    private void makeDeleteRequest() {
+        if (InternetConnection.checkConnection(getApplicationContext())) {
+            final ProgressDialog dialog;
+
+            dialog = new ProgressDialog(ManipulateTip.this);
+            dialog.setTitle("Raderar tipset");
+            dialog.setMessage("var god vänta");
+            dialog.show();
+
+            //oldTip = (Tip) getIntent().getSerializableExtra("theTip");
+            id = (int) oldTip.getId();
+            BaseAPIService api = RetrofitClient.getApiService();
+            Call<Tip> call = api.deleteTip(id);
+
+            call.enqueue(new Callback<Tip>() {
+                @Override
+                public void onResponse(Call<Tip> call, Response<Tip> response) {
+                    dialog.dismiss();
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(ManipulateTip.this, "Tipset har inte raderats, försök igen", Toast.LENGTH_LONG).show();
+                    }
+                    //Displaying the output as a toast
+                    Toast.makeText(ManipulateTip.this, "Tipset har raderats", Toast.LENGTH_LONG).show();
+
+                    //GÅ TILL CATEGORY
+                    Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startIntent.putExtra("source", "fromTip");
+                    startActivity(startIntent);
+                }
+
+                @Override
+                public void onFailure(Call<Tip> call, Throwable t) {
+                    //If any error occured displaying the error as toast
+                    dialog.dismiss();
+                    Toast.makeText(ManipulateTip.this, "Tipset har raderats", Toast.LENGTH_LONG).show();
+                    Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startIntent.putExtra("source", "fromTip");
+                    startActivity(startIntent);
+                }
+            });
+        }
+    }
+
 }

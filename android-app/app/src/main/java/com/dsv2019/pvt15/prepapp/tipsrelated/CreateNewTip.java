@@ -65,9 +65,12 @@ public class CreateNewTip extends BaseActivity {
         catChecked = new boolean[8];
 
 
+
         if (source.equals("MT")) {
             oldTip = (Tip) getIntent().getSerializableExtra("theTip");
+            id = oldTip.getId();
             checkCategoryOnOldTip();
+
         }
         createTipTitle();
         createDescription();
@@ -114,6 +117,7 @@ public class CreateNewTip extends BaseActivity {
 
                     if (!(source.equals("MT"))) {
                         addATip();
+
                     } else {
                         updateTip();
                     }
@@ -127,8 +131,8 @@ public class CreateNewTip extends BaseActivity {
             final ProgressDialog dialog;
 
             dialog = new ProgressDialog(CreateNewTip.this);
-            dialog.setTitle("Saving the oldTip");
-            dialog.setMessage("please wait");
+            dialog.setTitle("Sparar ditt tips");
+            dialog.setMessage("var god vänta");
             dialog.show();
 
             //Creating object for our interface
@@ -150,7 +154,7 @@ public class CreateNewTip extends BaseActivity {
                     }
 
                     //Displaying the output as a toast
-                    Toast.makeText(CreateNewTip.this, "Success", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateNewTip.this, "Sparat", Toast.LENGTH_LONG).show();
 
                     //GÅ TILL ManipulateTip
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
@@ -162,7 +166,7 @@ public class CreateNewTip extends BaseActivity {
                 @Override
                 public void onFailure(Call<Tip> call, Throwable t) {
                     //If any error occured displaying the error as toast
-                    Toast.makeText(CreateNewTip.this, "Success", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateNewTip.this, "Sparat", Toast.LENGTH_LONG).show();
                     Intent startIntent = new Intent(getApplicationContext(), ManipulateTip.class);
                     startIntent.putExtra("theTip", tip);
                     startActivity(startIntent);
@@ -257,8 +261,8 @@ public class CreateNewTip extends BaseActivity {
             final ProgressDialog dialog;
 
             dialog = new ProgressDialog(CreateNewTip.this);
-            dialog.setTitle("Removing the tip");
-            dialog.setMessage("please wait");
+            dialog.setTitle("Raderar tipset");
+            dialog.setMessage("var god vänta");
             dialog.show();
 
             //oldTip = (Tip) getIntent().getSerializableExtra("theTip");

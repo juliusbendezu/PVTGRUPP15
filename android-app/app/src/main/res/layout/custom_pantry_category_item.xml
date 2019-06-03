@@ -54,12 +54,14 @@
                     android:id="@+id/pantryCategoryTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="5dp" />
 
                 <TextView
                     android:id="@+id/pantryCategoryAmountTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp" />
             </LinearLayout>

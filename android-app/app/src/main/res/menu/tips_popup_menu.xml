@@ -5,45 +5,56 @@
         android:id="@+id/tipsMenuMy"
         android:icon="@drawable/my"
         android:title="@string/myButton"
+        android:fontFamily="@font/montserrat"
     />
     <item
         android:id="@+id/tipsMenuAll"
         android:icon="@drawable/all_icon"
-        android:title="@string/allButton" />
+        android:title="@string/allButton"
+        android:fontFamily="@font/montserrat"/>
     <item
         android:id="@+id/tipsMenuWarmth"
         android:icon="@drawable/warmth"
         android:title="@string/warmthButton"
+        android:fontFamily="@font/montserrat"
         />
     <item
         android:id="@+id/tipsMenuWater"
         android:icon="@drawable/water"
-        android:title="@string/waterButton" />
+        android:title="@string/waterButton"
+        android:fontFamily="@font/montserrat"/>
     <item
         android:id="@+id/tipsMenuShelter"
         android:icon="@drawable/skydd"
-        android:title="@string/shelterButton" />
+        android:title="@string/shelterButton"
+        android:fontFamily="@font/montserrat"/>
     <item
         android:id="@+id/tipsMenuFood"
         android:icon="@drawable/food"
-        android:title="@string/foodButton" />
+        android:title="@string/foodButton"
+        android:fontFamily="@font/montserrat"/>
     <item
         android:id="@+id/tipsMenuHealth"
         android:icon="@drawable/health"
-        android:title="@string/healthButton" />
+        android:title="@string/healthButton"
+        android:fontFamily="@font/montserrat"/>
     <item
         android:id="@+id/tipsMenuSecurity"
         android:icon="@drawable/security_icon"
-        android:title="@string/securityButton" />
+        android:title="@string/securityButton"
+        android:fontFamily="@font/montserrat"
+        />
     <item
         android:id="@+id/tipsMenuStorage"
         android:icon="@drawable/storage"
         android:title="@string/storageButton"
+        android:fontFamily="@font/montserrat"
         />
     <item
         android:id="@+id/tipsMenuOther"
         android:icon="@drawable/other"
         android:title="@string/otherButton"
+        android:fontFamily="@font/montserrat"
         />
 
 

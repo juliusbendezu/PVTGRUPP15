@@ -15,7 +15,9 @@ import com.dsv2019.pvt15.prepapp.R;
 
 public class TipsItemView extends LinearLayout {
 
+    ImageView buttonImage;
     Paint paint = new Paint();
+
 
     public TipsItemView(Context context) {
         super(context);
@@ -38,7 +40,7 @@ public class TipsItemView extends LinearLayout {
         styleTextView(tipsSummary,st);
         addView(tipsSummary);
 
-        ImageView buttonImage = new ImageView(context);
+        buttonImage = new ImageView(context);
         styleImageView(buttonImage);
         addView(buttonImage);
     }
@@ -49,7 +51,7 @@ public class TipsItemView extends LinearLayout {
         String boldString = "<b>" + st.getTitle() + "</b> ";
         tv.setText(Html.fromHtml(boldString));
 
-        String nonBold = ""+System.getProperty("line.separator")+ "Av: " +st.getCreator()+"        Likes:"+st.getLikes();
+        String nonBold = ""+System.getProperty("line.separator")+"Likes:"+st.getLikes()+ "     Av: " +st.getCreator();
         tv.setPadding(40, 20, 20, 20);
         tv.append(nonBold);
         tv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, (float) 0.8));

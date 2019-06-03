@@ -3,5 +3,6 @@
 
     <item
         android:id="@+id/logoutMenuOption"
-        android:title="Logga ut" />
+        android:title="Logga ut"
+        android:fontFamily="@font/montserrat"/>
 </menu>

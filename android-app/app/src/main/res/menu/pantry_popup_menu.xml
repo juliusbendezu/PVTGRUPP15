@@ -5,20 +5,24 @@
         android:id="@+id/pantryMenuAll"
         android:icon="@drawable/all_icon"
         android:title="Allt"
-        android:visible="true" />
+        android:visible="true"
+        android:fontFamily="@font/montserrat"/>
     <item
         android:id="@+id/pantryMenuFood"
         android:icon="@drawable/pantry_fooditem_icon"
         android:title="Mat"
-        android:visible="true" />
+        android:visible="true"
+        android:fontFamily="@font/montserrat"/>
     <item
         android:id="@+id/pantryMenuMedicine"
         android:icon="@drawable/pantry_medicine_icon"
         android:title="Medicin"
-        android:visible="true" />
+        android:visible="true"
+        android:fontFamily="@font/montserrat"/>
     <item
         android:id="@+id/pantryMenuOther"
         android:icon="@drawable/pantry_other_icon"
         android:title="Övrigt"
+        android:fontFamily="@font/montserrat"
         android:visible="true" />
 </menu>

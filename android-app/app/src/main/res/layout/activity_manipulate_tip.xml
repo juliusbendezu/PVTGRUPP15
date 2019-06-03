@@ -20,8 +20,9 @@
         android:layout_width="300dp"
         android:layout_height="53dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/montserrat"
         android:text=""
         android:textColor="#111111"
         android:textSize="20sp"
@@ -32,55 +33,79 @@
 
 
     <TextView
-        android:id="@+id/tipDescriptionTextView"
-        android:layout_width="300dp"
-        android:layout_height="274dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/border"
-        android:scrollHorizontally="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryTextView" />
-
-    <TextView
         android:id="@+id/categoryTextView"
         android:layout_width="300dp"
-        android:layout_height="59dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/border"
+        android:fontFamily="@font/montserrat"
+        android:paddingLeft="7dp"
+        android:paddingTop="7dp"
+        android:paddingRight="7dp"
+        android:paddingBottom="7dp"
         android:text="@string/categoryTextView"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tipsTitleTextView" />
 
+    <ScrollView
+        android:id="@+id/scrollViewDescription"
+        android:layout_width="297dp"
+        android:layout_height="206dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryTextView">
+
+        <TextView
+            android:id="@+id/tipDescriptionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:fadeScrollbars="true"
+            android:fontFamily="@font/montserrat"
+            android:isScrollContainer="true"
+            android:overScrollMode="ifContentScrolls"
+            android:paddingLeft="7dp"
+            android:paddingTop="7dp"
+            android:paddingRight="7dp"
+            android:paddingBottom="7dp"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbars="horizontal"
+            android:scrollHorizontally="true" />
+    </ScrollView>
+
     <TextView
         android:id="@+id/tipEditTextView"
         android:layout_width="132dp"
         android:layout_height="19dp"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/tipsEditTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewDescription" />
 
     <TextView
         android:id="@+id/likeTipTextView"
-        android:layout_width="123dp"
-        android:layout_height="41dp"
+        android:layout_width="140dp"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="56dp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="@string/tipsLikeTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/tipEditTextView"
-        app:layout_constraintTop_toBottomOf="@+id/tipDescriptionTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewDescription" />
 
     <ImageButton
         android:id="@+id/editImageButton"
@@ -96,12 +121,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tipEditTextView"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="0.062" />
 
     <ImageButton
         android:id="@+id/likeImageButton"
-        android:layout_width="50dp"
-        android:layout_height="51dp"
+        android:layout_width="39dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
@@ -111,10 +136,31 @@
         android:src="@drawable/like"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.591"
+        app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toEndOf="@+id/editImageButton"
         app:layout_constraintTop_toBottomOf="@+id/likeTipTextView"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/deleteTipButton"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/montserrat"
+        android:shadowColor="@color/warningRed"
+        android:text="@string/deleteText"
+
+        android:textColor="@color/warningRed"
+        android:textColorHighlight="#E9E1E1"
+        android:textColorHint="#00E2DCDC"
+        android:textColorLink="#00E7E1E1"
+        app:layout_constraintBottom_toBottomOf="@+id/likeTipEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/deleteText" />
 
 
 </android.support.constraint.ConstraintLayout>
