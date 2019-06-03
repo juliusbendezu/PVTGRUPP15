@@ -53,7 +53,7 @@ public class CreateNewTip extends BaseActivity {
 
     //FACEBOOK ID
     //private String creator = AccessToken.getCurrentAccessToken().toString();
-    private String creator = "Elsa";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +137,7 @@ public class CreateNewTip extends BaseActivity {
             //Defining the method insertuser of our interface
 
             Tip tip = new Tip(title, catChecked[0], catChecked[1], catChecked[2], catChecked[3], catChecked[4],
-                    catChecked[5], catChecked[6], catChecked[7], descritption, 0, creator);
+                    catChecked[5], catChecked[6], catChecked[7], descritption, 0, MainActivity.CREATOR_NAME);
             Call<Tip> call = api.addTip(tip);
 
             //Creating an anonymous callback

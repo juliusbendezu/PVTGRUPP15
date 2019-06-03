@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,6 @@ import retrofit2.Response;
 
 public class ManipulateTip extends BaseActivity {
 
-    ImageButton homeButton;
     TextView editTextView;
     ImageButton editButton;
     ImageButton likeButton;
@@ -39,9 +39,7 @@ public class ManipulateTip extends BaseActivity {
         setContentView(R.layout.activity_manipulate_tip);
 
         oldTip = (Tip) getIntent().getSerializableExtra("theTip");
-        System.out.println(oldTip.getTitle() + "hej");
 
-        setHomeButton();
         setTipTitle();
         setCategorys();
         setDescription();
@@ -55,18 +53,6 @@ public class ManipulateTip extends BaseActivity {
         Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
         startIntent.putExtra(MainActivity.SOURCE, MainActivity.FROM_TIP);
         startActivity(startIntent);
-    }
-
-    private void setHomeButton() {
-        homeButton = findViewById(R.id.homeButton);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(startIntent);
-            }
-        });
-
     }
 
     private void setTipTitle() {
@@ -85,7 +71,9 @@ public class ManipulateTip extends BaseActivity {
             }
             allCategorys += " & " + oldTip.getCategorys().get(oldTip.getCategorys().size() - 1);
         }
-        categoryText.setText(allCategorys + ".");
+
+        allCategorys += System.getProperty("line.separator") + "Likes: "+oldTip.getLikes();
+        categoryText.setText(allCategorys);
     }
 
     private void setDescription() {
