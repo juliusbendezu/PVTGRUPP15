@@ -44,7 +44,7 @@
     <string name="categoryTextView">Tipsets Kategorier: </string>
     <string name="tipsTitelTextView">Title </string>
     <string name="tipsEditTextView">Redigera detta tips</string>
-    <string name="tipsLikeTextView">Gilla detta tips</string>
+    <string name="tipsLikeTextView">Gilla och ladda ner \n detta tips</string>
 
 
     <string name="facebook_app_id">2174193092616862</string>

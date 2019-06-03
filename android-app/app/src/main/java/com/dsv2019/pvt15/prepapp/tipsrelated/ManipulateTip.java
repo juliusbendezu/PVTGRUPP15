@@ -31,6 +31,7 @@ public class ManipulateTip extends BaseActivity {
     TextView descriptionText;
     Tip oldTip;
     boolean isLiked;
+    int likes;
 
 
     @Override
@@ -39,6 +40,7 @@ public class ManipulateTip extends BaseActivity {
         setContentView(R.layout.activity_manipulate_tip);
 
         oldTip = (Tip) getIntent().getSerializableExtra("theTip");
+        likes = oldTip.getLikes();
 
         setTipTitle();
         setCategorys();
@@ -72,7 +74,7 @@ public class ManipulateTip extends BaseActivity {
             allCategorys += " & " + oldTip.getCategorys().get(oldTip.getCategorys().size() - 1);
         }
 
-        allCategorys += System.getProperty("line.separator") + "Likes: "+oldTip.getLikes();
+        allCategorys += System.getProperty("line.separator") + "Likes: "+likes;
         categoryText.setText(allCategorys);
     }
 
@@ -107,6 +109,7 @@ public class ManipulateTip extends BaseActivity {
 
     private void changeisLiked(boolean opinion) {
         isLiked = opinion;
+
         updateTip(isLiked);
     }
 
@@ -119,9 +122,14 @@ public class ManipulateTip extends BaseActivity {
             public void onClick(View v) {
                 if (isLiked==false) {
                     likeButton.setImageResource(R.drawable.liked);
+                    likes++;
+                    setCategorys();
                     changeisLiked(true);
+
                 } else {
                     likeButton.setImageResource(R.drawable.like);
+                    likes--;
+                    setCategorys();
                     changeisLiked(false);
                 }
             }
@@ -132,11 +140,6 @@ public class ManipulateTip extends BaseActivity {
     private void updateTip(boolean isLiked){
         if (InternetConnection.checkConnection(getApplicationContext())) {
             final ProgressDialog dialog;
-
-            dialog = new ProgressDialog(ManipulateTip.this);
-            dialog.setTitle("Saving the oldTip");
-            dialog.setMessage("please wait");
-            dialog.show();
 
             //Creating object for our interface
             BaseAPIService api = RetrofitClient.getApiService();
@@ -149,19 +152,12 @@ public class ManipulateTip extends BaseActivity {
             call.enqueue(new Callback<Tip>() {
                 @Override
                 public void onResponse(Call<Tip> call, Response<Tip> response) {
-                    dialog.dismiss();
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(ManipulateTip.this, "Tipset har inte uppdatterats1" + response.code(), Toast.LENGTH_LONG).show();
-                    }
 
                     //Displaying the output as a toast
-                    Toast.makeText(ManipulateTip.this, "Tipset har laddats", Toast.LENGTH_LONG).show();
                 }
                 @Override
                 public void onFailure(Call<Tip> call, Throwable t) {
                     //If any error occured displaying the error as toast
-                    Toast.makeText(ManipulateTip.this, "Tipset har inte uppdatterats2", Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
                 }
             });
         }

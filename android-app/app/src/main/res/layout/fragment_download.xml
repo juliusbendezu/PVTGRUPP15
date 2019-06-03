@@ -70,13 +70,13 @@
         <TextView
             android:id="@+id/downloadHeader"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="49dp"
             android:layout_weight="0.8"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/montserrat"
             android:gravity="center|center_horizontal"
             android:includeFontPadding="true"
             android:text="Offlinelagring"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <ImageView
