@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity {
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(navListener);
         navigation.setItemIconTintList(null);
+
         navigation.getMenu().findItem(R.id.menu_news).setChecked(true);
 
 
