@@ -64,7 +64,7 @@ public class DownloadFragment extends Fragment
     private TextView categoryText;
     private String categoryName = "Alla tipsen";
     private List<Tip> allTips;
-    private List<String> documents = new ArrayList<>(Arrays.asList("omkrisenellerkrigetkommer.pdf", "hjartlugnraddning.pdf"));
+    private List<String> documents = new ArrayList<>(Arrays.asList("omkrisenellerkrigetkommer.pdf", "hjartlugnraddning.pdf", "bugoutbag.pdf"));
 
 
     @Nullable
