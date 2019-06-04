@@ -17,7 +17,7 @@
     <LinearLayout
         android:id="@+id/topLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
@@ -53,7 +53,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/montserrat"
                 android:text="kategorier"
-                android:textSize="13sp"
+                android:textSize="11sp"
                 tools:layout_editor_absoluteX="28dp"
                 tools:layout_editor_absoluteY="40dp" />
         </LinearLayout>
@@ -67,7 +67,7 @@
             android:gravity="center|center_horizontal"
             android:includeFontPadding="true"
             android:text="@string/tips_section_header"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <ImageView

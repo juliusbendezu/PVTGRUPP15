@@ -21,7 +21,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="20dp"
         android:paddingRight="10dp"
-        android:paddingBottom="15dp"
+        android:paddingBottom="20dp"
         android:weightSum="4">
 
         <LinearLayout
@@ -30,6 +30,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1.5"
             android:orientation="vertical"
+            android:paddingRight="12dp"
             android:weightSum="1">
 
             <ImageButton
@@ -48,14 +49,14 @@
                 android:layout_weight="0.5"
                 android:fontFamily="@font/montserrat"
                 android:text="Kategorier"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/pantryTitleText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
@@ -63,7 +64,7 @@
             android:gravity="center_horizontal|center_vertical"
             android:paddingLeft="10dp"
             android:text="@string/pantry_header"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/scrollView4"
             app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +101,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pantrySelectedTypeTextview">
@@ -124,42 +126,33 @@
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        android:paddingTop="20dp"
-        android:paddingBottom="40dp"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="Lägg till!"
+        app:layout_constraintBottom_toTopOf="@+id/addPantryItemButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/addPantryItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/lightlightGrey"
+        android:src="@drawable/new_button_green"
         app:layout_constraintBottom_toBottomOf="@+id/include2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/montserrat"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:text="Lägg till!" />
-
-        <ImageButton
-            android:id="@+id/addPantryItemButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/lightlightGrey"
-            android:src="@drawable/new_button_green" />
-
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
