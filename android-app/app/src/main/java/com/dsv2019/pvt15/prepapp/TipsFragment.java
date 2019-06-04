@@ -135,8 +135,8 @@ public class TipsFragment extends Fragment {
 
 
             dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Getting the tips");
-            dialog.setMessage("please wait");
+            dialog.setTitle("Laddar in tipsen");
+            dialog.setMessage("var god vänta");
             dialog.show();
 
             layout = view.findViewById(R.id.newsLinearLayout);
@@ -356,7 +356,6 @@ public class TipsFragment extends Fragment {
 
         for (int i = 0; i < newListToSort.length; i++) {
             addTips(newListToSort[i]);
-            System.out.println(newListToSort[i].getTitle() + "hehheh");
 
         }
     }

@@ -27,8 +27,24 @@ public class DocumentItemView extends LinearLayout
 
         inflate(context, R.layout.important_document_view, this);
         documentName = fileName;
+        setTitle(fileName);
         documentNameView = findViewById(R.id.documentFileName);
         documentNameView.append(documentName);
+
+    }
+
+    private void setTitle(String fileName){
+        switch (fileName) {
+            case "hjartlugnraddning.pdf":
+                documentName = "Hjärt och lungräddning";
+                break;
+            case"omkrisenellerkrigetkommer.pdf":
+                documentName = "Om krisen eller kriget kommer";
+                break;
+            case "bugoutbag.pdf":
+                documentName ="Bug Out Bag";
+                break;
+        }
 
     }
 

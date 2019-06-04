@@ -185,8 +185,8 @@ public class CreateNewTip extends BaseActivity {
             final ProgressDialog dialog;
 
             dialog = new ProgressDialog(CreateNewTip.this);
-            dialog.setTitle("Saving the tip");
-            dialog.setMessage("please wait");
+            dialog.setTitle("Sparar tipset");
+            dialog.setMessage("var god vänta");
             dialog.show();
 
             //Creating object for our interface
@@ -204,7 +204,7 @@ public class CreateNewTip extends BaseActivity {
                 public void onResponse(Call<Tip> call, Response<Tip> response) {
                     dialog.dismiss();
                     if (!response.isSuccessful()) {
-                        Toast.makeText(CreateNewTip.this, "Tipset har inte uppdaterats, pröva igen" + response.code(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(CreateNewTip.this, "Tipset har inte uppdaterats, pröva igen", Toast.LENGTH_LONG).show();
                     }
 
                     //Displaying the output as a toast
@@ -275,7 +275,7 @@ public class CreateNewTip extends BaseActivity {
                 public void onResponse(Call<Tip> call, Response<Tip> response) {
                     dialog.dismiss();
                     if (!response.isSuccessful()) {
-                        Toast.makeText(CreateNewTip.this, "Tipset har inte raderats, försök igen" + response.code(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(CreateNewTip.this, "Tipset har inte raderats, försök igen", Toast.LENGTH_LONG).show();
                     }
                     //Displaying the output as a toast
                     Toast.makeText(CreateNewTip.this, "Tipset har raderats", Toast.LENGTH_LONG).show();
