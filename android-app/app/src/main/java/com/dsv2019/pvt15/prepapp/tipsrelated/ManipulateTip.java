@@ -130,13 +130,13 @@ public class ManipulateTip extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (isLiked==false) {
-                    likeButton.setImageResource(R.drawable.liked);
+                    likeButton.setImageResource(R.drawable.like);
                     likes++;
                     setCategorys();
                     changeisLiked(true);
 
                 } else {
-                    likeButton.setImageResource(R.drawable.like);
+                    likeButton.setImageResource(R.drawable.liked);
                     likes--;
                     setCategorys();
                     changeisLiked(false);
