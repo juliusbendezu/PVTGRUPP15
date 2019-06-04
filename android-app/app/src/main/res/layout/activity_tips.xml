@@ -83,7 +83,7 @@
     <ScrollView
         android:id="@+id/downloadedTipsScrollView"
         android:layout_width="407dp"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
@@ -116,11 +116,11 @@
 
     <ImageButton
         android:id="@+id/createNewTipButton"
-        android:layout_width="62dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:background="@null"
         android:src="@drawable/new_button_green"
         app:layout_constraintBottom_toBottomOf="@+id/likeTipEditText"
@@ -135,7 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="2dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/newTipText"
         app:layout_constraintBottom_toTopOf="@+id/createNewTipButton"
