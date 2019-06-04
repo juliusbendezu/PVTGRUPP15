@@ -24,9 +24,6 @@
         android:id="@+id/topLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="78dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
@@ -62,7 +59,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/montserrat"
                 android:text="kategorier"
-                android:textSize="13sp"
+                android:textSize="11sp"
                 tools:layout_editor_absoluteX="28dp"
                 tools:layout_editor_absoluteY="40dp" />
         </LinearLayout>
